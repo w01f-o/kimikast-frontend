@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 const notoSansFont = Noto_Sans({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
