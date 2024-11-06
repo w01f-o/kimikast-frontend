@@ -1,0 +1,54 @@
+@use "sass:math";
+
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-xxl: 1536px;
+
+$col-offset: 15px;
+
+.row {
+  @apply flex flex-wrap;
+
+  margin: 0 calc(($col-offset * -1) / 2);
+
+  & > * {
+    box-sizing: border-box;
+    padding: 0 $col-offset * 0.5;
+  }
+}
+
+.container {
+  @apply w-full 2xl:max-w-screen-2xl xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm mx-auto;
+
+  padding: 0 $col-offset * 0.5;
+}
+
+@for $i from 1 through 12 {
+  $width: math.div($i, 12) * 100;
+
+  .col-#{$i} {
+    flex: 0 0 $width * 1%;
+    width: $width * 1%;
+  }
+}
+
+@mixin screen($breakpoint, $prefix) {
+  @media (min-width: $breakpoint) {
+    @for $i from 1 through 12 {
+      $width: math.div($i, 12) * 100;
+
+      .#{$prefix}-#{$i} {
+        flex: 0 0 $width * 1%;
+        width: $width * 1%;
+      }
+    }
+  }
+}
+
+@include screen($breakpoint-sm, 'col-sm');
+@include screen($breakpoint-md, 'col-md');
+@include screen($breakpoint-lg, 'col-lg');
+@include screen($breakpoint-xl, 'col-xl');
+@include screen($breakpoint-xxl, 'col-xxl');
