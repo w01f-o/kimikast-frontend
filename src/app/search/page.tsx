@@ -1,7 +1,7 @@
-import { FC } from "react";
 import SearchTitle from "@/components/widgets/SearchTitle/SearchTitle";
+import { NextPage } from "next";
 
-const Page: FC = () => {
+const Page: NextPage = () => {
   return <SearchTitle />;
 };
 

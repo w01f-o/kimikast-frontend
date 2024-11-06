@@ -14,7 +14,7 @@ const SearchTitle: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const search = searchParams?.get("search");
+  const search = searchParams?.get("q");
 
   const changeHandler = useDebounceCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,10 +22,10 @@ const SearchTitle: FC = () => {
         target: { value },
       } = e;
       const params = new URLSearchParams();
-      params.set("search", value);
+      params.set("q", value);
 
       if (value === "") {
-        params.delete("search");
+        params.delete("q");
       }
 
       router.push(`${RoutePaths.SEARCH}?${params.toString()}`);

@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
-const Page: FC = () => {
+const Page: NextPage = () => {
   return <></>;
 };
 

@@ -6,4 +6,5 @@ export enum RoutePaths {
   PROFILE = "/profile",
   TITLE = "/title",
   SEARCH = "/search",
+  WATCH = "/watch",
 }
