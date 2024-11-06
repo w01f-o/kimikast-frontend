@@ -3,7 +3,7 @@
 import { FC } from "react";
 
 const Home: FC = () => {
-  return <></>;
+  return <div>Home</div>;
 };
 
 export default Home;
