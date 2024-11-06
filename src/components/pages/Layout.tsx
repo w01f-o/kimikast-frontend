@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import Header from "@/components/widgets/Header";
-import Footer from "@/components/widgets/Footer";
+import NextTopLoader from "nextjs-toploader";
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,11 +8,14 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <main className="h-screen">
+    <>
       <Header />
-      {children}
-      <Footer />
-    </main>
+      <main className="flex-grow">
+        {children}
+
+        <NextTopLoader showSpinner={false} />
+      </main>
+    </>
   );
 };
 
