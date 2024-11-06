@@ -6,7 +6,15 @@ interface searchTitlesParams {
   search: string;
 }
 
-type searchTitlesType = (params: searchTitlesParams) => Promise<Title[]>;
+type searchTitlesType = (params: searchTitlesParams) => Promise<{
+  list: Title[];
+  pagination: {
+    current_page: number;
+    items_per_page: number;
+    pages: number;
+    total_items: number;
+  };
+}>;
 
 export const searchTitles: searchTitlesType = async ({ search }) => {
   const searchParams = new URLSearchParams({ search });

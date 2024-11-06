@@ -2,13 +2,14 @@ import { FC } from "react";
 import Container from "@/components/shared/layout/Container";
 import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
-import { Button } from "@nextui-org/button";
-import { Search } from "lucide-react";
 import Link from "next/link";
+import { Link as NextUILink } from "@nextui-org/link";
 import { User } from "@nextui-org/user";
 import NavBar from "@/components/widgets/NavBar";
 import Image from "next/image";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
+import { Button } from "@nextui-org/button";
+import { Search } from "lucide-react";
 
 const Header: FC = () => {
   return (
@@ -29,12 +30,17 @@ const Header: FC = () => {
           <Col xs={2}>
             <Row>
               <Col xs={8}>
-                <Button endContent={<Search />} fullWidth>
+                <Button
+                  endContent={<Search />}
+                  fullWidth
+                  as={NextUILink}
+                  href={RoutePaths.SEARCH}
+                >
                   Поиск
                 </Button>
               </Col>
               <Col xs={4}>
-                <Link href={"/"} className="flex">
+                <Link href={RoutePaths.HOME} className="flex">
                   <User
                     name={"User"}
                     avatarProps={{
