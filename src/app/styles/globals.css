@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @media (width >= 860px) {
+        margin-left: calc(100vw - 100%);
+    }
+}

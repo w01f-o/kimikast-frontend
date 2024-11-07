@@ -9,12 +9,22 @@ import { useDebounceCallback } from "usehooks-ts";
 import { useRouter, useSearchParams } from "next/navigation";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 import TitleList from "@/components/widgets/Title/TitleList";
+import { useQuery } from "@tanstack/react-query";
+import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
+import { searchTitles } from "@/services/api/anilibria";
+import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
 
 const SearchTitle: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const search = searchParams?.get("q");
+
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: [AnilibriaQueryKeys.SEARCH, search],
+    queryFn: () => searchTitles({ search: search! }),
+    enabled: !!search,
+  });
 
   const changeHandler = useDebounceCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +40,7 @@ const SearchTitle: FC = () => {
 
       router.push(`${RoutePaths.SEARCH}?${params.toString()}`);
     },
-    200,
+    300,
   );
 
   return (
@@ -50,7 +60,10 @@ const SearchTitle: FC = () => {
         <Col xs={12}>
           <Row className="pt-6">
             {search ? (
-              <TitleList search={search} />
+              <>
+                {isSuccess && <TitleList list={data.list} />}
+                {isLoading && <TitleListLoader />}
+              </>
             ) : (
               <Col xs={12}>
                 <div className="text-xl pt-2">Введите запрос</div>

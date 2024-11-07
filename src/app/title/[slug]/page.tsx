@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import TitlePage from "@/components/pages/TitlePage";
 import {
   dehydrate,
@@ -9,19 +9,40 @@ import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import { getTitle } from "@/services/api/anilibria";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
+  }>;
+}
+
+const queryClient = new QueryClient();
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await queryClient.fetchQuery({
+    queryKey: [AnilibriaQueryKeys.TITLE, slug],
+    queryFn: () => getTitle({ code: slug }),
+  });
+
+  return {
+    title: `Kimikast - ${data.names.ru}`,
+    description: data.description,
+    keywords: [
+      data.names.ru,
+      ...data.genres,
+      data.names.en,
+      data.names.alternative ? data.names.alternative : "",
+    ],
   };
 }
 
 const Page: NextPage<PageProps> = async ({ params }) => {
   const { slug } = await params;
 
-  const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE],
-    queryFn: () => getTitle({ slug }),
+    queryKey: [AnilibriaQueryKeys.TITLE, slug],
+    queryFn: () => getTitle({ code: slug }),
   });
 
   return (

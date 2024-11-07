@@ -15,17 +15,17 @@ interface WatchProps {
 
 const Watch: FC<WatchProps> = ({ slug }) => {
   const { data } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE],
-    queryFn: () => getTitle({ slug }),
+    queryKey: [AnilibriaQueryKeys.TITLE, slug],
+    queryFn: () => getTitle({ code: slug }),
   });
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (videoRef.current && data) {
+    if (videoRef.current) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      const videoUrl = `https://${data.player.host}${data.player.list["1"].hls.fhd}`;
+      const videoUrl = `https://${data.player.host}${data.player.list[0].hls.fhd}`;
 
       if (Hls.isSupported()) {
         const hls = new Hls();
@@ -41,7 +41,8 @@ const Watch: FC<WatchProps> = ({ slug }) => {
         videoRef.current.src = videoUrl;
       }
     }
-  }, [data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
@@ -49,9 +50,6 @@ const Watch: FC<WatchProps> = ({ slug }) => {
         <Col xs={12}>
           <div className="flex justify-center">
             <video
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              src={`https://${data.player.host}${data.player.list["1"].hls.fhd}`}
               ref={videoRef}
               className="aspect-video w-2/3"
               controls

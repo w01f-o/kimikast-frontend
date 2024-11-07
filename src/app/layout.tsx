@@ -11,7 +11,7 @@ interface RootLayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: "Kimikast",
+  title: "Kimikast - Главная",
 };
 
 const notoSansFont = Noto_Sans({

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     silenceDeprecations: ["legacy-js-api"],
   },
   images: {
-    remotePatterns: [{ hostname: "dl-20241106-9.anilib.one" }],
+    remotePatterns: [{ hostname: "dl-20241107-5.anilib.moe" }],
   },
 };
 

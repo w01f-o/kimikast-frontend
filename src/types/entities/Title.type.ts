@@ -38,7 +38,14 @@ export interface TitleRelease extends Pick<Title, "id" | "code" | "names"> {
 
 export interface Status {
   string: string;
-  code: number;
+  code: StatusEnum;
+}
+
+export enum StatusEnum {
+  ONGOING = 1,
+  FINISHED = 2,
+  HIDDEN = 3,
+  NONONGOING = 4,
 }
 
 interface Poster {
@@ -56,7 +63,7 @@ export interface TitleType {
   full_string: string;
   code: number;
   string: string;
-  episodes: any;
+  episodes: never;
   length: number;
 }
 
@@ -81,10 +88,9 @@ export interface Blocked {
 }
 
 export interface Player {
-  alternative_player: any;
+  alternative_player: never;
   host: string;
   episodes: Episodes;
-  list: List;
 }
 
 export interface Episodes {
@@ -92,8 +98,6 @@ export interface Episodes {
   last: number;
   string: string;
 }
-
-export interface List {}
 
 export interface Hls {
   fhd: string;

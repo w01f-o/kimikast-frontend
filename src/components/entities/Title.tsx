@@ -8,6 +8,7 @@ import { ANILIBRIA_IMAGE_URL } from "@/services/api/anilibria";
 import { useHover } from "@react-aria/interactions";
 import { AnimatePresence, motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
+import { Chip } from "@nextui-org/chip";
 
 interface TitleProps {
   title: Title;
@@ -23,25 +24,35 @@ const Title: FC<TitleProps> = ({ title }) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     <Card
+      {...hoverProps}
       as={Link}
       href={`${RoutePaths.TITLE}/${title.code}`}
-      className="border-none dark:bg-default-100/60 mb-6"
       disableAnimation
       isPressable={true}
-      {...hoverProps}
+      aria-label={`Посмотреть информацию об "${title.names.ru}"`}
     >
       <AnimatePresence>
         {isHovered && imageIsLoaded && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 z-20 backdrop-brightness-[0.28] text-white px-5 py-8"
+            initial={{ y: 350, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 350, opacity: 0 }}
+            transition={{
+              duration: 0.6,
+              ease: [0.16, 1, 0.2, 1],
+            }}
+            className="absolute bottom-1 left-1.5 right-1.5 z-20 backdrop-brightness-[0.1] pointer-events-none max-h-[350px] rounded-[inherit]"
           >
-            <div className="font-bold text-2xl">{title.names.ru}</div>
-            <div className="text-sm line-clamp-4 mt-2 fon">
-              {title.description}
+            <div className="flex flex-col px-4 py-6 h-full">
+              <div className="font-bold text-xl line-clamp-4 mb-1">
+                {title.names.ru}
+              </div>
+              <div className="mb-2">{title.type.full_string}</div>
+              <div className="flex-grow flex flex-col gap-2 justify-end">
+                {title.genres.slice(0, 3).map((genre) => (
+                  <Chip key={genre}>{genre}</Chip>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -51,8 +62,9 @@ const Title: FC<TitleProps> = ({ title }) => {
         src={`${ANILIBRIA_IMAGE_URL}${title.posters.medium.url}`}
         width={400}
         height={350}
-        alt={title.code}
+        alt={`Постер ${title.names.ru}`}
         priority
+        isZoomed
         onLoad={imageLoadHandler}
       />
     </Card>
