@@ -4,9 +4,9 @@ import { Title } from "@/types/entities/Title.type";
 
 interface SearchTitlesParams {
   search: string;
-  year?: string[];
+  years?: string[] | string;
   type?: string[];
-  genres?: string[];
+  genres?: string[] | string;
   team?: string[];
   voice?: string[];
   translator?: string[];
@@ -18,6 +18,8 @@ interface SearchTitlesParams {
   include?: ["raw_poster"?, "raw_torrent"?, "torrent_meta"?];
   description_type?: "html" | "plain" | "no_view_order";
   playlist_type?: "object" | "array";
+  page?: number;
+  items_per_page?: number;
 }
 
 export interface SearchResult {
@@ -46,7 +48,7 @@ export const searchTitles: searchTitlesType = async (params) => {
       params[key] = params[key].join(",") as never;
     }
   }
-
+  console.log(params);
   const { data } = await axios.get<SearchResult>(
     `${ANILIBRIA_API_URL}/title/search`,
     {

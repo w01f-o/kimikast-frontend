@@ -29,15 +29,13 @@ const Header: FC = () => {
           </Col>
           <Col xs={2}>
             <Row>
-              <Col xs={8}>
+              <Col xs={8} className="flex justify-end">
                 <Button
                   endContent={<Search />}
-                  fullWidth
                   as={NextUILink}
                   href={RoutePaths.SEARCH}
-                >
-                  Поиск
-                </Button>
+                  isIconOnly
+                />
               </Col>
               <Col xs={4}>
                 <Link href={RoutePaths.HOME} className="flex">

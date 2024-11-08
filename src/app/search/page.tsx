@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Kimikast - Поиск",
 };
 
-const Page: NextPage = () => {
+const Page: NextPage = async () => {
   return (
     <Suspense>
       <SearchTitle />

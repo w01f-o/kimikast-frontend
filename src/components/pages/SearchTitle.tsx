@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import Container from "@/components/shared/layout/Container";
 import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
@@ -13,17 +13,30 @@ import { useQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import { searchTitles } from "@/services/api/anilibria";
 import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
+import SearchFilter from "@/components/widgets/SearchFilter";
+import { Pagination } from "@nextui-org/pagination";
 
 const SearchTitle: FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const search = searchParams?.get("q");
+  const query = searchParams?.get("q");
+  const years = searchParams?.get("years");
+  const genres = searchParams?.get("genres");
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [AnilibriaQueryKeys.SEARCH, search],
-    queryFn: () => searchTitles({ search: search! }),
-    enabled: !!search,
+    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, currentPage],
+    queryFn: () =>
+      searchTitles({
+        search: query!,
+        genres: genres!,
+        years: years!,
+        items_per_page: 18,
+        page: currentPage,
+      }),
+    enabled: !!query || !!genres || !!years,
   });
 
   const changeHandler = useDebounceCallback(
@@ -49,24 +62,45 @@ const SearchTitle: FC = () => {
         <Col xs={12}>
           <h1 className="text-4xl mb-5">Поиск</h1>
         </Col>
-        <Col xs={6}>
+        <Col xs={6} className="flex gap-4">
           <Input
             size="lg"
             placeholder="Название"
-            defaultValue={search ?? ""}
+            defaultValue={query ?? ""}
             onChange={changeHandler}
           />
+          <SearchFilter />
         </Col>
         <Col xs={12}>
           <Row className="pt-6">
-            {search ? (
+            {query || genres || years ? (
               <>
-                {isSuccess && <TitleList list={data.list} />}
-                {isLoading && <TitleListLoader />}
+                {isSuccess && (
+                  <>
+                    <TitleList list={data.list} />
+                    {data?.pagination.pages > 1 && (
+                      <Col xs={12} className="flex justify-center mb-6">
+                        <Pagination
+                          total={data?.pagination.pages}
+                          page={currentPage}
+                          onChange={setCurrentPage}
+                          size={"lg"}
+                          showControls
+                        />
+                      </Col>
+                    )}
+                  </>
+                )}
+                {isLoading && <TitleListLoader length={18} />}
               </>
             ) : (
               <Col xs={12}>
                 <div className="text-xl pt-2">Введите запрос</div>
+              </Col>
+            )}
+            {isSuccess && data?.list.length === 0 && (
+              <Col xs={12}>
+                <div className="text-xl pt-2">Ничего не найдено</div>
               </Col>
             )}
           </Row>
