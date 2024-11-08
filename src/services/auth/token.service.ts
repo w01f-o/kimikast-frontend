@@ -1,0 +1,25 @@
+import Cookies from "js-cookie";
+import { JwtTokens } from "@/enums/JwtTokens.enum";
+import { accessTokenStore } from "@/store/user.store";
+
+export const getAccessToken = (): string | null => {
+  const accessToken = Cookies.get(JwtTokens.ACCESS);
+
+  return accessToken ?? null;
+};
+
+export const saveAccessToken = (accessToken: string): void => {
+  accessTokenStore.setState(() => accessToken);
+
+  Cookies.set(JwtTokens.ACCESS, accessToken, {
+    expires: 1,
+    sameSite: "strict",
+    domain: process.env.NEXT_PUBLIC_BASE_CLIENT_DOMAIN,
+  });
+};
+
+export const removeAccessToken = (): void => {
+  accessTokenStore.setState(() => null);
+
+  Cookies.remove(JwtTokens.ACCESS);
+};

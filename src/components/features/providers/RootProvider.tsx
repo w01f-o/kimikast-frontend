@@ -4,6 +4,7 @@ import { FC, ReactNode } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import TanStackProvider from "@/components/features/providers/TanStackProvider";
 import { useRouter } from "next/navigation";
+import AuthProvider from "@/components/features/providers/AuthProvider";
 
 interface RootProviderProps {
   children: ReactNode;
@@ -17,7 +18,9 @@ const RootProvider: FC<RootProviderProps> = ({ children }) => {
       navigate={router.push}
       className={"min-h-screen flex flex-col"}
     >
-      <TanStackProvider>{children}</TanStackProvider>
+      <TanStackProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </TanStackProvider>
     </NextUIProvider>
   );
 };

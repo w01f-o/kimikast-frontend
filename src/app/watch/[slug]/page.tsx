@@ -4,8 +4,6 @@ import Watch from "@/components/pages/Watch";
 import { getTitle } from "@/services/api/anilibria";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 
-const queryClient = new QueryClient();
-
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -16,6 +14,9 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+
+  const queryClient = new QueryClient();
+
   const data = await queryClient.fetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
     queryFn: () => getTitle({ code: slug }),
@@ -28,6 +29,8 @@ export async function generateMetadata({
 
 const Page: NextPage<PageProps> = async ({ params }) => {
   const { slug } = await params;
+
+  const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],

@@ -1,10 +1,11 @@
 export enum RoutePaths {
   HOME = "/",
-  LOGIN = "/login",
-  REGISTER = "/register",
+  LOGIN = "/auth/login",
+  REGISTER = "/auth/register",
   LIBRARY = "/library",
   PROFILE = "/profile",
   TITLE = "/title",
   SEARCH = "/search",
   WATCH = "/watch",
+  SETTINGS = "/settings",
 }
