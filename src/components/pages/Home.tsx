@@ -6,17 +6,17 @@ import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { getTitleUpdates } from "@/services/api/anilibria/getTitleUpdates";
 import { useIntersectionObserver } from "usehooks-ts";
 import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
 import TitleList from "@/components/widgets/Title/TitleList";
+import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 const Home: FC = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: [AnilibriaQueryKeys.UPDATES],
       queryFn: ({ pageParam }) =>
-        getTitleUpdates({ page: pageParam, items_per_page: 24 }),
+        anilibriaApi.getTitleUpdates({ page: pageParam, items_per_page: 24 }),
       initialPageParam: 1,
       getNextPageParam: (lastPage) =>
         lastPage?.pagination?.current_page + 1 || undefined,

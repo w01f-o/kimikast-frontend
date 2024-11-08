@@ -4,11 +4,11 @@ import { Card } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 import NextImage from "next/image";
-import { ANILIBRIA_IMAGE_URL } from "@/services/api/anilibria";
 import { useHover } from "@react-aria/interactions";
 import { AnimatePresence, motion } from "framer-motion";
 import { Image } from "@nextui-org/image";
 import { Chip } from "@nextui-org/chip";
+import { ANILIBRIA_IMAGE_URL } from "@/services/api/anilibria/Anilibria.api";
 
 interface TitleProps {
   title: Title;

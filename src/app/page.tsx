@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { getTitleUpdates } from "@/services/api/anilibria/getTitleUpdates";
+import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 const Page: FC = async () => {
   const queryClient = new QueryClient();
@@ -14,7 +14,7 @@ const Page: FC = async () => {
   await queryClient.prefetchInfiniteQuery({
     queryKey: [AnilibriaQueryKeys.UPDATES],
     queryFn: ({ pageParam }) =>
-      getTitleUpdates({ page: pageParam, items_per_page: 24 }),
+      anilibriaApi.getTitleUpdates({ page: pageParam, items_per_page: 24 }),
     initialPageParam: 1,
   });
 

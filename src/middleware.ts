@@ -3,7 +3,7 @@ import { JwtTokens } from "@/enums/JwtTokens.enum";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 
 const loginRoutes = [RoutePaths.LOGIN, RoutePaths.REGISTER] as string[];
-const protectedRoutes = [RoutePaths.PROFILE] as string[];
+const protectedRoutes = [RoutePaths.PROFILE, RoutePaths.LIBRARY] as string[];
 
 export const middleware = (req: NextRequest) => {
   const { nextUrl, cookies } = req;

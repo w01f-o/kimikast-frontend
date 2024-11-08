@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import Container from "@/components/shared/layout/Container";
 import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
@@ -11,10 +11,10 @@ import { RoutePaths } from "@/enums/RoutePaths.enum";
 import TitleList from "@/components/widgets/Title/TitleList";
 import { useQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { searchTitles } from "@/services/api/anilibria";
 import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
 import SearchFilter from "@/components/widgets/SearchFilter";
 import { Pagination } from "@nextui-org/pagination";
+import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 const SearchTitle: FC = () => {
   const router = useRouter();
@@ -24,17 +24,14 @@ const SearchTitle: FC = () => {
   const years = searchParams?.get("years");
   const genres = searchParams?.get("genres");
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
   const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, currentPage],
+    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres],
     queryFn: () =>
-      searchTitles({
+      anilibriaApi.searchTitles({
         search: query!,
         genres: genres!,
-        years: years!,
+        year: years!,
         items_per_page: 18,
-        page: currentPage,
       }),
     enabled: !!query || !!genres || !!years,
   });
@@ -82,8 +79,7 @@ const SearchTitle: FC = () => {
                       <Col xs={12} className="flex justify-center mb-6">
                         <Pagination
                           total={data?.pagination.pages}
-                          page={currentPage}
-                          onChange={setCurrentPage}
+                          initialPage={1}
                           size={"lg"}
                           showControls
                         />

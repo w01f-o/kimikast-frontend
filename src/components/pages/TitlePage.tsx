@@ -3,7 +3,6 @@
 import { FC, useMemo } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { ANILIBRIA_IMAGE_URL, getTitle } from "@/services/api/anilibria";
 import Container from "@/components/shared/layout/Container";
 import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
@@ -17,6 +16,10 @@ import { Chip } from "@nextui-org/chip";
 import { StatusEnum } from "@/types/entities/Title.type";
 import { getTitlesList } from "@/services/api/anilibria/getTitlesList";
 import TitleList from "@/components/widgets/Title/TitleList";
+import {
+  ANILIBRIA_IMAGE_URL,
+  anilibriaApi,
+} from "@/services/api/anilibria/Anilibria.api";
 
 interface TitleProps {
   slug: string;
@@ -25,7 +28,7 @@ interface TitleProps {
 const TitlePage: FC<TitleProps> = ({ slug }) => {
   const { data } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => getTitle({ code: slug }),
+    queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
   const franchiseSlugList = data.franchises

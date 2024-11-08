@@ -47,7 +47,7 @@ axiosKimikastWithAuth.interceptors.response.use(
       (catchError(error) === ApiErrors.ACCESS_TOKEN_EXPIRED ||
         catchError(error) === ApiErrors.INVALID_ACCESS_TOKEN ||
         catchError(error) === ApiErrors.UNAUTHORIZED);
-    console.log(isTokensError);
+
     if (isTokensError && originalRequest && !originalRequest._isRetry) {
       originalRequest._isRetry = true;
 
@@ -60,7 +60,6 @@ axiosKimikastWithAuth.interceptors.response.use(
           catchError(error) === ApiErrors.REFRESH_TOKEN_EXPIRED ||
           catchError(error) === ApiErrors.INVALID_REFRESH_TOKEN
         ) {
-          console.log("da");
           await authApi.logout();
         }
       }

@@ -1,6 +1,5 @@
 import { Title } from "@/types/entities/Title.type";
-import axios from "axios";
-import { ANILIBRIA_API_URL } from "@/services/api/anilibria/index";
+import { axiosAnilibria } from "@/services/api/interceptors";
 
 interface getTitlesListParams {
   id_list?: number[];
@@ -27,7 +26,7 @@ export const getTitlesList: getTitlesListType = async (params) => {
     }
   }
 
-  const { data } = await axios.get<Title[]>(`${ANILIBRIA_API_URL}/title/list`, {
+  const { data } = await axiosAnilibria.get<Title[]>("/title/list", {
     params,
   });
 

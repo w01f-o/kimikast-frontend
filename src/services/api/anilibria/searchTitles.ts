@@ -1,10 +1,9 @@
-import axios from "axios";
-import { ANILIBRIA_API_URL } from "@/services/api/anilibria/index";
 import { Title } from "@/types/entities/Title.type";
+import { axiosAnilibria } from "@/services/api/interceptors";
 
 interface SearchTitlesParams {
   search: string;
-  years?: string[] | string;
+  year?: string[] | string;
   type?: string[];
   genres?: string[] | string;
   team?: string[];
@@ -48,13 +47,10 @@ export const searchTitles: searchTitlesType = async (params) => {
       params[key] = params[key].join(",") as never;
     }
   }
-  console.log(params);
-  const { data } = await axios.get<SearchResult>(
-    `${ANILIBRIA_API_URL}/title/search`,
-    {
-      params,
-    },
-  );
+
+  const { data } = await axiosAnilibria.get<SearchResult>("/title/search", {
+    params,
+  });
 
   return data;
 };

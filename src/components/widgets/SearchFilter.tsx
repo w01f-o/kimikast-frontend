@@ -14,11 +14,11 @@ import {
 } from "@nextui-org/modal";
 import { useQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { getTitleFilters } from "@/services/api/anilibria/getTitleFilters";
 import { CheckboxGroup } from "@nextui-org/checkbox";
 import { CustomCheckbox } from "@/components/shared/UI/CustomCheckbox";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 import { Spinner } from "@nextui-org/spinner";
+import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 const SearchFilter: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,7 +27,7 @@ const SearchFilter: FC = () => {
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.FILTERS],
-    queryFn: getTitleFilters,
+    queryFn: anilibriaApi.getTitleFilters,
   });
 
   const [yearsSelected, setYearsSelected] = useState<string[]>(

@@ -1,6 +1,5 @@
 import { SearchResult } from "@/services/api/anilibria/searchTitles";
-import axios from "axios";
-import { ANILIBRIA_API_URL } from "@/services/api/anilibria/index";
+import { axiosAnilibria } from "@/services/api/interceptors";
 
 interface GetTitleUpdatesParams {
   since?: number;
@@ -30,12 +29,9 @@ export const getTitleUpdates: getTitleUpdatesType = async (params) => {
     }
   }
 
-  const { data } = await axios.get<SearchResult>(
-    `${ANILIBRIA_API_URL}/title/updates`,
-    {
-      params,
-    },
-  );
+  const { data } = await axiosAnilibria.get<SearchResult>("/title/updates", {
+    params,
+  });
 
   return data;
 };

@@ -6,10 +6,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { getTitle } from "@/services/api/anilibria";
-import { getTitlesList } from "@/services/api/anilibria/getTitlesList";
-import { getTitleUpdates } from "@/services/api/anilibria/getTitleUpdates";
 import { notFound } from "next/navigation";
+import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 interface PageProps {
   params: Promise<{
@@ -27,7 +25,11 @@ export async function generateStaticParams() {
     await queryClient.fetchQuery({
       queryKey: [AnilibriaQueryKeys.STATIC_UPDATES],
       queryFn: () =>
-        getTitleUpdates({ since: 1, items_per_page: 1, filter: ["code"] }),
+        anilibriaApi.getTitleUpdates({
+          since: 1,
+          items_per_page: 1,
+          filter: ["code"],
+        }),
     })
   ).list.map((title) => ({ slug: title.code }));
 }
@@ -41,7 +43,7 @@ export async function generateMetadata({
 
   const data = await queryClient.fetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => getTitle({ code: slug }),
+    queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
   if (!data) {
@@ -67,7 +69,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   const data = await queryClient.fetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => getTitle({ code: slug }),
+    queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
   if (!data) {
@@ -84,7 +86,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   await queryClient.prefetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
-    queryFn: () => getTitlesList({ code_list: franchiseSlugList }),
+    queryFn: () => anilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
   });
 
   return (

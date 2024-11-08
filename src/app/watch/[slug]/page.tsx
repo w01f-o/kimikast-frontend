@@ -1,8 +1,8 @@
 import { Metadata, NextPage } from "next";
 import { QueryClient } from "@tanstack/react-query";
 import Watch from "@/components/pages/Watch";
-import { getTitle } from "@/services/api/anilibria";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
+import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 interface PageProps {
   params: Promise<{
@@ -19,7 +19,7 @@ export async function generateMetadata({
 
   const data = await queryClient.fetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => getTitle({ code: slug }),
+    queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
   return {
@@ -34,7 +34,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   await queryClient.prefetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => getTitle({ code: slug }),
+    queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
   return <Watch slug={slug} />;
