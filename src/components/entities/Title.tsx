@@ -41,10 +41,10 @@ const Title: FC<TitleProps> = ({ title }) => {
               duration: 0.6,
               ease: [0.16, 1, 0.2, 1],
             }}
-            className="absolute bottom-1 left-1.5 right-1.5 z-20 backdrop-brightness-[0.1] pointer-events-none max-h-[350px] rounded-[inherit]"
+            className="absolute z-20 backdrop-brightness-[0.1] max-h-[350px] bottom-1 left-1.5 right-1.5 pointer-events-none rounded-[inherit]"
           >
             <div className="flex flex-col px-4 py-6 h-full">
-              <div className="font-bold text-xl line-clamp-4 mb-1">
+              <div className="font-bold text-xl mb-1 line-clamp-4">
                 {title.names.ru}
               </div>
               <div className="mb-2">{title.type.full_string}</div>

@@ -11,11 +11,12 @@ import { Image } from "@nextui-org/image";
 import NextImage from "next/image";
 import { Button } from "@nextui-org/button";
 import NextLink from "next/link";
-import { Link } from "@nextui-org/link";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 import { TvMinimalPlay } from "lucide-react";
 import { Chip } from "@nextui-org/chip";
 import { StatusEnum } from "@/types/entities/Title.type";
+import { getTitlesList } from "@/services/api/anilibria/getTitlesList";
+import TitleList from "@/components/widgets/Title/TitleList";
 
 interface TitleProps {
   slug: string;
@@ -25,6 +26,19 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
   const { data } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
     queryFn: () => getTitle({ code: slug }),
+  });
+
+  const franchiseSlugList = data.franchises
+    .map(({ releases }) =>
+      releases
+        .map((release) => release.code)
+        .filter((slug) => slug !== data.code),
+    )
+    .flat();
+
+  const { data: franchise } = useSuspenseQuery({
+    queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
+    queryFn: () => getTitlesList({ code_list: franchiseSlugList }),
   });
 
   const colorByStatus = useMemo(() => {
@@ -57,7 +71,10 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
             <div className="leading-7 mb-4">{data.description}</div>
             <div className="mb-4 flex gap-2 items-center">
               Количество эпизодов:
-              <Chip>{data.type.episodes}</Chip>
+              {/*TODO: Add types for player.list*/}
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-expect-error */}
+              <Chip>{data.type.episodes ?? data.player.list.length}</Chip>
             </div>
             <div className="mb-4 flex gap-2 items-center">
               Статус: <Chip color={colorByStatus}>{data.status.string}</Chip>
@@ -65,12 +82,6 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
             <div className="mb-8 flex gap-2 items-center">
               <div>Жанры:</div>
               <div className="flex flex-wrap gap-3">
-                {data.genres.map((genre) => (
-                  <Chip key={genre}>{genre}</Chip>
-                ))}
-                {data.genres.map((genre) => (
-                  <Chip key={genre}>{genre}</Chip>
-                ))}
                 {data.genres.map((genre) => (
                   <Chip key={genre}>{genre}</Chip>
                 ))}
@@ -90,22 +101,8 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
         </Col>
         <Col xs={12}>
           <h2 className="text-3xl text-center pt-8 mb-3">Связанное</h2>
-          <div className="flex gap-4">
-            {data.franchises.map(({ releases }) =>
-              releases.map((release) => {
-                if (release.id !== data.id)
-                  return (
-                    <Link
-                      href={release.code}
-                      key={release.id}
-                      as={NextLink}
-                      color={"foreground"}
-                    >
-                      {release.names.ru}
-                    </Link>
-                  );
-              }),
-            )}
+          <div className="flex gap-4 mb-8">
+            <TitleList list={franchise} />
           </div>
         </Col>
       </Row>
