@@ -23,20 +23,49 @@ const SearchTitle: FC = () => {
   const query = searchParams?.get("q");
   const years = searchParams?.get("years");
   const genres = searchParams?.get("genres");
+  const currentPage = searchParams?.get("page");
 
-  const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres],
+  const { data: paginationData, isLoading: paginationIsLoading } = useQuery({
+    queryKey: [AnilibriaQueryKeys.PAGINATION, query, years, genres],
     queryFn: () =>
       anilibriaApi.searchTitles({
         search: query!,
         genres: genres!,
         year: years!,
         items_per_page: 18,
+        filter: ["code"],
       }),
     enabled: !!query || !!genres || !!years,
   });
 
-  const changeHandler = useDebounceCallback(
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, currentPage],
+    queryFn: () =>
+      anilibriaApi.searchTitles({
+        search: query!,
+        genres: genres!,
+        year: years!,
+        items_per_page: 18,
+        ...(currentPage && { page: Number(currentPage) }),
+      }),
+    enabled: (!!query || !!genres || !!years) && !!paginationData,
+  });
+
+  const changePageHandler = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+
+    router.push(`${RoutePaths.SEARCH}?${params}`, {
+      scroll: false,
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const changeQueryHandler = useDebounceCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const {
         target: { value },
@@ -64,7 +93,7 @@ const SearchTitle: FC = () => {
             size="lg"
             placeholder="Название"
             defaultValue={query ?? ""}
-            onChange={changeHandler}
+            onChange={changeQueryHandler}
           />
           <SearchFilter />
         </Col>
@@ -75,19 +104,23 @@ const SearchTitle: FC = () => {
                 {isSuccess && (
                   <>
                     <TitleList list={data.list} />
-                    {data?.pagination.pages > 1 && (
+                    {paginationData!.pagination.pages > 1 && (
                       <Col xs={12} className="flex justify-center mb-6">
                         <Pagination
-                          total={data?.pagination.pages}
+                          total={paginationData!.pagination.pages}
                           initialPage={1}
                           size={"lg"}
                           showControls
+                          page={currentPage ? Number(currentPage) : 1}
+                          onChange={changePageHandler}
                         />
                       </Col>
                     )}
                   </>
                 )}
-                {isLoading && <TitleListLoader length={18} />}
+                {(isLoading || paginationIsLoading) && (
+                  <TitleListLoader length={18} />
+                )}
               </>
             ) : (
               <Col xs={12}>

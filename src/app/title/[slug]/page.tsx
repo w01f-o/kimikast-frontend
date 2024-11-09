@@ -84,10 +84,13 @@ const Page: NextPage<PageProps> = async ({ params }) => {
     )
     .flat();
 
-  await queryClient.prefetchQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
-    queryFn: () => anilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
-  });
+  if (franchiseSlugList.length > 0) {
+    await queryClient.prefetchQuery({
+      queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
+      queryFn: () =>
+        anilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
+    });
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

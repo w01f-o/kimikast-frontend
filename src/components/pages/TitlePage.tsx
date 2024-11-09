@@ -45,9 +45,10 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
     )
     .flat();
 
-  const { data: franchise } = useSuspenseQuery({
+  const { data: franchise, isSuccess: franchiseIsSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
     queryFn: () => getTitlesList({ code_list: franchiseSlugList }),
+    enabled: franchiseSlugList.length > 0,
   });
 
   const {
@@ -181,12 +182,14 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
             </div>
           </div>
         </Col>
-        <Col xs={12}>
-          <h2 className="text-3xl text-center pt-8 mb-3">Связанное</h2>
-          <div className="flex gap-4 mb-8">
-            <TitleList list={franchise} />
-          </div>
-        </Col>
+        {franchiseIsSuccess && (
+          <Col xs={12}>
+            <h2 className="text-3xl text-center pt-8 mb-3">Связанное</h2>
+            <div className="flex gap-4 mb-8">
+              <TitleList list={franchise} />
+            </div>
+          </Col>
+        )}
       </Row>
     </Container>
   );
