@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const Page: NextPage = async () => {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
       <SearchTitle />
     </Suspense>
   );
