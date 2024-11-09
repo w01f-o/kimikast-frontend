@@ -6,8 +6,6 @@ import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
 import { Input } from "@nextui-org/input";
 import { useDebounceCallback } from "usehooks-ts";
-import { useRouter, useSearchParams } from "next/navigation";
-import { RoutePaths } from "@/enums/RoutePaths.enum";
 import TitleList from "@/components/widgets/Title/TitleList";
 import { useQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
@@ -15,16 +13,16 @@ import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
 import SearchFilter from "@/components/widgets/SearchFilter";
 import { Pagination } from "@nextui-org/pagination";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
+import { useSearchFilters } from "@/hooks/useSearchFilters";
 
-const SearchTitle: FC = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+interface SearchTitleProps {
+  query?: string;
+  years?: string;
+  genres?: string;
+  page?: string;
+}
 
-  const query = searchParams?.get("q");
-  const years = searchParams?.get("years");
-  const genres = searchParams?.get("genres");
-  const currentPage = searchParams?.get("page");
-
+const SearchTitle: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   const { data: paginationData, isLoading: paginationIsLoading } = useQuery({
     queryKey: [AnilibriaQueryKeys.PAGINATION, query, years, genres],
     queryFn: () =>
@@ -39,30 +37,22 @@ const SearchTitle: FC = () => {
   });
 
   const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, currentPage],
+    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, page],
     queryFn: () =>
       anilibriaApi.searchTitles({
         search: query!,
         genres: genres!,
         year: years!,
         items_per_page: 18,
-        ...(currentPage && { page: Number(currentPage) }),
+        ...(page && { page: Number(page) }),
       }),
     enabled: (!!query || !!genres || !!years) && !!paginationData,
   });
 
+  const setFilters = useSearchFilters();
+
   const changePageHandler = (page: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", page.toString());
-
-    router.push(`${RoutePaths.SEARCH}?${params}`, {
-      scroll: false,
-    });
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    setFilters({ page: String(page) });
   };
 
   const changeQueryHandler = useDebounceCallback(
@@ -70,14 +60,8 @@ const SearchTitle: FC = () => {
       const {
         target: { value },
       } = e;
-      const params = new URLSearchParams();
-      params.set("q", value);
 
-      if (value === "") {
-        params.delete("q");
-      }
-
-      router.push(`${RoutePaths.SEARCH}?${params.toString()}`);
+      setFilters({ query: value });
     },
     300,
   );
@@ -111,7 +95,7 @@ const SearchTitle: FC = () => {
                           initialPage={1}
                           size={"lg"}
                           showControls
-                          page={currentPage ? Number(currentPage) : 1}
+                          page={page ? Number(page) : 1}
                           onChange={changePageHandler}
                         />
                       </Col>

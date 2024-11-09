@@ -1,16 +1,27 @@
 import SearchTitle from "@/components/pages/SearchTitle";
 import { Metadata, NextPage } from "next";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Kimikast - Поиск",
 };
 
-const Page: NextPage = async () => {
+interface PageProps {
+  searchParams: Promise<{
+    query?: string;
+    years?: string;
+    genres?: string;
+    page?: string;
+  }>;
+}
+
+const Page: NextPage<PageProps> = async ({ searchParams }) => {
+  const query = (await searchParams)?.query;
+  const years = (await searchParams)?.years;
+  const genres = (await searchParams)?.genres;
+  const page = (await searchParams)?.page;
+
   return (
-    <Suspense fallback={null}>
-      <SearchTitle />
-    </Suspense>
+    <SearchTitle page={page} query={query} years={years} genres={genres} />
   );
 };
 
