@@ -16,6 +16,7 @@ import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
 import { authApi } from "@/services/api/kimikast/Auth.api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 interface AuthProps {
   type: "login" | "register";
@@ -23,16 +24,16 @@ interface AuthProps {
 
 const Auth: FC<AuthProps> = ({ type }) => {
   const { handleSubmit, register, reset } = useForm<AuthForm>();
-
+  const { user } = useAuth();
   const router = useRouter();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: [KimikastQueryKeys.AUTH],
     mutationFn: (data: AuthForm) => authApi.authorize(type, data),
     onSuccess() {
       toast.success("Авторизация прошла успешно");
       reset();
-      router.replace(`${RoutePaths.PROFILE}`);
+      router.replace(`${RoutePaths.PROFILE}/${user!.name}`);
     },
   });
 
@@ -77,7 +78,7 @@ const Auth: FC<AuthProps> = ({ type }) => {
               })}
               size={"lg"}
             />
-            <Button type="submit" size={"lg"}>
+            <Button type="submit" size={"lg"} isLoading={isPending}>
               {type === "login" ? "Войти" : "Зарегистрироваться"}
             </Button>
           </form>

@@ -12,7 +12,8 @@ export const middleware = (req: NextRequest) => {
 
   if (
     nextUrl.pathname.includes(RoutePaths.PROFILE) &&
-    !nextUrl.pathname.split("/").at(-1)?.startsWith("@")
+    !nextUrl.pathname.split("/").at(-1)?.startsWith("@") &&
+    nextUrl.pathname.split("/").length > 2
   ) {
     const username = nextUrl.pathname.split("/").at(-1);
     nextUrl.pathname = `${RoutePaths.PROFILE}/@${username}`;
