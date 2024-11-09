@@ -25,6 +25,10 @@ $col-offset: 15px;
   padding: 0 $col-offset * 0.5;
 }
 
+.fluid {
+  @apply w-full max-w-none;
+}
+
 @for $i from 1 through 12 {
   $width: math.div($i, 12) * 100;
 

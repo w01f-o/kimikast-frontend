@@ -57,18 +57,14 @@ const CurrentUser: FC = () => {
     <Dropdown>
       <DropdownTrigger>
         <Avatar
-          src={
-            !!user
-              ? `${process.env.NEXT_PUBLIC_KIMIKAST_STATIC_URL}/public/${user.avatar}`
-              : "/no-avatar.svg"
-          }
-          color={!!user ? "primary" : "default"}
-          isBordered={!!user}
+          src={`${process.env.NEXT_PUBLIC_KIMIKAST_STATIC_URL}/avatar/${user.avatar}`}
+          color="primary"
+          isBordered
           className="cursor-pointer"
         />
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem as={Link} href={RoutePaths.PROFILE}>
+        <DropdownItem as={Link} href={`${RoutePaths.PROFILE}/@${user.name}`}>
           Профиль
         </DropdownItem>
         <DropdownItem as={Link} href={RoutePaths.SETTINGS}>

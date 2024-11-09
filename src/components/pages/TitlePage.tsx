@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useMemo } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import Container from "@/components/shared/layout/Container";
 import Row from "@/components/shared/layout/Row";
@@ -11,7 +11,7 @@ import NextImage from "next/image";
 import { Button } from "@nextui-org/button";
 import NextLink from "next/link";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
-import { TvMinimalPlay } from "lucide-react";
+import { FolderHeart, TvMinimalPlay } from "lucide-react";
 import { Chip } from "@nextui-org/chip";
 import { StatusEnum } from "@/types/entities/Title.type";
 import { getTitlesList } from "@/services/api/anilibria/getTitlesList";
@@ -20,6 +20,12 @@ import {
   ANILIBRIA_IMAGE_URL,
   anilibriaApi,
 } from "@/services/api/anilibria/Anilibria.api";
+import { Dropdown, DropdownItem, DropdownMenu } from "@nextui-org/dropdown";
+import { DropdownTrigger } from "@nextui-org/react";
+import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
+import { listsApi } from "@/services/api/kimikast/Lists.api";
+import { defaultListNames } from "@/components/entities/UserList";
+import { Spinner } from "@nextui-org/spinner";
 
 interface TitleProps {
   slug: string;
@@ -43,6 +49,48 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
     queryFn: () => getTitlesList({ code_list: franchiseSlugList }),
   });
+
+  const {
+    data: lists,
+    isSuccess: listsIsSuccess,
+    isLoading: listsIsLoading,
+    refetch: refetchLists,
+  } = useQuery({
+    queryKey: [KimikastQueryKeys.LISTS],
+    queryFn: listsApi.findAll,
+  });
+
+  const { mutate } = useMutation({
+    mutationKey: [KimikastQueryKeys.LISTS],
+    mutationFn: ({
+      listId,
+      type,
+    }: {
+      listId: string;
+      type: "add" | "remove";
+    }) => {
+      switch (type) {
+        case "add":
+          return listsApi.addAnime(listId, { anilibriaSlug: data.code });
+        case "remove":
+          return listsApi.removeAnime(listId, { anilibriaSlug: data.code });
+      }
+    },
+    onSuccess() {
+      refetchLists();
+    },
+  });
+
+  const addAnimeClickHandler = (listId: string) => () => {
+    const isAnimeInList = lists!
+      .find((list) => list.id === listId)
+      ?.animes.some((anime) => anime.anilibriaSlug === data.code);
+
+    mutate({
+      listId,
+      type: isAnimeInList ? "remove" : "add",
+    });
+  };
 
   const colorByStatus = useMemo(() => {
     switch (data.status.code) {
@@ -90,16 +138,47 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
                 ))}
               </div>
             </div>
-            <Button
-              as={NextLink}
-              href={`${RoutePaths.WATCH}/${slug}`}
-              endContent={<TvMinimalPlay />}
-              color={"primary"}
-              size={"lg"}
-              className=""
-            >
-              Смотреть
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                as={NextLink}
+                href={`${RoutePaths.WATCH}/${slug}`}
+                endContent={<TvMinimalPlay />}
+                color={"primary"}
+                size={"lg"}
+              >
+                Смотреть
+              </Button>
+              {listsIsLoading && <Spinner />}
+              {listsIsSuccess && (
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button isIconOnly endContent={<FolderHeart />} />
+                  </DropdownTrigger>
+                  <DropdownMenu
+                    closeOnSelect={false}
+                    selectionMode={"multiple"}
+                    selectedKeys={lists
+                      .filter((list) =>
+                        list.animes.find((a) => a.anilibriaSlug === data.code),
+                      )
+                      .map((list) => list.id)}
+                  >
+                    {lists.map((list) => (
+                      <DropdownItem
+                        key={list.id}
+                        onClick={addAnimeClickHandler(list.id)}
+                      >
+                        {
+                          defaultListNames[
+                            list.name as keyof typeof defaultListNames
+                          ]
+                        }
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </Dropdown>
+              )}
+            </div>
           </div>
         </Col>
         <Col xs={12}>

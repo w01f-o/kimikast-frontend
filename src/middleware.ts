@@ -10,6 +10,16 @@ export const middleware = (req: NextRequest) => {
 
   const refreshToken = cookies.get(JwtTokens.REFRESH)?.value;
 
+  if (
+    nextUrl.pathname.includes(RoutePaths.PROFILE) &&
+    !nextUrl.pathname.split("/").at(-1)?.startsWith("@")
+  ) {
+    const username = nextUrl.pathname.split("/").at(-1);
+    nextUrl.pathname = `${RoutePaths.PROFILE}/@${username}`;
+
+    return NextResponse.redirect(nextUrl);
+  }
+
   if (loginRoutes.includes(nextUrl.pathname) && refreshToken) {
     nextUrl.pathname = RoutePaths.PROFILE;
 
@@ -27,6 +37,6 @@ export const middleware = (req: NextRequest) => {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.svg).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.svg|.*\\.gif).*)",
   ],
 };
