@@ -1,5 +1,5 @@
 import { AuthForm, AuthResponse } from "@/types/entities/Auth.type";
-import { axiosKimikast } from "@/services/api/interceptors";
+import { axiosMain } from "@/services/api/interceptors";
 import {
   removeAccessToken,
   saveAccessToken,
@@ -9,7 +9,7 @@ import { removeUser, setUser } from "@/store/user.store";
 const ENDPOINT = "auth";
 
 const authorize = async (type: "login" | "register", data: AuthForm) => {
-  const response = await axiosKimikast.post<AuthResponse>(
+  const response = await axiosMain.post<AuthResponse>(
     `/${ENDPOINT}/${type}`,
     data,
   );
@@ -24,9 +24,7 @@ const authorize = async (type: "login" | "register", data: AuthForm) => {
 };
 
 const refresh = async () => {
-  const response = await axiosKimikast.post<AuthResponse>(
-    `/${ENDPOINT}/refresh`,
-  );
+  const response = await axiosMain.post<AuthResponse>(`/${ENDPOINT}/refresh`);
 
   if (response.data.accessToken) {
     saveAccessToken(response.data.accessToken);
@@ -36,7 +34,7 @@ const refresh = async () => {
 };
 
 const logout = async () => {
-  const response = await axiosKimikast.post(`/${ENDPOINT}/logout`);
+  const response = await axiosMain.post(`/${ENDPOINT}/logout`);
 
   if (response.data) {
     removeAccessToken();

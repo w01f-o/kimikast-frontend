@@ -8,7 +8,7 @@ import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { userApi } from "@/services/api/kimikast/User.api";
+import { userApi } from "@/services/api/main/User.api";
 import { Avatar } from "@nextui-org/avatar";
 
 interface ProfileProps {

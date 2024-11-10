@@ -1,5 +1,5 @@
 import { Metadata, NextPage } from "next";
-import Library from "@/components/pages/Library";
+import Library from "@/components/pages/library/Library";
 
 export const metadata: Metadata = {
   title: "Kimikast - Моя библиотека",

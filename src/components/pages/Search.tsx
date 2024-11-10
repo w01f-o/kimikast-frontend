@@ -22,7 +22,7 @@ interface SearchTitleProps {
   page?: string;
 }
 
-const SearchTitle: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
+const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   const { data: paginationData, isLoading: paginationIsLoading } = useQuery({
     queryKey: [AnilibriaQueryKeys.PAGINATION, query, years, genres],
     queryFn: () =>
@@ -123,4 +123,4 @@ const SearchTitle: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   );
 };
 
-export default SearchTitle;
+export default Search;

@@ -6,9 +6,9 @@ import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
 import { useQuery } from "@tanstack/react-query";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { listsApi } from "@/services/api/kimikast/Lists.api";
-import UserListCollection from "@/components/widgets/UserListCollection";
-import UserListCollectionLoader from "@/components/shared/UI/Loaders/UserListCollectionLoader";
+import { listsApi } from "@/services/api/main/Lists.api";
+import CollectionList from "@/components/widgets/CollectionList";
+import CollectionListLoader from "@/components/shared/UI/Loaders/CollectionListLoader";
 
 const Library: FC = () => {
   const { data, isSuccess, isLoading } = useQuery({
@@ -22,8 +22,8 @@ const Library: FC = () => {
         <Col xs={12}>
           <h1 className="text-4xl mb-4">Моя библиотека</h1>
         </Col>
-        {isLoading && <UserListCollectionLoader />}
-        {isSuccess && <UserListCollection lists={data} />}
+        {isLoading && <CollectionListLoader />}
+        {isSuccess && <CollectionList lists={data} />}
       </Row>
     </Container>
   );

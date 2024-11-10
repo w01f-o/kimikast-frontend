@@ -23,8 +23,8 @@ import {
 import { Dropdown, DropdownItem, DropdownMenu } from "@nextui-org/dropdown";
 import { DropdownTrigger } from "@nextui-org/react";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { listsApi } from "@/services/api/kimikast/Lists.api";
-import { defaultListNames } from "@/components/entities/UserList";
+import { listsApi } from "@/services/api/main/Lists.api";
+import { defaultCollectionNames } from "@/components/entities/Collection";
 import { Spinner } from "@nextui-org/spinner";
 
 interface TitleProps {
@@ -170,8 +170,8 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
                         onClick={addAnimeClickHandler(list.id)}
                       >
                         {
-                          defaultListNames[
-                            list.name as keyof typeof defaultListNames
+                          defaultCollectionNames[
+                            list.name as keyof typeof defaultCollectionNames
                           ]
                         }
                       </DropdownItem>
@@ -185,9 +185,9 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
         {franchiseIsSuccess && (
           <Col xs={12}>
             <h2 className="text-3xl text-center pt-8 mb-3">Связанное</h2>
-            <div className="flex gap-4 mb-8">
+            <Row className="flex gap-4 mb-8">
               <TitleList list={franchise} />
-            </div>
+            </Row>
           </Col>
         )}
       </Row>

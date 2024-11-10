@@ -8,7 +8,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { Dropdown, DropdownItem, DropdownMenu } from "@nextui-org/dropdown";
 import { DropdownTrigger } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
-import { authApi } from "@/services/api/kimikast/Auth.api";
+import { authApi } from "@/services/api/main/Auth.api";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

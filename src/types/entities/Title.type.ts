@@ -88,9 +88,25 @@ export interface Blocked {
 }
 
 export interface Player {
-  alternative_player: never;
+  alternative_player: string | null;
   host: string;
   episodes: Episodes;
+  list: PlayerItem[];
+}
+
+interface PlayerItem {
+  episode: number;
+  name: string | null;
+  uuid: string;
+  created_timestamp: number;
+  preview: string | null;
+  skips: Skips;
+  hls: Hls;
+}
+
+export interface Skips {
+  opening: number[];
+  ending: number[];
 }
 
 export interface Episodes {

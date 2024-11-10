@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import ListPage from "@/components/pages/ListPage";
+import CollectionPage from "@/components/pages/library/CollectionPage";
 
 interface PageProps {
   params: Promise<{
@@ -10,7 +10,7 @@ interface PageProps {
 const Page: NextPage<PageProps> = async ({ params }) => {
   const { listId } = await params;
 
-  return <ListPage listId={listId} />;
+  return <CollectionPage listId={listId} />;
 };
 
 export default Page;

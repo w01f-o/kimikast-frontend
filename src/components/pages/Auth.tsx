@@ -13,7 +13,7 @@ import NextLink from "next/link";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 import { useMutation } from "@tanstack/react-query";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { authApi } from "@/services/api/kimikast/Auth.api";
+import { authApi } from "@/services/api/main/Auth.api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";

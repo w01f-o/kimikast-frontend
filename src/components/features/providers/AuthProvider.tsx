@@ -3,7 +3,7 @@
 import { FC, ReactNode, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { userApi } from "@/services/api/kimikast/User.api";
+import { userApi } from "@/services/api/main/User.api";
 import { useAuth } from "@/hooks/useAuth";
 import { getAccessToken } from "@/services/auth/token.service";
 

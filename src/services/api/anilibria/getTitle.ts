@@ -25,7 +25,7 @@ export const getTitle: getTitleType = async (params) => {
       params[key] = params[key].join(",") as never;
     }
   }
-  console.log(params);
+
   const { data } = await axiosAnilibria.get<Title>("/title", {
     params,
   });

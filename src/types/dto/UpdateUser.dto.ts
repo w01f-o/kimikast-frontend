@@ -1,4 +1,4 @@
 export interface UpdateUserDto {
-  nam?: string;
+  name?: string;
   password?: string;
 }

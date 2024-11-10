@@ -4,9 +4,6 @@ import { FC, useEffect, useRef } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import Hls from "hls.js";
-import Container from "@/components/shared/layout/Container";
-import Row from "@/components/shared/layout/Row";
-import Col from "@/components/shared/layout/Col";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 
 interface WatchProps {
@@ -23,8 +20,6 @@ const Watch: FC<WatchProps> = ({ slug }) => {
 
   useEffect(() => {
     if (videoRef.current) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       const videoUrl = `https://${data.player.host}${data.player.list[0].hls.fhd}`;
 
       if (Hls.isSupported()) {
@@ -45,20 +40,9 @@ const Watch: FC<WatchProps> = ({ slug }) => {
   }, []);
 
   return (
-    <Container>
-      <Row className="pt-24">
-        <Col xs={12}>
-          <div className="flex justify-center">
-            <video
-              ref={videoRef}
-              className="aspect-video w-2/3"
-              controls
-              autoPlay
-            ></video>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+    <div className="flex justify-center fixed inset-0 z-20">
+      <video ref={videoRef} className="aspect-video" controls autoPlay></video>
+    </div>
   );
 };
 

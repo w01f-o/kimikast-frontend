@@ -11,7 +11,3 @@ export const setUser = (user: User) => {
 export const removeUser = () => {
   userStore.setState(() => null);
 };
-
-export const updateUser = (user: User) => {
-  userStore.setState((prev) => ({ ...prev, ...user }));
-};

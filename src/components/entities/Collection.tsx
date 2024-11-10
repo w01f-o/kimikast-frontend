@@ -9,7 +9,7 @@ interface UserListProps {
   item: List;
 }
 
-export const defaultListNames = {
+export const defaultCollectionNames = {
   planned: "Запланировано",
   watched: "Просмотрено",
   willBeWatching: "Буду смотреть",
@@ -17,7 +17,7 @@ export const defaultListNames = {
   abandoned: "Заброшено",
 };
 
-const UserList: FC<UserListProps> = ({ item }) => {
+const Collection: FC<UserListProps> = ({ item }) => {
   return (
     <Card
       as={Link}
@@ -29,7 +29,11 @@ const UserList: FC<UserListProps> = ({ item }) => {
         <div className="flex h-full items-end py-4 px-2">
           <div className="flex gap-2 items-center">
             <div>
-              {defaultListNames[item.name as keyof typeof defaultListNames]}
+              {
+                defaultCollectionNames[
+                  item.name as keyof typeof defaultCollectionNames
+                ]
+              }
             </div>
             <Chip>{item.animes.length}</Chip>
           </div>
@@ -39,4 +43,4 @@ const UserList: FC<UserListProps> = ({ item }) => {
   );
 };
 
-export default UserList;
+export default Collection;

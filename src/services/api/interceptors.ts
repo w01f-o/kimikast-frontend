@@ -2,9 +2,9 @@ import axios, { CreateAxiosDefaults } from "axios";
 import { getAccessToken } from "@/services/auth/token.service";
 import { ApiErrors } from "@/enums/ApiErrors.enum";
 import { catchError } from "@/services/api/catchError";
-import { authApi } from "@/services/api/kimikast/Auth.api";
+import { authApi } from "@/services/api/main/Auth.api";
 
-const kimikastOptions: CreateAxiosDefaults = {
+const mainOptions: CreateAxiosDefaults = {
   baseURL: process.env.NEXT_PUBLIC_KIMIKAST_API_URL,
   headers: {
     "Content-Type": "application/json",
@@ -21,10 +21,10 @@ const anilibriaOptions: CreateAxiosDefaults = {
 
 export const axiosAnilibria = axios.create(anilibriaOptions);
 
-export const axiosKimikast = axios.create(kimikastOptions);
-export const axiosKimikastWithAuth = axios.create(kimikastOptions);
+export const axiosMain = axios.create(mainOptions);
+export const axiosMainWithAuth = axios.create(mainOptions);
 
-axiosKimikastWithAuth.interceptors.request.use(
+axiosMainWithAuth.interceptors.request.use(
   (request) => {
     const accessToken = getAccessToken();
 
@@ -37,7 +37,7 @@ axiosKimikastWithAuth.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-axiosKimikastWithAuth.interceptors.response.use(
+axiosMainWithAuth.interceptors.response.use(
   (response) => response,
   async (error) => {
     const { config: originalRequest } = error;
@@ -54,7 +54,7 @@ axiosKimikastWithAuth.interceptors.response.use(
       try {
         await authApi.refresh();
 
-        return axiosKimikastWithAuth.request(originalRequest);
+        return axiosMainWithAuth.request(originalRequest);
       } catch (error) {
         if (
           catchError(error) === ApiErrors.REFRESH_TOKEN_EXPIRED ||

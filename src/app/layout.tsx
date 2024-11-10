@@ -2,7 +2,7 @@ import "./styles/globals.css";
 import { FC, ReactNode } from "react";
 import clsx from "clsx";
 import RootProvider from "@/components/features/providers/RootProvider";
-import Layout from "@/components/pages/Layout";
+import Layout from "@/components/pages/layout/Layout";
 import { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 
