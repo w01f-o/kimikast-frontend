@@ -49,12 +49,20 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
     const searchParams = new URLSearchParams({ episode: String(episode) });
 
     router.push(`${pathname}?${searchParams}`);
+
     onClose();
   };
 
   return (
     <div className="pt-1">
-      <Button onClick={onOpen}>Эпизод 1</Button>
+      <Button onClick={onOpen}>
+        Эпизод{" "}
+        {
+          Object.values(episodes).find(
+            (ep) => ep.uuid === Array.from(selectedEpisode).join(""),
+          )!.episode
+        }
+      </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}

@@ -27,9 +27,7 @@ export const useHls = ({ sources, ref, quality, host }: useHlsParams) => {
 
       const hls = hlsRef.current;
 
-      console.log(href);
-
-      const currentTime = videoEl.currentTime;
+      const { currentTime } = videoEl;
 
       hls.loadSource(href);
 
@@ -38,4 +36,10 @@ export const useHls = ({ sources, ref, quality, host }: useHlsParams) => {
       videoEl.src = href;
     }
   }, [sources, ref, href]);
+
+  useEffect(() => {
+    const videoEl = ref.current;
+
+    if (videoEl) videoEl.currentTime = 0;
+  }, [ref, sources]);
 };

@@ -1,31 +1,41 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import Time from "@/components/shared/UI/Text/Time";
 import { Slider } from "@nextui-org/slider";
 import { useStore } from "@tanstack/react-store";
 import { playerStore } from "@/store/player.store";
-import { useDebounceCallback } from "usehooks-ts";
 
 const ProgressBar: FC = () => {
   const { duration, currentTime } = useStore(playerStore);
 
-  const [localCurrentTime, setLocalCurrentTime] = useState(currentTime);
-
-  const debouncedSetCurrentTime = useDebounceCallback((time) => {
-    playerStore.setState((prev) => ({ ...prev, seek: time }));
-  }, 300);
+  // const [localCurrentTime, setLocalCurrentTime] = useState(currentTime);
+  //
+  // useEffect(() => {
+  //   setLocalCurrentTime(currentTime);
+  // }, [currentTime]);
+  //
+  // const debouncedSetCurrentTime = useDebounceCallback((time) => {
+  //   playerStore.setState((prev) => ({ ...prev, seek: time }));
+  // }, 300);
+  //
+  // const changeCurrentTimeHandler = (value: number | number[]) => {
+  //   const time = Math.round(value as number);
+  //   setLocalCurrentTime(time);
+  // };
+  //
+  // useEffect(() => {
+  //   console.log("test");
+  //   debouncedSetCurrentTime(localCurrentTime);
+  // }, [localCurrentTime, debouncedSetCurrentTime]);
 
   const changeCurrentTimeHandler = (value: number | number[]) => {
     const time = Math.round(value as number);
-    setLocalCurrentTime(time);
-  };
 
-  useEffect(() => {
-    debouncedSetCurrentTime(localCurrentTime);
-  }, [localCurrentTime, debouncedSetCurrentTime]);
+    playerStore.setState((prev) => ({ ...prev, seek: time }));
+  };
 
   return (
     <div className="flex gap-6 flex-grow items-center">
-      <Time time={localCurrentTime} />
+      <Time time={currentTime} />
       <Slider
         aria-label={"Video progress"}
         classNames={{
@@ -34,7 +44,7 @@ const ProgressBar: FC = () => {
         }}
         className="flex-grow"
         color="foreground"
-        value={localCurrentTime}
+        value={currentTime}
         onChange={changeCurrentTimeHandler}
         step={0.01}
         maxValue={duration}
