@@ -9,6 +9,7 @@ import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
 import { listsApi } from "@/services/api/main/Lists.api";
 import CollectionList from "@/components/widgets/CollectionList";
 import CollectionListLoader from "@/components/shared/UI/Loaders/CollectionListLoader";
+import PageHeading from "@/components/shared/UI/Text/PageHeading";
 
 const Library: FC = () => {
   const { data, isSuccess, isLoading } = useQuery({
@@ -20,7 +21,7 @@ const Library: FC = () => {
     <Container>
       <Row className="pt-8">
         <Col xs={12}>
-          <h1 className="text-4xl mb-4">Моя библиотека</h1>
+          <PageHeading>Моя библиотека</PageHeading>
         </Col>
         {isLoading && <CollectionListLoader />}
         {isSuccess && <CollectionList lists={data} />}

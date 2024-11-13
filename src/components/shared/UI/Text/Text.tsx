@@ -5,7 +5,7 @@ interface TextProps {
 }
 
 const Text: FC<TextProps> = ({ children }) => {
-  return <p></p>;
+  return <p>{children}</p>;
 };
 
 export default Text;

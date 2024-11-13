@@ -17,6 +17,7 @@ import { authApi } from "@/services/api/main/Auth.api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
+import PageHeading from "@/components/shared/UI/Text/PageHeading";
 
 interface AuthProps {
   type: "login" | "register";
@@ -49,9 +50,9 @@ const Auth: FC<AuthProps> = ({ type }) => {
             onSubmit={handleSubmit(submitHandler)}
             className="flex flex-col gap-4"
           >
-            <h1 className="text-4xl text-center mb-4">
+            <PageHeading center>
               {type === "login" ? "Вход" : "Регистрация"}
-            </h1>
+            </PageHeading>
             <Input
               placeholder="Email"
               type="email"

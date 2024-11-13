@@ -14,6 +14,7 @@ import SearchFilter from "@/components/widgets/SearchFilter";
 import { Pagination } from "@nextui-org/pagination";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 import { useSearchFilters } from "@/hooks/useSearchFilters";
+import PageHeading from "@/components/shared/UI/Text/PageHeading";
 
 interface SearchTitleProps {
   query?: string;
@@ -70,7 +71,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
     <Container>
       <Row className="pt-8">
         <Col xs={12}>
-          <h1 className="text-4xl mb-5">Поиск</h1>
+          <PageHeading>Поиск</PageHeading>
         </Col>
         <Col xs={6} className="flex gap-4">
           <Input

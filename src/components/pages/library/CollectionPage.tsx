@@ -13,19 +13,20 @@ import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
 import TitleList from "@/components/widgets/Title/TitleList";
 import { defaultCollectionNames } from "@/components/entities/Collection";
+import PageHeading from "@/components/shared/UI/Text/PageHeading";
 
 interface ListPageProps {
-  listId: string;
+  collectionId: string;
 }
 
-const CollectionPage: FC<ListPageProps> = ({ listId }) => {
+const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
   const {
     data: list,
     isLoading: listIsLoading,
     isSuccess: listIsSuccess,
   } = useQuery({
-    queryKey: [KimikastQueryKeys.LIST, listId],
-    queryFn: () => listsApi.findById(listId),
+    queryKey: [KimikastQueryKeys.LIST, collectionId],
+    queryFn: () => listsApi.findById(collectionId),
   });
 
   const titleSlugs = useMemo(
@@ -49,13 +50,13 @@ const CollectionPage: FC<ListPageProps> = ({ listId }) => {
         <Col xs={4}>
           {listIsLoading && <Skeleton className="h-10 rounded-xl" />}
           {listIsSuccess && (
-            <h1 className="text-4xl">
+            <PageHeading>
               {
                 defaultCollectionNames[
                   list.name as keyof typeof defaultCollectionNames
                 ]
               }
-            </h1>
+            </PageHeading>
           )}
         </Col>
       </Row>

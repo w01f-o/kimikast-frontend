@@ -1,7 +1,7 @@
-import axios from "axios";
+import { isAxiosError } from "axios";
 
 export const catchError = (error: unknown) => {
-  if (axios.isAxiosError(error) && error.response) {
+  if (isAxiosError(error) && error.response) {
     return error.response.data.message;
   }
 

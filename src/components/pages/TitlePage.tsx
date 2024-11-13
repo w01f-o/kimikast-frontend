@@ -123,9 +123,6 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
             <div className="leading-7 mb-4">{data.description}</div>
             <div className="mb-4 flex gap-2 items-center">
               Количество эпизодов:
-              {/*TODO: Add types for player.list*/}
-              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-              {/* @ts-expect-error */}
               <Chip>{data.type.episodes ?? data.player.list.length}</Chip>
             </div>
             <div className="mb-4 flex gap-2 items-center">

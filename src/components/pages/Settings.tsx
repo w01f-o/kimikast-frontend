@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Switch } from "@nextui-org/switch";
 import { useSettings } from "@/hooks/useSettings";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
+import PageHeading from "@/components/shared/UI/Text/PageHeading";
 
 interface SettingsProps {
   tab?: string;
@@ -21,7 +22,7 @@ const Settings: FC<SettingsProps> = ({ tab }) => {
     <Container>
       <Row className="pt-8">
         <Col xs={12}>
-          <h1 className="text-4xl mb-4">Настройки</h1>
+          <PageHeading>Настройки</PageHeading>
         </Col>
         <Col xs={12}>
           <Tabs selectedKey={tab ?? "account"} size={"lg"} className="mb-4">

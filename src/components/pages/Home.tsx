@@ -10,6 +10,7 @@ import { useIntersectionObserver } from "usehooks-ts";
 import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
 import TitleList from "@/components/widgets/Title/TitleList";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
+import PageHeading from "@/components/shared/UI/Text/PageHeading";
 
 const Home: FC = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -36,7 +37,7 @@ const Home: FC = () => {
     <Container>
       <Row className="pt-8">
         <Col xs={12}>
-          <h2 className="text-4xl mb-5">Свежее</h2>
+          <PageHeading>Свежее</PageHeading>
         </Col>
         {data?.pages.map((page) => (
           <TitleList key={page.pagination.current_page} list={page.list} />

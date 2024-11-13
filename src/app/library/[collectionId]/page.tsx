@@ -3,14 +3,14 @@ import CollectionPage from "@/components/pages/library/CollectionPage";
 
 interface PageProps {
   params: Promise<{
-    listId: string;
+    collectionId: string;
   }>;
 }
 
 const Page: NextPage<PageProps> = async ({ params }) => {
-  const { listId } = await params;
+  const { collectionId } = await params;
 
-  return <CollectionPage listId={listId} />;
+  return <CollectionPage collectionId={collectionId} />;
 };
 
 export default Page;
