@@ -14,10 +14,6 @@ interface getTitlesListParams {
 type getTitlesListType = (params: getTitlesListParams) => Promise<Title[]>;
 
 export const getTitlesList: getTitlesListType = async (params) => {
-  if (!params.playlist_type) {
-    params.playlist_type = "array";
-  }
-
   for (const paramsKey in params) {
     const key = paramsKey as keyof getTitlesListParams;
 

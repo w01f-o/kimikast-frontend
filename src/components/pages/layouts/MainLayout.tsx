@@ -10,7 +10,7 @@ interface LayoutProps {
 
 const DynamicSnowfall = dynamic(() => import("@/components/widgets/Snowfall"));
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const MainLayout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Header />
@@ -25,4 +25,4 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default MainLayout;

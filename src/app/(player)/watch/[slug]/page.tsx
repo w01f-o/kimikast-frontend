@@ -8,6 +8,9 @@ interface PageProps {
   params: Promise<{
     slug: string;
   }>;
+  searchParams: Promise<{
+    episode: string;
+  }>;
 }
 
 export async function generateMetadata({
@@ -27,17 +30,11 @@ export async function generateMetadata({
   };
 }
 
-const Page: NextPage<PageProps> = async ({ params }) => {
+const Page: NextPage<PageProps> = async ({ params, searchParams }) => {
   const { slug } = await params;
+  const episode = (await searchParams)?.episode ?? "1";
 
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
-  });
-
-  return <Watch slug={slug} />;
+  return <Watch slug={slug} episode={episode} />;
 };
 
 export default Page;

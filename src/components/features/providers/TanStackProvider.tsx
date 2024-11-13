@@ -6,7 +6,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 interface TanStackProviderProps {
   children: ReactNode;
@@ -37,7 +36,7 @@ const TanStackProvider: FC<TanStackProviderProps> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools />
+      {/*<ReactQueryDevtools />*/}
     </QueryClientProvider>
   );
 };

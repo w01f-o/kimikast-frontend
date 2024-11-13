@@ -1,0 +1,28 @@
+import { Store } from "@tanstack/store";
+import { PlayerHls } from "@/types/entities/Title.type";
+
+interface PlayerState {
+  duration: number;
+  currentTime: number;
+  seek: number;
+  isPlaying: boolean;
+  isLoading: boolean;
+  isMuted: boolean;
+  isFullscreen: boolean;
+  volume: number;
+  quality: keyof PlayerHls;
+}
+
+const initialState: PlayerState = {
+  duration: 0,
+  currentTime: 0,
+  seek: 0,
+  isPlaying: false,
+  isLoading: true,
+  isMuted: false,
+  isFullscreen: false,
+  volume: 50,
+  quality: "fhd",
+};
+
+export const playerStore = new Store<PlayerState>(initialState);

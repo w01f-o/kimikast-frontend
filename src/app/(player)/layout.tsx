@@ -1,18 +1,13 @@
-import "./styles/globals.css";
+import "../styles/globals.css";
 import { FC, ReactNode } from "react";
 import clsx from "clsx";
 import RootProvider from "@/components/features/providers/RootProvider";
-import Layout from "@/components/pages/layout/Layout";
-import { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
+import WatchLayout from "@/components/pages/layouts/WatchLayout";
 
 interface RootLayoutProps {
   children: ReactNode;
 }
-
-export const metadata: Metadata = {
-  title: "Kimikast - Главная",
-};
 
 const notoSansFont = Noto_Sans({
   subsets: ["latin", "cyrillic"],
@@ -24,7 +19,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
     <html lang="en" className="dark">
       <body className={clsx("antialiased", notoSansFont.className)}>
         <RootProvider>
-          <Layout>{children}</Layout>
+          <WatchLayout>{children}</WatchLayout>
         </RootProvider>
       </body>
     </html>

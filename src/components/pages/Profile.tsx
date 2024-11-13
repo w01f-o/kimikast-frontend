@@ -31,6 +31,7 @@ const Profile: FC<ProfileProps> = ({ name }) => {
         alt={"banner"}
         className="object-cover rounded-none border-y-1 border-default blur-[1px]"
         draggable={false}
+        unoptimized
       />
       <Container className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 z-20">
         <Row className="items-end h-full">

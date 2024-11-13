@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @media (width >= 860px) {
-        margin-left: calc(100vw - 100%);
-    }
+.scrollbar_margin {
+  @media (width >= 860px) {
+    margin-left: calc(100vw - 100%);
+  }
+}
+
+::selection {
+  @apply bg-default;
 }

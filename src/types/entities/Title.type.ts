@@ -91,17 +91,17 @@ export interface Player {
   alternative_player: string | null;
   host: string;
   episodes: Episodes;
-  list: PlayerItem[];
+  list: Record<string, PlayerItem>;
 }
 
-interface PlayerItem {
+export interface PlayerItem {
   episode: number;
   name: string | null;
   uuid: string;
   created_timestamp: number;
   preview: string | null;
   skips: Skips;
-  hls: Hls;
+  hls: PlayerHls;
 }
 
 export interface Skips {
@@ -115,7 +115,7 @@ export interface Episodes {
   string: string;
 }
 
-export interface Hls {
+export interface PlayerHls {
   fhd: string;
   hd: string;
   sd: string;
