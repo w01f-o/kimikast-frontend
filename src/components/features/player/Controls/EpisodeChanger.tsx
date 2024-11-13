@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/button";
 import { Listbox, ListboxItem } from "@nextui-org/listbox";
 import { useIntersectionObserver } from "usehooks-ts";
 import { SharedSelection } from "@nextui-org/react";
+import { usePathname, useRouter } from "next/navigation";
 
 interface EpisodeChangerProps {
   episodes: Record<string, PlayerItem>;
@@ -35,13 +36,19 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
     new Set([localEpisodes[0].uuid]),
   );
 
+  const router = useRouter();
+  const pathname = usePathname();
+
   const episodeChangeHandler = (value: SharedSelection) => {
-    console.log(
-      Object.values(episodes).find(
-        (ep) => ep.uuid === Array.from(value).join(""),
-      ),
-    );
     setSelectedEpisode(value as Set<string>);
+
+    const episode = Object.values(episodes).find(
+      (ep) => ep.uuid === Array.from(value).join(""),
+    )!.episode;
+
+    const searchParams = new URLSearchParams({ episode: String(episode) });
+
+    router.push(`${pathname}?${searchParams}`);
     onClose();
   };
 
