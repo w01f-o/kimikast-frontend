@@ -43,7 +43,7 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
         //@ts-expect-error
         <motion.div
           className={clsx(
-            "absolute inset-0 flex flex-col justify-between overflow-hidden pt-12 pb-6",
+            "absolute inset-0 flex flex-col justify-between overflow-hidden pt-12 pb-6 backdrop-brightness-50",
             {
               "cursor-none": !isVisible,
             },
