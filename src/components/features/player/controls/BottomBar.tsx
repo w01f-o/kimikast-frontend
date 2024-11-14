@@ -1,9 +1,9 @@
 import { FC } from "react";
-import QualityChanger from "@/components/features/player/Controls/QualityChanger";
-import VolumeChanger from "@/components/features/player/Controls/VolumeChanger";
-import FullscreenSwitcher from "@/components/features/player/Controls/FullscreenSwitcher";
-import ProgressBar from "@/components/features/player/Controls/ProgressBar";
-import EpisodeChanger from "@/components/features/player/Controls/EpisodeChanger";
+import QualityChanger from "@/components/features/player/controls/QualityChanger";
+import VolumeChanger from "@/components/features/player/controls/VolumeChanger";
+import FullscreenSwitcher from "@/components/features/player/controls/FullscreenSwitcher";
+import ProgressBar from "@/components/features/player/controls/ProgressBar";
+import EpisodeChanger from "@/components/features/player/controls/EpisodeChanger";
 import { useParams } from "next/navigation";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";

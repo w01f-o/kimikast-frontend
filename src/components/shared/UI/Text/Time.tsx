@@ -11,7 +11,7 @@ const Time: FC<TimeProps> = ({ time }) => {
 
   if (hours === 0) {
     return (
-      <div className="text-center flex-grow text-lg">
+      <div className="text-center text-lg">
         {minutes.toString().padStart(2, "0")}:
         {seconds.toString().padStart(2, "0")}
       </div>
@@ -19,7 +19,7 @@ const Time: FC<TimeProps> = ({ time }) => {
   }
 
   return (
-    <div className="text-center flex-grow text-lg">
+    <div className="text-center text-lg">
       {hours.toString().padStart(2, "0")}:{minutes.toString().padStart(2, "0")}:
       {seconds.toString().padStart(2, "0")}
     </div>

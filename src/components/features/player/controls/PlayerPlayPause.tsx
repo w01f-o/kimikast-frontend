@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Spinner } from "@nextui-org/spinner";
 import { Button } from "@nextui-org/button";
 import { Pause, Play, Rewind } from "lucide-react";
@@ -27,33 +27,6 @@ const PlayerPlayPause: FC = () => {
         break;
     }
   };
-
-  useEffect(() => {
-    const keydownHandler = (e: KeyboardEvent) => {
-      switch (e.code) {
-        case "ArrowLeft":
-          rewindVideo("minus")();
-          break;
-
-        case "ArrowRight":
-          rewindVideo("plus")();
-          break;
-
-        case "Space":
-          playPause();
-          break;
-
-        default:
-          break;
-      }
-    };
-
-    document.addEventListener("keydown", keydownHandler);
-
-    return () => {
-      document.removeEventListener("keydown", keydownHandler);
-    };
-  }, []);
 
   return (
     <div className="flex gap-4 justify-center self-center">

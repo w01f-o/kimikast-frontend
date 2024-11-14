@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import type { Title } from "@/types/entities/Title.type";
+import type { Title as TitleType } from "@/types/entities/Title.type";
 import { Card } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
@@ -11,7 +11,7 @@ import { Chip } from "@nextui-org/chip";
 import { ANILIBRIA_IMAGE_URL } from "@/services/api/anilibria/Anilibria.api";
 
 interface TitleProps {
-  title: Title;
+  title: TitleType;
 }
 
 const Title: FC<TitleProps> = ({ title }) => {

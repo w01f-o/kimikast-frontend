@@ -1,13 +1,14 @@
 "use client";
 
-import { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
-import { useHover } from "@react-aria/interactions";
+import { FC, SyntheticEvent, useEffect, useRef } from "react";
 import Overlay from "@/components/features/player/Overlay";
 import { throttle } from "lodash";
 import { playerStore } from "@/store/player.store";
 import { useStore } from "@tanstack/react-store";
 import { useHls } from "@/hooks/useHls";
 import { PlayerHls } from "@/types/entities/Title.type";
+import { useOverlay } from "@/hooks/useOverlay";
+import clsx from "clsx";
 
 interface PlayerProps {
   sources: PlayerHls;
@@ -17,26 +18,10 @@ interface PlayerProps {
 const Player: FC<PlayerProps> = ({ sources, host }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const { hoverProps, isHovered } = useHover({});
-  const [showOverlay, setShowOverlay] = useState<boolean>(false);
-
-  useEffect(() => {
-    let overlayTimer: NodeJS.Timeout | null = null;
-
-    if (isHovered) {
-      setShowOverlay(true);
-    } else {
-      overlayTimer = setTimeout(() => {
-        setShowOverlay(false);
-      }, 1000);
-    }
-
-    return () => {
-      if (overlayTimer) {
-        clearTimeout(overlayTimer);
-      }
-    };
-  }, [isHovered]);
+  const { isVisible, overlayProps } = useOverlay({
+    timeout: 5000,
+    initialState: true,
+  });
 
   const { isPlaying, seek, volume, isMuted, isFullscreen, quality } =
     useStore(playerStore);
@@ -111,19 +96,62 @@ const Player: FC<PlayerProps> = ({ sources, host }) => {
     playerStore.setState((prev) => ({ ...prev, isLoading: false }));
   };
 
+  const playHandler = () => {
+    if (!isPlaying) {
+      playerStore.setState((prev) => ({ ...prev, isPlaying: true }));
+    }
+  };
+
+  useEffect(() => {
+    const keydownHandler = (e: KeyboardEvent) => {
+      switch (e.code) {
+        case "ArrowLeft":
+          playerStore.setState((prev) => ({
+            ...prev,
+            seek: prev.currentTime - 10,
+          }));
+          break;
+
+        case "ArrowRight":
+          playerStore.setState((prev) => ({
+            ...prev,
+            seek: prev.currentTime + 10,
+          }));
+          break;
+
+        case "Space":
+          playerStore.setState((prev) => ({
+            ...prev,
+            isPlaying: !prev.isPlaying,
+          }));
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", keydownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keydownHandler);
+    };
+  }, []);
+
   return (
     <div className="aspect-video h-screen relative">
       <video
         ref={videoRef}
         autoPlay
-        className="size-full"
+        className={clsx("size-full, cursor-none")}
         onTimeUpdate={timeUpdateHandler}
         onLoadedData={loadedDataHandler}
         onWaiting={waitingHandler}
         onCanPlay={canPlayHandler}
-        {...hoverProps}
+        onPlay={playHandler}
+        {...overlayProps}
       ></video>
-      <Overlay hoverProps={hoverProps} isHovered={showOverlay} />
+      <Overlay overlayProps={overlayProps} isVisible={isVisible} />
     </div>
   );
 };

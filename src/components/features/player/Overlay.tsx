@@ -1,22 +1,25 @@
 import { DOMAttributes, FC, MouseEvent, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FocusableElement } from "@react-types/shared";
-import { useStore } from "@tanstack/react-store";
 import { playerStore } from "@/store/player.store";
-import BottomBar from "@/components/features/player/Controls/BottomBar";
-import PlayerPlayPause from "@/components/features/player/Controls/PlayerPlayPause";
+import BottomBar from "@/components/features/player/controls/BottomBar";
+import PlayerPlayPause from "@/components/features/player/controls/PlayerPlayPause";
 import { useParams } from "next/navigation";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
+import Link from "next/link";
+import { RoutePaths } from "@/enums/RoutePaths.enum";
+import Image from "next/image";
+import CurrentUser from "@/components/widgets/CurrentUser";
+import clsx from "clsx";
 
 interface PlayerOverlayProps {
-  isHovered: boolean;
-  hoverProps: DOMAttributes<FocusableElement>;
+  isVisible: boolean;
+  overlayProps: DOMAttributes<FocusableElement>;
 }
 
-const Overlay: FC<PlayerOverlayProps> = ({ hoverProps, isHovered }) => {
-  const { isPlaying } = useStore(playerStore);
+const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const overlayClickHandler = (e: MouseEvent<HTMLDivElement>) => {
@@ -35,22 +38,38 @@ const Overlay: FC<PlayerOverlayProps> = ({ hoverProps, isHovered }) => {
 
   return (
     <AnimatePresence>
-      {(isHovered || !isPlaying) && (
+      {isVisible && (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-expect-error
         <motion.div
-          className="absolute inset-0 flex flex-col justify-between overflow-hidden pt-14 pb-6"
+          className={clsx(
+            "absolute inset-0 flex flex-col justify-between overflow-hidden pt-12 pb-6",
+            {
+              "cursor-none": !isVisible,
+            },
+          )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           onClick={overlayClickHandler}
           ref={overlayRef}
-          {...hoverProps}
+          {...overlayProps}
         >
-          <h1 className="text-5xl text-center font-extrabold drop-shadow-2xl">
-            {names.ru}
-          </h1>
+          <div className="flex justify-between px-6">
+            <Link href={RoutePaths.HOME}>
+              <Image
+                src={"/logo.svg"}
+                alt={"Kimikast"}
+                width={60}
+                height={60}
+              />
+            </Link>
+            <h1 className="text-5xl text-center font-extrabold drop-shadow-2xl">
+              {names.ru}
+            </h1>
+            <CurrentUser />
+          </div>
           <PlayerPlayPause />
           <BottomBar />
         </motion.div>

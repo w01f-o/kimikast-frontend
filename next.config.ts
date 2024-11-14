@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ hostname: "dl-20241107-5.anilib.moe" }],
   },
+  experimental: {
+    reactCompiler: true,
+  },
 };
 
 export default nextConfig;

@@ -13,7 +13,11 @@ const QualityChanger: FC = () => {
   const changeQualityHandler = (value: SharedSelection) => {
     const newQuality = Array.from(value).join("") as keyof PlayerHls;
 
-    playerStore.setState((prev) => ({ ...prev, quality: newQuality }));
+    playerStore.setState((prev) => ({
+      ...prev,
+      quality: newQuality,
+      isLoading: true,
+    }));
   };
 
   return (
