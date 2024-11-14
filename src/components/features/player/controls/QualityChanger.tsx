@@ -33,9 +33,15 @@ const QualityChanger: FC = () => {
         selectedKeys={[quality]}
         onSelectionChange={changeQualityHandler}
       >
-        <DropdownItem key="fhd">1080p</DropdownItem>
-        <DropdownItem key="hd">720p</DropdownItem>
-        <DropdownItem key="sd">480p</DropdownItem>
+        <DropdownItem key="fhd" textValue="1080p">
+          1080p
+        </DropdownItem>
+        <DropdownItem key="hd" textValue="720p">
+          720p
+        </DropdownItem>
+        <DropdownItem key="sd" textValue="480p">
+          480p
+        </DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );
