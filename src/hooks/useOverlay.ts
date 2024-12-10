@@ -4,6 +4,7 @@ export interface useOverlayReturn {
   isVisible: boolean;
   overlayProps: {
     onMouseMove: (e: MouseEvent<HTMLVideoElement>) => void;
+    onMouseLeave: (e: MouseEvent<HTMLVideoElement>) => void;
   };
 }
 
@@ -31,10 +32,21 @@ export const useOverlay: useOverlayType = ({ timeout, initialState }) => {
     }
   };
 
+  const mouseLeaveHandler = (e: MouseEvent<HTMLVideoElement>) => {
+    e.stopPropagation();
+    setIsVisible(false);
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
   return {
     isVisible: isVisible,
     overlayProps: {
       onMouseMove: mouseMoveHandler,
+      onMouseLeave: mouseLeaveHandler,
     },
   };
 };

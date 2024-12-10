@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { PlayerItem } from "@/types/entities/Title.type";
 import { useDisclosure } from "@nextui-org/use-disclosure";
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
@@ -84,7 +84,7 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
               items={localEpisodes}
               disallowEmptySelection
               selectionMode={"single"}
-              aria-label="Single selection example"
+              aria-label="Episode selection"
               selectedKeys={selectedEpisode}
               onSelectionChange={episodeChangeHandler}
             >
@@ -105,4 +105,4 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
   );
 };
 
-export default EpisodeChanger;
+export default memo(EpisodeChanger);

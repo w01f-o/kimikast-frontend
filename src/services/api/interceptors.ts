@@ -48,7 +48,7 @@ axiosMainWithAuth.interceptors.response.use(
         catchError(error) === ApiErrors.INVALID_ACCESS_TOKEN ||
         catchError(error) === ApiErrors.UNAUTHORIZED);
 
-    if (isTokensError && originalRequest && !originalRequest._isRetry) {
+    if (isTokensError && originalRequest && originalRequest._isRetry) {
       originalRequest._isRetry = true;
 
       try {
