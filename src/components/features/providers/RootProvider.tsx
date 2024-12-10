@@ -3,7 +3,7 @@
 import { FC, ReactNode } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import TanStackProvider from "@/components/features/providers/TanStackProvider";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import AuthProvider from "@/components/features/providers/AuthProvider";
 
 interface RootProviderProps {

@@ -5,4 +5,5 @@ export enum KimikastQueryKeys {
   LISTS = "LISTS",
   LIST = "LIST",
   PUBLIC_USER = "PUBLIC_USER",
+  COMMENTS = "COMMENTS",
 }

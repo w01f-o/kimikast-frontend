@@ -14,7 +14,7 @@ import { RoutePaths } from "@/enums/RoutePaths.enum";
 import { useMutation } from "@tanstack/react-query";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
 import { authApi } from "@/services/api/main/Auth.api";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import PageHeading from "@/components/shared/UI/Text/PageHeading";
