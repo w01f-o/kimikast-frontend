@@ -23,7 +23,7 @@ const CurrentUser: FC = () => {
     mutationFn: authApi.logout,
     onSuccess() {
       toast.success("Вы успешно вышли из системы");
-      router.replace(RoutePaths.LOGIN);
+      router.replace(RoutePaths.HOME);
     },
   });
 
@@ -42,10 +42,18 @@ const CurrentUser: FC = () => {
           />
         </DropdownTrigger>
         <DropdownMenu>
-          <DropdownItem as={Link} href={RoutePaths.LOGIN}>
+          <DropdownItem
+            as={Link}
+            href={RoutePaths.LOGIN}
+            key={RoutePaths.LOGIN}
+          >
             Войти
           </DropdownItem>
-          <DropdownItem as={Link} href={RoutePaths.SETTINGS}>
+          <DropdownItem
+            as={Link}
+            href={RoutePaths.SETTINGS}
+            key={RoutePaths.SETTINGS}
+          >
             Настройки
           </DropdownItem>
         </DropdownMenu>
@@ -64,16 +72,25 @@ const CurrentUser: FC = () => {
         />
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem as={Link} href={`${RoutePaths.PROFILE}/@${user.name}`}>
+        <DropdownItem
+          as={Link}
+          href={`${RoutePaths.PROFILE}/@${user.name}`}
+          key={RoutePaths.PROFILE}
+        >
           Профиль
         </DropdownItem>
-        <DropdownItem as={Link} href={RoutePaths.SETTINGS}>
+        <DropdownItem
+          as={Link}
+          href={RoutePaths.SETTINGS}
+          key={RoutePaths.SETTINGS}
+        >
           Настройки
         </DropdownItem>
         <DropdownItem
-          onClick={logoutClickHandler}
+          onPress={logoutClickHandler}
           color="danger"
           className="text-danger"
+          key={"logout"}
         >
           Выйти
         </DropdownItem>

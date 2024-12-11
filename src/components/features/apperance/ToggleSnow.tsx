@@ -5,11 +5,13 @@ import { useSettings } from "@/hooks/useSettings";
 import { Switch } from "@nextui-org/switch";
 
 const ToggleSnow: FC = () => {
-  const { snow } = useSettings();
+  const {
+    snow: { isEnabled, toggle },
+  } = useSettings();
 
   return (
-    <Switch isSelected={snow.isEnabled} onValueChange={snow.toggle}>
-      Снег на странице
+    <Switch isSelected={isEnabled} onValueChange={toggle}>
+      Снег на страницах
     </Switch>
   );
 };

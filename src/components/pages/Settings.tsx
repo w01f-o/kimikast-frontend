@@ -33,7 +33,7 @@ const Settings: FC<SettingsProps> = ({ tab }) => {
               href={`${RoutePaths.SETTINGS}?${new URLSearchParams({ tab: "account" })}`}
               as={Link}
             >
-              <div className="flex flex-col gap-12">
+              <div className="flex flex-col gap-8">
                 <AvatarChanger />
                 <NameChanger />
                 <PasswordChanger />

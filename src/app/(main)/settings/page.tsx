@@ -7,6 +7,12 @@ interface PageProps {
   }>;
 }
 
+export async function generateStaticParams() {
+  return {
+    searchParams: ["apperance", "account"],
+  };
+}
+
 const Page: NextPage<PageProps> = async ({ searchParams }) => {
   const tab = (await searchParams)?.tab;
 

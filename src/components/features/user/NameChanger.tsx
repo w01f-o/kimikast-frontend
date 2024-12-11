@@ -34,7 +34,7 @@ const NameChanger: FC = () => {
 
   return (
     <div className="flex gap-6 items-center text-xl">
-      <p>Сменить имя пользователя: </p>
+      <p className="w-80">Сменить имя пользователя: </p>
       <form className="flex gap-2" onSubmit={handleSubmit(submitHandler)}>
         {user?.name ? (
           <>
