@@ -6,4 +6,5 @@ export enum KimikastQueryKeys {
   LIST = "LIST",
   PUBLIC_USER = "PUBLIC_USER",
   COMMENTS = "COMMENTS",
+  CHANGE_USERNAME = "CHANGE_USERNAME",
 }

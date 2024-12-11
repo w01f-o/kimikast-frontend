@@ -6,18 +6,19 @@ import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
 import { Tab, Tabs } from "@nextui-org/tabs";
 import Link from "next/link";
-import { Switch } from "@nextui-org/switch";
-import { useSettings } from "@/hooks/useSettings";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
 import PageHeading from "@/components/shared/UI/Text/PageHeading";
+import ToggleSnow from "@/components/features/apperance/ToggleSnow";
+import AccountDeleter from "@/components/features/user/AccountDeleter";
+import PasswordChanger from "@/components/features/user/PasswordChanger";
+import AvatarChanger from "@/components/features/user/AvatarChanger";
+import NameChanger from "@/components/features/user/NameChanger";
 
 interface SettingsProps {
   tab?: string;
 }
 
 const Settings: FC<SettingsProps> = ({ tab }) => {
-  const { snow } = useSettings();
-
   return (
     <Container>
       <Row className="pt-8">
@@ -32,7 +33,12 @@ const Settings: FC<SettingsProps> = ({ tab }) => {
               href={`${RoutePaths.SETTINGS}?${new URLSearchParams({ tab: "account" })}`}
               as={Link}
             >
-              <div>Аккаунт</div>
+              <div className="flex flex-col gap-12">
+                <AvatarChanger />
+                <NameChanger />
+                <PasswordChanger />
+                <AccountDeleter />
+              </div>
             </Tab>
             <Tab
               key="apperance"
@@ -40,9 +46,7 @@ const Settings: FC<SettingsProps> = ({ tab }) => {
               href={`${RoutePaths.SETTINGS}?${new URLSearchParams({ tab: "apperance" })}`}
               as={Link}
             >
-              <Switch isSelected={snow.isEnabled} onValueChange={snow.toggle}>
-                Снег на странице
-              </Switch>
+              <ToggleSnow />
             </Tab>
           </Tabs>
         </Col>
