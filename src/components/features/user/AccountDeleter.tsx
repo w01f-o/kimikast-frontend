@@ -14,7 +14,6 @@ import { useDisclosure } from "@nextui-org/use-disclosure";
 import { useMutation } from "@tanstack/react-query";
 import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
 import { userApi } from "@/services/api/main/User.api";
-import { useAuth } from "@/hooks/useAuth";
 import { authApi } from "@/services/api/main/Auth.api";
 import toast from "react-hot-toast";
 import { RoutePaths } from "@/enums/RoutePaths.enum";
@@ -23,7 +22,6 @@ import { useRouter } from "nextjs-toploader/app";
 const AccountDeleter: FC = () => {
   const { onClose, onOpenChange, isOpen } = useDisclosure();
 
-  const {} = useAuth();
   const router = useRouter();
 
   const { mutate: deleteMutation, isPending: deleteIsPending } = useMutation({
