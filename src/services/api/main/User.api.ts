@@ -2,26 +2,37 @@ import { axiosMain, axiosMainWithAuth } from "@/services/api/interceptors";
 import { AuthForm, User } from "@/types/entities/Auth.type";
 import { PublicUser } from "@/types/entities/PublicUser.type";
 
-const getUser = async (): Promise<User> => {
-  const response = await axiosMainWithAuth.get<User>(`/user`);
+const ENDPOINT = "user";
 
-  return response.data;
+const getUser = async (): Promise<User> => {
+  const { data } = await axiosMainWithAuth.get<User>(`/${ENDPOINT}`);
+
+  return data;
 };
 
 const getPublicUser = async (name: string): Promise<PublicUser> => {
-  const response = await axiosMain.get<PublicUser>(`/user/public/${name}`);
+  const { data } = await axiosMain.get<PublicUser>(
+    `/${ENDPOINT}/public/${name}`,
+  );
 
-  return response.data;
+  return data;
 };
 
 const updateUser = async (user: Partial<AuthForm>) => {
-  const response = await axiosMainWithAuth.patch<User>(`/user`, user);
+  const { data } = await axiosMainWithAuth.patch<User>(`/${ENDPOINT}`, user);
 
-  return response.data;
+  return data;
+};
+
+const deleteUser = async () => {
+  const { data } = await axiosMainWithAuth.delete(`/${ENDPOINT}`);
+
+  return data;
 };
 
 export const userApi = {
   getUser,
   getPublicUser,
   updateUser,
+  deleteUser,
 };

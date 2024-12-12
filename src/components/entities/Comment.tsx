@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Comment as CommentType } from "@/types/entities/Comment.type";
 import { Card, CardBody } from "@nextui-org/card";
 import { Avatar } from "@nextui-org/avatar";
@@ -34,4 +34,4 @@ const Comment: FC<CommentProps> = ({ item: { createdAt, content, user } }) => {
   );
 };
 
-export default Comment;
+export default memo(Comment);
