@@ -25,11 +25,10 @@ const TitleCommentCreator: FC = () => {
 
   const { mutate: mutateComment, isPending: mutateCommentIsPending } =
     useMutation({
-      mutationKey: [KimikastQueryKeys.COMMENTS, slug],
       mutationFn: ({ dto }: { dto: CreateCommentDto }) =>
         commentsApi.createComment(dto),
       onSuccess: async () => {
-        await queryClient.refetchQueries({
+        await queryClient.invalidateQueries({
           queryKey: [KimikastQueryKeys.COMMENTS, slug],
         });
         reset();

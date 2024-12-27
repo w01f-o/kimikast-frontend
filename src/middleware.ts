@@ -9,6 +9,7 @@ export const middleware = (req: NextRequest) => {
   const { nextUrl, cookies } = req;
 
   const refreshToken = cookies.get(JwtTokens.REFRESH)?.value;
+  const accessToken = cookies.get(JwtTokens.ACCESS)?.value;
 
   if (
     nextUrl.pathname.includes(RoutePaths.PROFILE) &&
@@ -21,13 +22,16 @@ export const middleware = (req: NextRequest) => {
     return NextResponse.redirect(nextUrl);
   }
 
-  if (loginRoutes.includes(nextUrl.pathname) && refreshToken) {
+  if (loginRoutes.includes(nextUrl.pathname) && refreshToken && accessToken) {
     nextUrl.pathname = RoutePaths.PROFILE;
 
     return NextResponse.redirect(nextUrl);
   }
 
-  if (protectedRoutes.includes(nextUrl.pathname) && !refreshToken) {
+  if (
+    protectedRoutes.includes(nextUrl.pathname) &&
+    (!refreshToken || !accessToken)
+  ) {
     nextUrl.pathname = RoutePaths.LOGIN;
 
     return NextResponse.redirect(nextUrl);
