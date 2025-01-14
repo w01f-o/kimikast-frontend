@@ -3,14 +3,14 @@ import Hls from "hls.js";
 import { PlayerHls } from "@/types/entities/Title.type";
 import { playerStore } from "@/store/player.store";
 
-interface useHlsParams {
+interface UseHlsParams {
   sources: PlayerHls;
   host: string;
   ref: RefObject<HTMLVideoElement>;
   quality: keyof PlayerHls;
 }
 
-export const useHls = ({ sources, ref, quality, host }: useHlsParams) => {
+export const useHls = ({ sources, ref, quality, host }: UseHlsParams) => {
   const hlsRef = useRef<Hls | null>(null);
   const href = `https://${host}/${sources[quality]}`;
 

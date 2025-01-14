@@ -2,7 +2,7 @@ import { useStore } from "@tanstack/react-store";
 import { accessTokenStore, userStore } from "@/store/user.store";
 import { User } from "@/types/entities/Auth.type";
 
-type useAuthReturn = {
+type UseAuthReturn = {
   user: User | null;
   accessToken: string | null;
   setAccessToken: (accessToken: string) => void;
@@ -11,7 +11,7 @@ type useAuthReturn = {
   logout: () => void;
 };
 
-export const useAuth = (): useAuthReturn => {
+export const useAuth = (): UseAuthReturn => {
   const user = useStore(userStore);
   const accessToken = useStore(accessTokenStore);
 

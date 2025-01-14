@@ -4,18 +4,13 @@ import { FC } from "react";
 import Container from "@/components/shared/layout/Container";
 import Row from "@/components/shared/layout/Row";
 import Col from "@/components/shared/layout/Col";
-import { useQuery } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { listsApi } from "@/services/api/main/Lists.api";
 import CollectionList from "@/components/widgets/CollectionList";
 import CollectionListLoader from "@/components/shared/UI/Loaders/CollectionListLoader";
 import PageHeading from "@/components/shared/UI/Text/PageHeading";
+import { useLists } from "@/hooks/api/useLists";
 
 const Library: FC = () => {
-  const { data, isSuccess, isLoading } = useQuery({
-    queryKey: [KimikastQueryKeys.LISTS],
-    queryFn: listsApi.findAll,
-  });
+  const { lists, isSuccess, isLoading } = useLists();
 
   return (
     <Container>
@@ -24,7 +19,7 @@ const Library: FC = () => {
           <PageHeading>Моя библиотека</PageHeading>
         </Col>
         {isLoading && <CollectionListLoader />}
-        {isSuccess && <CollectionList lists={data} />}
+        {isSuccess && <CollectionList lists={lists} />}
       </Row>
     </Container>
   );

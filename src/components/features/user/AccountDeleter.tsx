@@ -1,8 +1,9 @@
 "use client";
 
-import { FC } from "react";
+import { RoutePaths } from "@/enums/RoutePaths.enum";
+import { authApi } from "@/services/api/main/Auth.api";
+import { userApi } from "@/services/api/main/User.api";
 import { Button } from "@nextui-org/button";
-import { UserRoundX } from "lucide-react";
 import {
   Modal,
   ModalBody,
@@ -11,30 +12,29 @@ import {
   ModalHeader,
 } from "@nextui-org/modal";
 import { useDisclosure } from "@nextui-org/use-disclosure";
-import { useMutation } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { userApi } from "@/services/api/main/User.api";
-import { authApi } from "@/services/api/main/Auth.api";
-import toast from "react-hot-toast";
-import { RoutePaths } from "@/enums/RoutePaths.enum";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { UserRoundX } from "lucide-react";
 import { useRouter } from "nextjs-toploader/app";
+import { FC } from "react";
+import toast from "react-hot-toast";
 
 const AccountDeleter: FC = () => {
   const { onClose, onOpenChange, isOpen } = useDisclosure();
 
+  const queryClient = useQueryClient();
+
   const router = useRouter();
 
   const { mutate: deleteMutation, isPending: deleteIsPending } = useMutation({
-    mutationKey: [KimikastQueryKeys.DELETE_ACCOUNT],
     mutationFn: userApi.deleteUser,
   });
 
   const { mutate: logoutMutation, isPending: logoutIsPending } = useMutation({
-    mutationKey: [KimikastQueryKeys.LOGOUT],
     mutationFn: authApi.logout,
     onSuccess() {
       toast.success("Вы успешно удалили аккаунт");
       router.replace(RoutePaths.HOME);
+      queryClient.resetQueries();
     },
   });
 

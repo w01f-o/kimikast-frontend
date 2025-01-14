@@ -14,6 +14,7 @@ export const saveAccessToken = (accessToken: string): void => {
   Cookies.set(JwtTokens.ACCESS, accessToken, {
     sameSite: "strict",
     domain: process.env.NEXT_PUBLIC_BASE_CLIENT_DOMAIN,
+    expires: 7,
   });
 };
 

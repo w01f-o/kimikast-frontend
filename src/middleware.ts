@@ -28,10 +28,7 @@ export const middleware = (req: NextRequest) => {
     return NextResponse.redirect(nextUrl);
   }
 
-  if (
-    protectedRoutes.includes(nextUrl.pathname) &&
-    (!refreshToken || !accessToken)
-  ) {
+  if (protectedRoutes.includes(nextUrl.pathname) && !refreshToken) {
     nextUrl.pathname = RoutePaths.LOGIN;
 
     return NextResponse.redirect(nextUrl);

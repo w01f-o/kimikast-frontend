@@ -8,8 +8,7 @@ import {
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import { notFound } from "next/navigation";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { commentsApi } from "@/services/api/main/Comments.api";
+import { getCommentsQueryHookParams } from "@/hooks/api/useComments";
 
 interface PageProps {
   params: Promise<{
@@ -95,8 +94,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   }
 
   await queryClient.prefetchQuery({
-    queryKey: [KimikastQueryKeys.COMMENTS, slug],
-    queryFn: () => commentsApi.getComments(slug),
+    ...getCommentsQueryHookParams({ slug }),
   });
 
   return (

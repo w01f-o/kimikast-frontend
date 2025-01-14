@@ -52,7 +52,6 @@ axiosMainWithAuth.interceptors.response.use(
       originalRequest._isRetry = true;
 
       try {
-        console.log("da");
         await authApi.refresh();
 
         return axiosMainWithAuth.request(originalRequest);

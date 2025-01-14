@@ -21,7 +21,7 @@ const notoSansFont = Noto_Sans({
 
 const RootLayout: FC<RootLayoutProps> = ({ children }) => {
   return (
-    <html lang="en" className="dark">
+    <html lang="ru" className="dark">
       <body
         className={clsx(
           "antialiased",

@@ -1,6 +1,6 @@
 import { MouseEvent, useRef, useState } from "react";
 
-export interface useOverlayReturn {
+export interface UseOverlayReturn {
   isVisible: boolean;
   overlayProps: {
     onMouseMove: (e: MouseEvent<HTMLVideoElement>) => void;
@@ -8,15 +8,18 @@ export interface useOverlayReturn {
   };
 }
 
-interface useOverlayParams {
+interface UseOverlayParams {
   timeout: number;
   initialState?: boolean;
 }
 
-type useOverlayType = (params: useOverlayParams) => useOverlayReturn;
+type UseOverlayType = (params: UseOverlayParams) => UseOverlayReturn;
 
-export const useOverlay: useOverlayType = ({ timeout, initialState }) => {
-  const [isVisible, setIsVisible] = useState<boolean>(initialState ?? false);
+export const useOverlay: UseOverlayType = ({
+  timeout,
+  initialState = false,
+}) => {
+  const [isVisible, setIsVisible] = useState<boolean>(initialState);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const mouseMoveHandler = (e: MouseEvent<HTMLVideoElement>) => {

@@ -1,21 +1,16 @@
 import { FC } from "react";
 import Col from "@/components/shared/layout/Col";
 import Row from "@/components/shared/layout/Row";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { commentsApi } from "@/services/api/main/Comments.api";
 import TitleCommentCreator from "@/components/features/title/TitleCommentCreator";
 import Comment from "@/components/entities/Comment";
+import { useComments } from "@/hooks/api/useComments";
 
 interface TitleCommentsProps {
   slug: string;
 }
 
 const TitleComments: FC<TitleCommentsProps> = ({ slug }) => {
-  const { data: comments } = useSuspenseQuery({
-    queryKey: [KimikastQueryKeys.COMMENTS, slug],
-    queryFn: () => commentsApi.getComments(slug),
-  });
+  const { comments } = useComments({ slug });
 
   return (
     <>

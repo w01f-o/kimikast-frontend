@@ -3,7 +3,7 @@
 import { FC, useEffect, useRef } from "react";
 import { useSettings } from "@/hooks/useSettings";
 import { Particle } from "@/services/utils/Particle";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Snowfall: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -37,7 +37,7 @@ const Snowfall: FC = () => {
             particle.update();
           });
 
-          window.requestAnimationFrame(animate);
+          requestAnimationFrame(animate);
         };
 
         animate();

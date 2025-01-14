@@ -5,12 +5,12 @@ import { DropdownTrigger } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import { FolderHeart } from "lucide-react";
 import { defaultCollectionNames } from "@/components/entities/Collection";
-import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { listsApi } from "@/services/api/main/Lists.api";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
 import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
 import { useParams } from "next/navigation";
+import { useMutateLists } from "@/hooks/api/useMutateLists";
+import { useLists } from "@/hooks/api/useLists";
 
 const TitleInCollections: FC = ({}) => {
   const slug = useParams().slug as string;
@@ -21,35 +21,12 @@ const TitleInCollections: FC = ({}) => {
   });
 
   const {
-    data: lists,
-    isSuccess: listsIsSuccess,
+    lists,
     isLoading: listsIsLoading,
-    refetch: refetchLists,
-  } = useQuery({
-    queryKey: [KimikastQueryKeys.LISTS],
-    queryFn: listsApi.findAll,
-  });
+    isSuccess: listsIsSuccess,
+  } = useLists();
 
-  const { mutate } = useMutation({
-    mutationKey: [KimikastQueryKeys.LISTS],
-    mutationFn: ({
-      listId,
-      type,
-    }: {
-      listId: string;
-      type: "add" | "remove";
-    }) => {
-      switch (type) {
-        case "add":
-          return listsApi.addAnime(listId, { anilibriaSlug: title.code });
-        case "remove":
-          return listsApi.removeAnime(listId, { anilibriaSlug: title.code });
-      }
-    },
-    onSuccess: async () => {
-      await refetchLists();
-    },
-  });
+  const { mutate } = useMutateLists({ anilibriaSlug: title.code });
 
   const addAnimeClickHandler = (listId: string) => () => {
     const isAnimeInList = lists!
@@ -82,7 +59,7 @@ const TitleInCollections: FC = ({}) => {
             {lists.map((list) => (
               <DropdownItem
                 key={list.id}
-                onClick={addAnimeClickHandler(list.id)}
+                onPress={addAnimeClickHandler(list.id)}
               >
                 {
                   defaultCollectionNames[
