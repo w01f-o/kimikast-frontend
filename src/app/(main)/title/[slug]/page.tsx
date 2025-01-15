@@ -16,7 +16,7 @@ interface PageProps {
   }>;
 }
 
-export const revalidate = 86400;
+export const revalidate = 86100;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
