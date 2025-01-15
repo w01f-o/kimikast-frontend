@@ -59,7 +59,7 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
           <div className="flex justify-between px-6">
             <Link href={RoutePaths.HOME}>
               <Image
-                src={"/logo.svg"}
+                src={"/kimikast/logo.svg"}
                 alt={"Kimikast"}
                 width={60}
                 height={60}

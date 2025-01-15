@@ -19,7 +19,7 @@ const Header: FC = () => {
           <Col xs={10} className="flex items-center gap-6">
             <Link href={RoutePaths.HOME}>
               <Image
-                src={"/logo.svg"}
+                src={"/kimikast/logo.svg"}
                 alt={"Kimikast"}
                 width={60}
                 height={60}

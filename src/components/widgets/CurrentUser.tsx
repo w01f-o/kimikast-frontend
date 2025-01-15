@@ -39,7 +39,7 @@ const CurrentUser: FC = () => {
       <Dropdown>
         <DropdownTrigger>
           <Avatar
-            src={"/no-avatar.svg"}
+            src={"/kimikast/no-avatar.svg"}
             color={"default"}
             className="cursor-pointer"
           />

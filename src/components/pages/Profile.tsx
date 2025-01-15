@@ -25,7 +25,7 @@ const Profile: FC<ProfileProps> = ({ name }) => {
     <div className="relative pt-4">
       <Image
         as={NextImage}
-        src={"/banner.gif"}
+        src={"/kimikast/banner.gif"}
         width={1920}
         height={500}
         alt={"banner"}
