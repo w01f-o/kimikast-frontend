@@ -28,7 +28,7 @@ export async function generateStaticParams() {
       queryFn: () =>
         anilibriaApi.getTitleUpdates({
           since: 1,
-          items_per_page: 1,
+          items_per_page: 5,
           filter: ["code"],
         }),
     })
@@ -47,19 +47,21 @@ export async function generateMetadata({
     queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
-  if (!data) {
-    notFound();
+  if (data) {
+    return {
+      title: `Kimikast - ${data.names.ru}`,
+      description: data.description,
+      keywords: [
+        data.names.ru,
+        ...data.genres,
+        data.names.en,
+        data.names.alternative ? data.names.alternative : "",
+      ],
+    };
   }
 
   return {
-    title: `Kimikast - ${data.names.ru}`,
-    description: data.description,
-    keywords: [
-      data.names.ru,
-      ...data.genres,
-      data.names.en,
-      data.names.alternative ? data.names.alternative : "",
-    ],
+    title: "Kimikast",
   };
 }
 
