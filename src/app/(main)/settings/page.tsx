@@ -8,9 +8,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return {
-    searchParams: ["apperance", "account"],
-  };
+  return ["apperance", "account"];
 }
 
 const Page: NextPage<PageProps> = async ({ searchParams }) => {
