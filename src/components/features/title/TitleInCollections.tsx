@@ -50,13 +50,13 @@ const TitleInCollections: FC = ({}) => {
           <DropdownMenu
             closeOnSelect={false}
             selectionMode={"multiple"}
-            selectedKeys={lists
+            selectedKeys={lists!
               .filter((list) =>
                 list.animes.find((a) => a.anilibriaSlug === title.code),
               )
               .map((list) => list.id)}
           >
-            {lists.map((list) => (
+            {lists!.map((list) => (
               <DropdownItem
                 key={list.id}
                 onPress={addAnimeClickHandler(list.id)}
