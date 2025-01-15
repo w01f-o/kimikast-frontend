@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ hostname: "dl-20241107-5.anilib.moe" }],
   },
-  basePath: "/kimikast",
 };
 
 export default nextConfig;
