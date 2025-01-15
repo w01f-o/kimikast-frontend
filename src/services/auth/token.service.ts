@@ -10,7 +10,7 @@ export const getAccessToken = (): string | null => {
 
 export const saveAccessToken = (accessToken: string): void => {
   accessTokenStore.setState(() => accessToken);
-
+  console.log(process.env.NEXT_PUBLIC_BASE_CLIENT_DOMAIN);
   Cookies.set(JwtTokens.ACCESS, accessToken, {
     sameSite: "strict",
     domain: process.env.NEXT_PUBLIC_BASE_CLIENT_DOMAIN,
