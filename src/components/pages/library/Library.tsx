@@ -19,7 +19,7 @@ const Library: FC = () => {
           <PageHeading>Моя библиотека</PageHeading>
         </Col>
         {isLoading && <CollectionListLoader />}
-        {isSuccess && <CollectionList lists={lists} />}
+        {isSuccess && <CollectionList lists={lists!} />}
       </Row>
     </Container>
   );
