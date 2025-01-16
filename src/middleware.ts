@@ -1,41 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { JwtTokens } from '@/enums/JwtTokens.enum';
-import { RoutePaths } from '@/enums/RoutePaths.enum';
+import { combineMiddlewares } from '@/middlewares/combineMiddlewares';
+import { authMiddleware } from '@/middlewares/auth.middleware';
+import { profileMiddleware } from '@/middlewares/profile.middleware';
 
-const loginRoutes = [RoutePaths.LOGIN, RoutePaths.REGISTER] as string[];
-const protectedRoutes = [RoutePaths.PROFILE, RoutePaths.LIBRARY] as string[];
-
-export const middleware = (req: NextRequest) => {
-  const { nextUrl, cookies } = req;
-
-  const refreshToken = cookies.get(JwtTokens.REFRESH)?.value;
-  const accessToken = cookies.get(JwtTokens.ACCESS)?.value;
-
-  if (
-    nextUrl.pathname.includes(RoutePaths.PROFILE) &&
-    !nextUrl.pathname.split('/').at(-1)?.startsWith('@') &&
-    nextUrl.pathname.split('/').length > 2
-  ) {
-    const username = nextUrl.pathname.split('/').at(-1);
-    nextUrl.pathname = `${RoutePaths.PROFILE}/@${username}`;
-
-    return NextResponse.redirect(nextUrl);
-  }
-
-  if (loginRoutes.includes(nextUrl.pathname) && refreshToken && accessToken) {
-    nextUrl.pathname = RoutePaths.PROFILE;
-
-    return NextResponse.redirect(nextUrl);
-  }
-
-  if (protectedRoutes.includes(nextUrl.pathname) && !refreshToken) {
-    nextUrl.pathname = RoutePaths.LOGIN;
-
-    return NextResponse.redirect(nextUrl);
-  }
-
-  return NextResponse.next();
-};
+export default combineMiddlewares([profileMiddleware, authMiddleware]);
 
 export const config = {
   matcher: [
