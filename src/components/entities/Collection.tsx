@@ -1,20 +1,20 @@
-import { FC } from "react";
-import { List } from "@/types/entities/List.type";
-import { Card, CardBody } from "@nextui-org/card";
-import Link from "next/link";
-import { RoutePaths } from "@/enums/RoutePaths.enum";
-import { Chip } from "@nextui-org/chip";
+import { FC } from 'react';
+import { List } from '@/types/entities/List.type';
+import { Card, CardBody } from '@nextui-org/card';
+import Link from 'next/link';
+import { RoutePaths } from '@/enums/RoutePaths.enum';
+import { Chip } from '@nextui-org/chip';
 
 interface UserListProps {
   item: List;
 }
 
 export const defaultCollectionNames = {
-  planned: "Запланировано",
-  watched: "Просмотрено",
-  willBeWatching: "Буду смотреть",
-  watchingNow: "Смотрю сейчас",
-  abandoned: "Заброшено",
+  planned: 'Запланировано',
+  watched: 'Просмотрено',
+  willBeWatching: 'Буду смотреть',
+  watchingNow: 'Смотрю сейчас',
+  abandoned: 'Заброшено',
 };
 
 const Collection: FC<UserListProps> = ({ item }) => {
@@ -26,8 +26,8 @@ const Collection: FC<UserListProps> = ({ item }) => {
       className="h-[150px]"
     >
       <CardBody>
-        <div className="flex h-full items-end py-4 px-2">
-          <div className="flex gap-2 items-center">
+        <div className="flex h-full items-end px-2 py-4">
+          <div className="flex items-center gap-2">
             <div>
               {
                 defaultCollectionNames[

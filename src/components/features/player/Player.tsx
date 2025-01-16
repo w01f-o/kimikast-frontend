@@ -1,49 +1,57 @@
-"use client";
+'use client';
 
-import { FC, SyntheticEvent, useEffect, useRef } from "react";
-import { throttle } from "lodash";
-import { playerStore } from "@/store/player.store";
-import { useStore } from "@tanstack/react-store";
-import { useHls } from "@/hooks/useHls";
-import { PlayerHls } from "@/types/entities/Title.type";
-import { useOverlay } from "@/hooks/useOverlay";
-import Overlay from "@/components/features/player/Overlay";
-import Ambilight from "@/components/features/player/Ambilight";
-import { useProgress } from "@/hooks/api/useProgress";
-import { usePathname, useRouter } from "next/navigation";
+import { FC, SyntheticEvent, useEffect, useRef } from 'react';
+import { throttle } from 'lodash';
+import { playerStore } from '@/store/player.store';
+import { useStore } from '@tanstack/react-store';
+import { useHls } from '@/hooks/useHls';
+import { PlayerHls } from '@/types/entities/Title.type';
+import { useOverlay } from '@/hooks/useOverlay';
+import Overlay from '@/components/features/player/Overlay';
+import Ambilight from '@/components/features/player/Ambilight';
+import { useProgress } from '@/hooks/api/useProgress';
+import { UpdateProgressDto } from '@/types/dto/UpdateProgress.dto';
+import { useAuth } from '@/hooks/useAuth';
 
 interface PlayerProps {
   sources: PlayerHls;
   host: string;
+  currentProgressTime?: number;
+  episode: number;
 }
 
-const Player: FC<PlayerProps> = ({ sources, host }) => {
+const Player: FC<PlayerProps> = ({
+  sources,
+  host,
+  currentProgressTime,
+  episode,
+}) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+
+    if (!videoEl || !currentProgressTime) return;
+
+    playerStore.setState(prev => ({ ...prev, seek: currentProgressTime }));
+  }, [currentProgressTime]);
 
   const { isVisible, overlayProps } = useOverlay({
     timeout: 5000,
     initialState: true,
   });
 
-  const { isPlaying, seek, volume, isMuted, isFullscreen, quality } =
-    useStore(playerStore);
+  const {
+    isPlaying,
+    seek,
+    volume,
+    isMuted,
+    isFullscreen,
+    quality,
+    currentTime,
+  } = useStore(playerStore);
 
   useHls({ ref: videoRef, sources, quality, host });
-
-  const { progress, fetch, update } = useProgress();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    console.log(pathname);
-    if (progress) {
-      // router.replace()
-      // playerStore.setState((prev) => ({
-      //   ...prev,
-      //   currentTime: progress.currentTime,
-      // }));
-    }
-  }, [progress]);
 
   useEffect(() => {
     const videoEl = videoRef.current;
@@ -89,55 +97,82 @@ const Player: FC<PlayerProps> = ({ sources, host }) => {
     }
   }, [isFullscreen]);
 
-  const timeUpdateHandler = throttle((e) => {
+  const timeUpdateHandler = throttle(e => {
     const currentTime = Math.round(e.target.currentTime);
 
-    playerStore.setState((prev) => ({ ...prev, currentTime }));
+    playerStore.setState(prev => ({ ...prev, currentTime }));
   }, 1000);
 
   const loadedDataHandler = (e: SyntheticEvent<HTMLVideoElement, Event>) => {
     const { duration } = e.target as HTMLVideoElement;
     const time = Math.round(duration);
 
-    playerStore.setState((prev) => ({
+    playerStore.setState(prev => ({
       ...prev,
       duration: time,
     }));
   };
 
   const waitingHandler = () => {
-    playerStore.setState((prev) => ({ ...prev, isLoading: true }));
+    playerStore.setState(prev => ({ ...prev, isLoading: true }));
   };
 
   const canPlayHandler = () => {
-    playerStore.setState((prev) => ({ ...prev, isLoading: false }));
+    playerStore.setState(prev => ({ ...prev, isLoading: false }));
   };
 
   const playHandler = () => {
     if (!isPlaying) {
-      playerStore.setState((prev) => ({ ...prev, isPlaying: true }));
+      playerStore.setState(prev => ({ ...prev, isPlaying: true }));
     }
   };
+
+  const { update } = useProgress();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+
+    if (!videoEl) return;
+
+    let interval: NodeJS.Timeout | null = null;
+
+    const currentProgress: UpdateProgressDto = {
+      currentEpisode: Number(episode),
+      currentTime,
+      isCompleted: videoEl.duration * 0.9 <= currentTime,
+    };
+
+    interval = setInterval(() => {
+      if (isPlaying && !currentProgress.isCompleted && user) {
+        update(currentProgress);
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentTime, episode, isPlaying, update, user]);
 
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {
       switch (e.code) {
-        case "ArrowLeft":
-          playerStore.setState((prev) => ({
+        case 'ArrowLeft':
+          playerStore.setState(prev => ({
             ...prev,
             seek: prev.currentTime - 10,
           }));
           break;
 
-        case "ArrowRight":
-          playerStore.setState((prev) => ({
+        case 'ArrowRight':
+          playerStore.setState(prev => ({
             ...prev,
             seek: prev.currentTime + 10,
           }));
           break;
 
-        case "Space":
-          playerStore.setState((prev) => ({
+        case 'Space':
+          playerStore.setState(prev => ({
             ...prev,
             isPlaying: !prev.isPlaying,
           }));
@@ -148,16 +183,16 @@ const Player: FC<PlayerProps> = ({ sources, host }) => {
       }
     };
 
-    document.addEventListener("keydown", keydownHandler);
+    document.addEventListener('keydown', keydownHandler);
 
     return () => {
-      document.removeEventListener("keydown", keydownHandler);
+      document.removeEventListener('keydown', keydownHandler);
     };
   }, []);
 
   return (
     <div className="relative">
-      <div className="aspect-video relative max-h-screen z-20 w-full">
+      <div className="relative z-20 aspect-video max-h-screen w-full">
         <video
           ref={videoRef}
           autoPlay

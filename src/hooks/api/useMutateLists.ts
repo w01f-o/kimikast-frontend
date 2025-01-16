@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { listsApi } from "@/services/api/main/Lists.api";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { listsApi } from '@/services/api/main/Lists.api';
 
 interface UseMutateListsReturn {
   mutate: ({
@@ -8,7 +8,7 @@ interface UseMutateListsReturn {
     type,
   }: {
     listId: string;
-    type: "add" | "remove";
+    type: 'add' | 'remove';
   }) => void;
   isSuccess: boolean;
   isPending: boolean;
@@ -35,14 +35,14 @@ export const useMutateLists: UseMutateLists = ({
       type,
     }: {
       listId: string;
-      type: "add" | "remove";
+      type: 'add' | 'remove';
     }) => {
       switch (type) {
-        case "add":
+        case 'add':
           return listsApi.addAnime(listId, {
             anilibriaSlug,
           });
-        case "remove":
+        case 'remove':
           return listsApi.removeAnime(listId, {
             anilibriaSlug,
           });

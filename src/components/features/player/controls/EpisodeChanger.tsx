@@ -1,14 +1,15 @@
-import { FC, memo, useEffect, useState } from "react";
-import { PlayerItem } from "@/types/entities/Title.type";
-import { useDisclosure } from "@nextui-org/use-disclosure";
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { Listbox, ListboxItem } from "@nextui-org/listbox";
-import { useIntersectionObserver } from "usehooks-ts";
-import { SharedSelection } from "@nextui-org/react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "nextjs-toploader/app";
-import { playerStore } from "@/store/player.store";
+import { FC, memo, useEffect, useState } from 'react';
+import { PlayerItem } from '@/types/entities/Title.type';
+import { useDisclosure } from '@nextui-org/use-disclosure';
+import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/modal';
+import { Button } from '@nextui-org/button';
+import { Listbox, ListboxItem } from '@nextui-org/listbox';
+import { useIntersectionObserver } from 'usehooks-ts';
+import { SharedSelection } from '@nextui-org/react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
+import { playerStore } from '@/store/player.store';
+import { useProgress } from '@/hooks/api/useProgress';
 
 interface EpisodeChangerProps {
   episodes: Record<string, PlayerItem>;
@@ -23,19 +24,23 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
   const [localEpisodes, setLocalEpisodes] = useState<PlayerItem[]>([]);
   const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.5 });
 
-  const episodeFromSearchParams = searchParams.get("episode");
+  const { progress } = useProgress();
+
+  const episodeFromSearchParams =
+    searchParams.get('episode') ?? progress?.currentEpisode;
   const episodeList = Object.values(episodes);
 
   const findEpisodeByUuid = (uuid: string) =>
-    episodeList.find((ep) => ep.uuid === uuid);
+    episodeList.find(ep => ep.uuid === uuid);
 
   const initialEpisode = findEpisodeByUuid(
-    episodeList.find((ep) => String(ep.episode) === episodeFromSearchParams)
-      ?.uuid ?? episodeList[0].uuid,
+    episodeList.find(
+      ep => String(ep.episode) === String(episodeFromSearchParams)
+    )?.uuid ?? episodeList[0].uuid
   );
 
   const [selectedEpisode, setSelectedEpisode] = useState(
-    new Set([initialEpisode!.uuid]),
+    new Set([initialEpisode!.uuid])
   );
 
   useEffect(() => {
@@ -43,15 +48,16 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
   }, [initialEpisode]);
 
   useEffect(() => {
-    if (isIntersecting) setLoadedCount((prev) => prev + 20);
+    if (isIntersecting) setLoadedCount(prev => prev + 20);
   }, [isIntersecting]);
 
   useEffect(() => {
     setLocalEpisodes(episodeList.slice(0, loadedCount));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadedCount]);
 
   const episodeChangeHandler = (value: SharedSelection) => {
-    const selectedUuid = Array.from(value).join("");
+    const selectedUuid = Array.from(value).join('');
     const selectedEp = findEpisodeByUuid(selectedUuid);
 
     if (!selectedEp) return;
@@ -61,7 +67,7 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
       episode: String(selectedEp.episode),
     });
 
-    playerStore.setState((prev) => ({ ...prev, isLoading: true }));
+    playerStore.setState(prev => ({ ...prev, isLoading: true }));
     router.push(`${pathname}?${searchParams}`);
     onClose();
   };
@@ -69,13 +75,13 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
   return (
     <div className="pt-1">
       <Button onClick={onOpen}>
-        Эпизод{" "}
-        {findEpisodeByUuid(Array.from(selectedEpisode).join(""))?.episode}
+        Эпизод{' '}
+        {findEpisodeByUuid(Array.from(selectedEpisode).join(''))?.episode}
       </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        scrollBehavior={"inside"}
+        scrollBehavior={'inside'}
       >
         <ModalContent>
           <ModalHeader>Выбора эпизода</ModalHeader>
@@ -83,12 +89,12 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
             <Listbox
               items={localEpisodes}
               disallowEmptySelection
-              selectionMode={"single"}
+              selectionMode={'single'}
               aria-label="Episode selection"
               selectedKeys={selectedEpisode}
               onSelectionChange={episodeChangeHandler}
             >
-              {(item) => (
+              {item => (
                 <ListboxItem
                   key={item.uuid}
                   textValue={`Эпизод ${item.episode}`}
@@ -97,7 +103,7 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
                 </ListboxItem>
               )}
             </Listbox>
-            <div ref={ref} className="w-full h-12" />
+            <div ref={ref} className="h-12 w-full" />
           </ModalBody>
         </ModalContent>
       </Modal>

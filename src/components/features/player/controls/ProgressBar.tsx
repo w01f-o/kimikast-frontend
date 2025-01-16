@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from "react";
-import Time from "@/components/shared/UI/Text/Time";
-import { Slider } from "@nextui-org/slider";
-import { useStore } from "@tanstack/react-store";
-import { playerStore } from "@/store/player.store";
+import { FC, useEffect, useState } from 'react';
+import Time from '@/components/shared/UI/Text/Time';
+import { Slider } from '@nextui-org/slider';
+import { useStore } from '@tanstack/react-store';
+import { playerStore } from '@/store/player.store';
 
 const ProgressBar: FC = () => {
   const { duration, currentTime } = useStore(playerStore);
@@ -18,7 +18,7 @@ const ProgressBar: FC = () => {
   const changeCurrentTimeEndHandler = (value: number | number[]) => {
     const time = Math.round(value as number);
     setLocalCurrentTime(time);
-    playerStore.setState((prev) => ({
+    playerStore.setState(prev => ({
       ...prev,
       seek: time,
       currentTime: time,
@@ -31,13 +31,13 @@ const ProgressBar: FC = () => {
   }, [currentTime, isChanging]);
 
   return (
-    <div className="flex gap-6 flex-grow items-center">
+    <div className="flex flex-grow items-center gap-6">
       <Time time={localCurrentTime} />
       <Slider
-        aria-label={"Video progress"}
+        aria-label={'Video progress'}
         classNames={{
-          track: "bg-default-500/30 h-2.5",
-          thumb: "w-3.5 h-3.5 after:w-3.5 after:h-3.5 after:bg-foreground",
+          track: 'bg-default-500/30 h-2.5',
+          thumb: 'w-3.5 h-3.5 after:w-3.5 after:h-3.5 after:bg-foreground',
         }}
         color="foreground"
         className="relative flex-grow"

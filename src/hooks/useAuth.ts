@@ -1,6 +1,6 @@
-import { useStore } from "@tanstack/react-store";
-import { accessTokenStore, userStore } from "@/store/user.store";
-import { User } from "@/types/entities/Auth.type";
+import { useStore } from '@tanstack/react-store';
+import { accessTokenStore, userStore } from '@/store/user.store';
+import { User } from '@/types/entities/Auth.type';
 
 type UseAuthReturn = {
   user: User | null;
@@ -16,7 +16,7 @@ export const useAuth = (): UseAuthReturn => {
   const accessToken = useStore(accessTokenStore);
 
   const updateUser = (user: User) => {
-    userStore.setState((state) => ({ ...state, ...user }));
+    userStore.setState(state => ({ ...state, ...user }));
   };
 
   const login = (user: User) => {

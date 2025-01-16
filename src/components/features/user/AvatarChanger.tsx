@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { FC } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { Avatar } from "@nextui-org/avatar";
-import { useDropzone } from "react-dropzone";
+import { FC } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { Avatar } from '@nextui-org/avatar';
+import { useDropzone } from 'react-dropzone';
 
 const AvatarChanger: FC = () => {
   const { user } = useAuth();
@@ -15,14 +15,14 @@ const AvatarChanger: FC = () => {
   });
 
   return (
-    <div className="flex gap-6 items-center text-xl">
+    <div className="flex items-center gap-6 text-xl">
       <p className="w-80">Сменить аватар:</p>
       <div>
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-expect-error */}
         <Avatar
           src={`${process.env.NEXT_PUBLIC_KIMIKAST_STATIC_URL}/avatar/${user?.avatar}`}
-          size={"lg"}
+          size={'lg'}
           {...getRootProps()}
         >
           <input {...getInputProps()} />

@@ -1,5 +1,5 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
-import clsx from "clsx";
+import { FC, HTMLAttributes, ReactNode } from 'react';
+import clsx from 'clsx';
 
 interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;
@@ -14,8 +14,8 @@ const PageHeading: FC<HeadingProps> = ({
 }) => {
   return (
     <h1
-      className={clsx("text-4xl mb-5", className, {
-        "text-center": center,
+      className={clsx('mb-5 text-4xl', className, {
+        'text-center': center,
       })}
       {...props}
     >

@@ -32,7 +32,7 @@ export interface Franchise {
   releases: TitleRelease[];
 }
 
-export interface TitleRelease extends Pick<Title, "id" | "code" | "names"> {
+export interface TitleRelease extends Pick<Title, 'id' | 'code' | 'names'> {
   ordinal: number;
 }
 

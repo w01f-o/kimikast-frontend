@@ -1,4 +1,4 @@
 export enum JwtTokens {
-  ACCESS = "accessToken",
-  REFRESH = "refreshToken",
+  ACCESS = 'accessToken',
+  REFRESH = 'refreshToken',
 }

@@ -1,10 +1,10 @@
-import { axiosMainWithAuth } from "@/services/api/interceptors";
-import { List } from "@/types/entities/List.type";
-import { CreateListDto } from "@/types/dto/CreateList.dto";
-import { UpdateListDto } from "@/types/dto/UpdateList.dto";
-import { UpdateAnimeDto } from "@/types/dto/UpdateAnimeDto";
+import { axiosMainWithAuth } from '@/services/api/interceptors';
+import { List } from '@/types/entities/List.type';
+import { CreateListDto } from '@/types/dto/CreateList.dto';
+import { UpdateListDto } from '@/types/dto/UpdateList.dto';
+import { UpdateAnimeDto } from '@/types/dto/UpdateAnimeDto';
 
-const ENDPOINT = "list";
+const ENDPOINT = 'list';
 
 const findAll = async () => {
   const response = await axiosMainWithAuth.get<List[]>(`/${ENDPOINT}`);
@@ -27,7 +27,7 @@ const create = async (dto: CreateListDto) => {
 const update = async (id: string, dto: UpdateListDto) => {
   const response = await axiosMainWithAuth.patch<List>(
     `/${ENDPOINT}/${id}`,
-    dto,
+    dto
   );
 
   return response.data;
@@ -36,7 +36,7 @@ const update = async (id: string, dto: UpdateListDto) => {
 const addAnime = async (listId: string, dto: UpdateAnimeDto) => {
   const response = await axiosMainWithAuth.post(
     `/${ENDPOINT}/${listId}/add_anime`,
-    dto,
+    dto
   );
 
   return response.data;
@@ -45,7 +45,7 @@ const addAnime = async (listId: string, dto: UpdateAnimeDto) => {
 const removeAnime = async (listId: string, dto: UpdateAnimeDto) => {
   const response = await axiosMainWithAuth.post(
     `/${ENDPOINT}/${listId}/remove_anime`,
-    dto,
+    dto
   );
 
   return response.data;

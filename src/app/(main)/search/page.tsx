@@ -1,8 +1,8 @@
-import Search from "@/components/pages/Search";
-import { Metadata, NextPage } from "next";
+import Search from '@/components/pages/Search';
+import { Metadata, NextPage } from 'next';
 
 export const metadata: Metadata = {
-  title: "Kimikast - Поиск",
+  title: 'Kimikast - Поиск',
 };
 
 interface PageProps {

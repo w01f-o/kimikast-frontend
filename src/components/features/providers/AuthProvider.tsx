@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { FC, ReactNode, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { userApi } from "@/services/api/main/User.api";
-import { useAuth } from "@/hooks/useAuth";
-import { getAccessToken } from "@/services/auth/token.service";
+import { FC, ReactNode, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { userApi } from '@/services/api/main/User.api';
+import { useAuth } from '@/hooks/useAuth';
+import { getAccessToken } from '@/services/auth/token.service';
 
 interface AuthProviderProps {
   children: ReactNode;

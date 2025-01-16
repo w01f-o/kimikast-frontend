@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import CollectionPage from "@/components/pages/library/CollectionPage";
+import { NextPage } from 'next';
+import CollectionPage from '@/components/pages/library/CollectionPage';
 
 interface PageProps {
   params: Promise<{

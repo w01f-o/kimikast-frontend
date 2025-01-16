@@ -1,6 +1,6 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
-import styles from "./layout.module.scss";
-import clsx from "clsx";
+import { FC, HTMLAttributes, ReactNode } from 'react';
+import styles from './layout.module.scss';
+import clsx from 'clsx';
 
 interface RowProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;

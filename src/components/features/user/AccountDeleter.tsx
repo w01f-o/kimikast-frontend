@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { RoutePaths } from "@/enums/RoutePaths.enum";
-import { authApi } from "@/services/api/main/Auth.api";
-import { userApi } from "@/services/api/main/User.api";
-import { Button } from "@nextui-org/button";
+import { RoutePaths } from '@/enums/RoutePaths.enum';
+import { authApi } from '@/services/api/main/Auth.api';
+import { userApi } from '@/services/api/main/User.api';
+import { Button } from '@nextui-org/button';
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/modal";
-import { useDisclosure } from "@nextui-org/use-disclosure";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { UserRoundX } from "lucide-react";
-import { useRouter } from "nextjs-toploader/app";
-import { FC } from "react";
-import toast from "react-hot-toast";
+} from '@nextui-org/modal';
+import { useDisclosure } from '@nextui-org/use-disclosure';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UserRoundX } from 'lucide-react';
+import { useRouter } from 'nextjs-toploader/app';
+import { FC } from 'react';
+import toast from 'react-hot-toast';
 
 const AccountDeleter: FC = () => {
   const { onClose, onOpenChange, isOpen } = useDisclosure();
@@ -32,7 +32,7 @@ const AccountDeleter: FC = () => {
   const { mutate: logoutMutation, isPending: logoutIsPending } = useMutation({
     mutationFn: authApi.logout,
     onSuccess() {
-      toast.success("Вы успешно удалили аккаунт");
+      toast.success('Вы успешно удалили аккаунт');
       router.replace(RoutePaths.HOME);
       queryClient.resetQueries();
     },
@@ -47,7 +47,7 @@ const AccountDeleter: FC = () => {
   return (
     <div>
       <Button
-        color={"danger"}
+        color={'danger'}
         endContent={<UserRoundX />}
         onPress={onOpenChange}
       >
@@ -61,7 +61,7 @@ const AccountDeleter: FC = () => {
             <ModalFooter>
               <Button
                 onPress={clickHandler}
-                color={"danger"}
+                color={'danger'}
                 isLoading={deleteIsPending || logoutIsPending}
               >
                 Удалить

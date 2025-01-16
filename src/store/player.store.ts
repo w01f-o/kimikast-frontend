@@ -1,5 +1,5 @@
-import { Store } from "@tanstack/store";
-import { PlayerHls } from "@/types/entities/Title.type";
+import { Store } from '@tanstack/store';
+import { PlayerHls } from '@/types/entities/Title.type';
 
 interface PlayerState {
   duration: number;
@@ -24,7 +24,7 @@ const initialState: PlayerState = {
   isMuted: false,
   isFullscreen: false,
   volume: 50,
-  quality: "fhd",
+  quality: 'fhd',
 };
 
 export const playerStore = new Store<PlayerState>(initialState);

@@ -1,5 +1,5 @@
-import { Title } from "@/types/entities/Title.type";
-import { axiosAnilibria } from "@/services/api/interceptors";
+import { Title } from '@/types/entities/Title.type';
+import { axiosAnilibria } from '@/services/api/interceptors';
 
 interface SearchTitlesParams {
   search: string;
@@ -14,9 +14,9 @@ interface SearchTitlesParams {
   timing?: string[];
   filter?: string[];
   remove?: string[];
-  include?: ["raw_poster"?, "raw_torrent"?, "torrent_meta"?];
-  description_type?: "html" | "plain" | "no_view_order";
-  playlist_type?: "object" | "array";
+  include?: ['raw_poster'?, 'raw_torrent'?, 'torrent_meta'?];
+  description_type?: 'html' | 'plain' | 'no_view_order';
+  playlist_type?: 'object' | 'array';
   page?: number;
   items_per_page?: number;
 }
@@ -32,23 +32,23 @@ export interface SearchResult {
 }
 
 type searchTitlesType = (
-  searchParams: SearchTitlesParams,
+  searchParams: SearchTitlesParams
 ) => Promise<SearchResult>;
 
-export const searchTitles: searchTitlesType = async (params) => {
+export const searchTitles: searchTitlesType = async params => {
   if (!params.playlist_type) {
-    params.playlist_type = "array";
+    params.playlist_type = 'array';
   }
 
   for (const paramsKey in params) {
     const key = paramsKey as keyof SearchTitlesParams;
 
     if (Array.isArray(params[key])) {
-      params[key] = params[key].join(",") as never;
+      params[key] = params[key].join(',') as never;
     }
   }
 
-  const { data } = await axiosAnilibria.get<SearchResult>("/title/search", {
+  const { data } = await axiosAnilibria.get<SearchResult>('/title/search', {
     params,
   });
 

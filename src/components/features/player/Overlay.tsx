@@ -1,18 +1,18 @@
-import { DOMAttributes, FC, MouseEvent, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { FocusableElement } from "@react-types/shared";
-import { playerStore } from "@/store/player.store";
-import BottomBar from "@/components/features/player/controls/BottomBar";
-import PlayerPlayPause from "@/components/features/player/controls/PlayerPlayPause";
-import { useParams } from "next/navigation";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
-import Link from "next/link";
-import { RoutePaths } from "@/enums/RoutePaths.enum";
-import Image from "next/image";
-import CurrentUser from "@/components/widgets/CurrentUser";
-import clsx from "clsx";
+import { DOMAttributes, FC, MouseEvent, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { FocusableElement } from '@react-types/shared';
+import { playerStore } from '@/store/player.store';
+import BottomBar from '@/components/features/player/controls/BottomBar';
+import PlayerPlayPause from '@/components/features/player/controls/PlayerPlayPause';
+import { useParams } from 'next/navigation';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
+import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import Link from 'next/link';
+import { RoutePaths } from '@/enums/RoutePaths.enum';
+import Image from 'next/image';
+import CurrentUser from '@/components/widgets/CurrentUser';
+import clsx from 'clsx';
 
 interface PlayerOverlayProps {
   isVisible: boolean;
@@ -24,7 +24,7 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
 
   const overlayClickHandler = (e: MouseEvent<HTMLDivElement>) => {
     if (overlayRef.current === e.target) {
-      playerStore.setState((prev) => ({ ...prev, isPlaying: !prev.isPlaying }));
+      playerStore.setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
     }
   };
 
@@ -43,10 +43,10 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
         //@ts-expect-error
         <motion.div
           className={clsx(
-            "absolute inset-0 flex flex-col justify-between overflow-hidden pt-12 pb-6 backdrop-brightness-50",
+            'absolute inset-0 flex flex-col justify-between overflow-hidden pb-6 pt-12 backdrop-brightness-50',
             {
-              "cursor-none": !isVisible,
-            },
+              'cursor-none': !isVisible,
+            }
           )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -59,13 +59,13 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
           <div className="flex justify-between px-6">
             <Link href={RoutePaths.HOME}>
               <Image
-                src={"/kimikast/logo.svg"}
-                alt={"Kimikast"}
+                src={'/kimikast/logo.svg'}
+                alt={'Kimikast'}
                 width={60}
                 height={60}
               />
             </Link>
-            <h1 className="text-4xl lg:text-5xl text-center font-extrabold drop-shadow-2xl">
+            <h1 className="text-center text-4xl font-extrabold drop-shadow-2xl lg:text-5xl">
               {names.ru}
             </h1>
             <CurrentUser />

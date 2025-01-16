@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { RoutePaths } from "@/enums/RoutePaths.enum";
-import { useAuth } from "@/hooks/useAuth";
-import { authApi } from "@/services/api/main/Auth.api";
-import { Avatar } from "@nextui-org/avatar";
-import { Dropdown, DropdownItem, DropdownMenu } from "@nextui-org/dropdown";
-import { DropdownTrigger } from "@nextui-org/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
-import { useRouter } from "nextjs-toploader/app";
-import { FC } from "react";
-import toast from "react-hot-toast";
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { RoutePaths } from '@/enums/RoutePaths.enum';
+import { useAuth } from '@/hooks/useAuth';
+import { authApi } from '@/services/api/main/Auth.api';
+import { Avatar } from '@nextui-org/avatar';
+import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
+import { DropdownTrigger } from '@nextui-org/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Link from 'next/link';
+import { useRouter } from 'nextjs-toploader/app';
+import { FC } from 'react';
+import toast from 'react-hot-toast';
 
 const CurrentUser: FC = () => {
   const { user } = useAuth();
@@ -24,7 +24,7 @@ const CurrentUser: FC = () => {
     mutationKey: [KimikastQueryKeys.LOGOUT],
     mutationFn: authApi.logout,
     onSuccess() {
-      toast.success("Вы успешно вышли из системы");
+      toast.success('Вы успешно вышли из системы');
       router.replace(RoutePaths.HOME);
       queryClient.resetQueries();
     },
@@ -39,8 +39,8 @@ const CurrentUser: FC = () => {
       <Dropdown>
         <DropdownTrigger>
           <Avatar
-            src={"/kimikast/no-avatar.svg"}
-            color={"default"}
+            src={'/kimikast/no-avatar.svg'}
+            color={'default'}
             className="cursor-pointer"
           />
         </DropdownTrigger>
@@ -93,7 +93,7 @@ const CurrentUser: FC = () => {
           onPress={logoutClickHandler}
           color="danger"
           className="text-danger"
-          key={"logout"}
+          key={'logout'}
         >
           Выйти
         </DropdownItem>

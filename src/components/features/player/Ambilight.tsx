@@ -1,5 +1,5 @@
-import { FC, RefObject, useEffect, useRef, useState } from "react";
-import clsx from "clsx";
+import { FC, RefObject, useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 
 interface AmbilightProps {
   videoRef: RefObject<HTMLVideoElement>;
@@ -18,10 +18,10 @@ const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
       setIsCanPlay(true);
     };
 
-    videoEl.addEventListener("canplay", canPlayHandler);
+    videoEl.addEventListener('canplay', canPlayHandler);
 
     return () => {
-      videoEl.removeEventListener("canplay", canPlayHandler);
+      videoEl.removeEventListener('canplay', canPlayHandler);
     };
   }, [videoRef]);
 
@@ -31,7 +31,7 @@ const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
 
     if (!canvasEl || !videoEl) return;
 
-    const ctx = canvasEl.getContext("2d");
+    const ctx = canvasEl.getContext('2d');
     if (!ctx) return;
 
     const paintAmbilight = () => {
@@ -49,7 +49,7 @@ const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
     <canvas
       ref={canvasRef}
       className={clsx(
-        "size-full absolute inset-0 z-10 blur-[80px] saturate-200 pointer-events-none opacity-80",
+        'pointer-events-none absolute inset-0 z-10 size-full opacity-80 blur-[80px] saturate-200'
       )}
     />
   );

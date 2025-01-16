@@ -1,4 +1,4 @@
-import { RoutePaths } from "@/enums/RoutePaths.enum";
+import { RoutePaths } from '@/enums/RoutePaths.enum';
 
 export interface AppRoute {
   name: string;

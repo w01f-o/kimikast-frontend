@@ -1,6 +1,6 @@
-import { FC, ReactNode } from "react";
-import NextTopLoader from "nextjs-toploader";
-import { Toaster } from "react-hot-toast";
+import { FC, ReactNode } from 'react';
+import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from 'react-hot-toast';
 
 interface WatchLayoutProps {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface WatchLayoutProps {
 const WatchLayout: FC<WatchLayoutProps> = ({ children }) => {
   return (
     <>
-      <main className="flex flex-col flex-grow justify-center overflow-hidden">
+      <main className="flex flex-grow flex-col justify-center overflow-hidden">
         {children}
         <NextTopLoader showSpinner={false} />
         <Toaster />

@@ -1,7 +1,7 @@
-import { RefObject, useEffect, useRef } from "react";
-import Hls from "hls.js";
-import { PlayerHls } from "@/types/entities/Title.type";
-import { playerStore } from "@/store/player.store";
+import { RefObject, useEffect, useRef } from 'react';
+import Hls from 'hls.js';
+import { PlayerHls } from '@/types/entities/Title.type';
+import { playerStore } from '@/store/player.store';
 
 interface UseHlsParams {
   sources: PlayerHls;
@@ -18,7 +18,7 @@ export const useHls = ({ sources, ref, quality, host }: UseHlsParams) => {
     const videoEl = ref.current;
 
     if (!videoEl || !(videoEl instanceof HTMLVideoElement))
-      throw new Error("Video element not found");
+      throw new Error('Video element not found');
 
     if (Hls.isSupported()) {
       if (!hlsRef.current) {
@@ -48,7 +48,7 @@ export const useHls = ({ sources, ref, quality, host }: UseHlsParams) => {
 
         const duration = videoEl.duration;
         if (duration > 0) {
-          playerStore.setState((prev) => ({
+          playerStore.setState(prev => ({
             ...prev,
             bufferProgress: (bufferEnd / duration) * 100,
           }));
@@ -64,7 +64,7 @@ export const useHls = ({ sources, ref, quality, host }: UseHlsParams) => {
           hls.off(Hls.Events.FRAG_BUFFERED, updateBufferHandler);
         }
       };
-    } else if (videoEl.canPlayType("application/vnd.apple.mpegurl")) {
+    } else if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
       videoEl.src = href;
     }
   }, [sources, ref, href]);

@@ -1,7 +1,7 @@
-import { useQuery, UseSuspenseQueryOptions } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { listsApi } from "@/services/api/main/Lists.api";
-import { List } from "@/types/entities/List.type";
+import { useQuery, UseSuspenseQueryOptions } from '@tanstack/react-query';
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { listsApi } from '@/services/api/main/Lists.api';
+import { List } from '@/types/entities/List.type';
 
 interface UseListsReturn {
   lists: List[] | undefined;

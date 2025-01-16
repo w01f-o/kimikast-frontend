@@ -1,8 +1,8 @@
-import { Metadata, NextPage } from "next";
-import { QueryClient } from "@tanstack/react-query";
-import Watch from "@/components/pages/Watch";
-import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
+import { Metadata, NextPage } from 'next';
+import { QueryClient } from '@tanstack/react-query';
+import Watch from '@/components/pages/Watch';
+import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
+import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface PageProps {
   params: Promise<{
@@ -32,7 +32,7 @@ export async function generateMetadata({
 
 const Page: NextPage<PageProps> = async ({ params, searchParams }) => {
   const { slug } = await params;
-  const episode = (await searchParams)?.episode ?? "1";
+  const episode = (await searchParams)?.episode;
 
   return <Watch slug={slug} episode={episode} />;
 };

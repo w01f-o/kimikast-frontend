@@ -1,6 +1,6 @@
-import { FC, SVGProps } from "react";
+import { FC, SVGProps } from 'react';
 
-export const CheckIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+export const CheckIcon: FC<SVGProps<SVGSVGElement>> = props => (
   <svg
     aria-hidden="true"
     fill="none"

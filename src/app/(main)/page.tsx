@@ -1,12 +1,12 @@
-import { FC } from "react";
-import Home from "@/components/pages/Home";
+import { FC } from 'react';
+import Home from '@/components/pages/Home';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from "@tanstack/react-query";
-import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
+} from '@tanstack/react-query';
+import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
+import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 const Page: FC = async () => {
   const queryClient = new QueryClient();

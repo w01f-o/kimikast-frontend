@@ -1,13 +1,13 @@
-import axios, { CreateAxiosDefaults } from "axios";
-import { getAccessToken } from "@/services/auth/token.service";
-import { ApiErrors } from "@/enums/ApiErrors.enum";
-import { catchError } from "@/services/api/catchError";
-import { authApi } from "@/services/api/main/Auth.api";
+import axios, { CreateAxiosDefaults } from 'axios';
+import { getAccessToken } from '@/services/auth/token.service';
+import { ApiErrors } from '@/enums/ApiErrors.enum';
+import { catchError } from '@/services/api/catchError';
+import { authApi } from '@/services/api/main/Auth.api';
 
 const mainOptions: CreateAxiosDefaults = {
   baseURL: process.env.NEXT_PUBLIC_KIMIKAST_API_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   withCredentials: true,
 };
@@ -15,7 +15,7 @@ const mainOptions: CreateAxiosDefaults = {
 const anilibriaOptions: CreateAxiosDefaults = {
   baseURL: process.env.NEXT_PUBLIC_ANILIBRIA_API_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 };
 
@@ -25,7 +25,7 @@ export const axiosMain = axios.create(mainOptions);
 export const axiosMainWithAuth = axios.create(mainOptions);
 
 axiosMainWithAuth.interceptors.request.use(
-  (request) => {
+  request => {
     const accessToken = getAccessToken();
 
     if (request?.headers && accessToken) {
@@ -34,12 +34,12 @@ axiosMainWithAuth.interceptors.request.use(
 
     return request;
   },
-  (error) => Promise.reject(error),
+  error => Promise.reject(error)
 );
 
 axiosMainWithAuth.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  response => response,
+  async error => {
     const { config: originalRequest } = error;
 
     const isTokensError =
@@ -66,5 +66,5 @@ axiosMainWithAuth.interceptors.response.use(
     }
 
     throw error;
-  },
+  }
 );

@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { useStore } from "@tanstack/react-store";
-import { playerStore } from "@/store/player.store";
-import { Volume1, Volume2, VolumeX } from "lucide-react";
+import { FC } from 'react';
+import { useStore } from '@tanstack/react-store';
+import { playerStore } from '@/store/player.store';
+import { Volume1, Volume2, VolumeX } from 'lucide-react';
 
 const VolumeIcon: FC = () => {
   const { volume, isMuted } = useStore(playerStore);

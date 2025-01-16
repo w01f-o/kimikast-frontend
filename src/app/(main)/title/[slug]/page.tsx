@@ -1,14 +1,14 @@
-import { Metadata, NextPage } from "next";
-import TitlePage from "@/components/pages/TitlePage";
+import { Metadata, NextPage } from 'next';
+import TitlePage from '@/components/pages/TitlePage';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from "@tanstack/react-query";
-import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import { notFound } from "next/navigation";
-import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
-import { getCommentsQueryHookParams } from "@/hooks/api/useComments";
+} from '@tanstack/react-query';
+import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
+import { notFound } from 'next/navigation';
+import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { getCommentsQueryHookParams } from '@/hooks/api/useComments';
 
 interface PageProps {
   params: Promise<{
@@ -29,10 +29,10 @@ export async function generateStaticParams() {
         anilibriaApi.getTitleUpdates({
           since: 1,
           items_per_page: 5,
-          filter: ["code"],
+          filter: ['code'],
         }),
     })
-  ).list.map((title) => ({ slug: title.code }));
+  ).list.map(title => ({ slug: title.code }));
 }
 
 export async function generateMetadata({
@@ -55,13 +55,13 @@ export async function generateMetadata({
         data.names.ru,
         ...data.genres,
         data.names.en,
-        data.names.alternative ? data.names.alternative : "",
+        data.names.alternative ? data.names.alternative : '',
       ],
     };
   }
 
   return {
-    title: "Kimikast",
+    title: 'Kimikast',
   };
 }
 
@@ -81,9 +81,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   const franchiseSlugList = data.franchises
     .map(({ releases }) =>
-      releases
-        .map((release) => release.code)
-        .filter((slug) => slug !== data.code),
+      releases.map(release => release.code).filter(slug => slug !== data.code)
     )
     .flat();
 

@@ -1,11 +1,11 @@
-import { settingsStore } from "@/store/settings.store";
-import { useStore } from "@tanstack/react-store";
+import { settingsStore } from '@/store/settings.store';
+import { useStore } from '@tanstack/react-store';
 
 export const useSettings = () => {
   const settings = useStore(settingsStore);
 
   const toggleSnow = () => {
-    settingsStore.setState((prev) => ({
+    settingsStore.setState(prev => ({
       ...prev,
       isSnowEnabled: !prev.isSnowEnabled,
     }));

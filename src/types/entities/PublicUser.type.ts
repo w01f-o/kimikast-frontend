@@ -1,3 +1,3 @@
-import { User } from "@/types/entities/Auth.type";
+import { User } from '@/types/entities/Auth.type';
 
-export type PublicUser = Pick<User, "avatar" | "name">;
+export type PublicUser = Pick<User, 'avatar' | 'name'>;

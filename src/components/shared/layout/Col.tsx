@@ -1,6 +1,6 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
-import styles from "./layout.module.scss";
-import clsx from "clsx";
+import { FC, HTMLAttributes, ReactNode } from 'react';
+import styles from './layout.module.scss';
+import clsx from 'clsx';
 
 type ColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 

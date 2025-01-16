@@ -1,4 +1,4 @@
-import { Anime } from "@/types/entities/Anime.type";
+import { Anime } from '@/types/entities/Anime.type';
 
 export interface List {
   id: string;

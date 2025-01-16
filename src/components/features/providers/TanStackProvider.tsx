@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { FC, ReactNode } from "react";
+import { FC, ReactNode } from 'react';
 import {
   isServer,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 interface TanStackProviderProps {
   children: ReactNode;

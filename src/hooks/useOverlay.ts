@@ -1,4 +1,4 @@
-import { MouseEvent, useRef, useState } from "react";
+import { MouseEvent, useRef, useState } from 'react';
 
 export interface UseOverlayReturn {
   isVisible: boolean;

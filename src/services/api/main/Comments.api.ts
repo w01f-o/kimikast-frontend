@@ -1,12 +1,12 @@
-import { axiosMain, axiosMainWithAuth } from "@/services/api/interceptors";
-import { CreateCommentDto } from "@/types/dto/createComment.dto";
-import { Comment } from "@/types/entities/Comment.type";
+import { axiosMain, axiosMainWithAuth } from '@/services/api/interceptors';
+import { CreateCommentDto } from '@/types/dto/createComment.dto';
+import { Comment } from '@/types/entities/Comment.type';
 
-const ENDPOINT = "comment";
+const ENDPOINT = 'comment';
 
 const getComments = async (anilibriaSlug: string): Promise<Comment[]> => {
   const { data } = await axiosMain.get<Comment[]>(
-    `/${ENDPOINT}/${anilibriaSlug}`,
+    `/${ENDPOINT}/${anilibriaSlug}`
   );
 
   return data;

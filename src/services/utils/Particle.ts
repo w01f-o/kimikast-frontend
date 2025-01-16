@@ -10,7 +10,7 @@ export class Particle {
   private readonly screenHeight: number;
   private readonly screenWidth: number;
 
-  constructor(canvasWidth: number, canvasHeight: number) {
+  public constructor(canvasWidth: number, canvasHeight: number) {
     this.screenHeight = canvasHeight;
     this.screenWidth = canvasWidth;
 
@@ -27,7 +27,7 @@ export class Particle {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle = 'white';
     ctx.fill();
     ctx.closePath();
   }

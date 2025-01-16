@@ -4,31 +4,31 @@ import {
   VisuallyHidden,
   tv,
   CheckboxProps,
-} from "@nextui-org/react";
-import { FC } from "react";
-import { CheckIcon } from "@/components/shared/icons/CheckIcon";
+} from '@nextui-org/react';
+import { FC } from 'react';
+import { CheckIcon } from '@/components/shared/icons/CheckIcon';
 
 const checkbox = tv({
   slots: {
-    base: "border-default hover:bg-default-200",
-    content: "text-default-500",
+    base: 'border-default hover:bg-default-200',
+    content: 'text-default-500',
   },
   variants: {
     isSelected: {
       true: {
-        base: "border-primary bg-primary hover:bg-primary-500 hover:border-primary-500",
-        content: "text-primary-foreground pl-1",
+        base: 'border-primary bg-primary hover:bg-primary-500 hover:border-primary-500',
+        content: 'text-primary-foreground pl-1',
       },
     },
     isFocusVisible: {
       true: {
-        base: "outline-none ring-2 ring-focus ring-offset-2 ring-offset-background",
+        base: 'outline-none ring-2 ring-focus ring-offset-2 ring-offset-background',
       },
     },
   },
 });
 
-export const CustomCheckbox: FC<CheckboxProps> = (props) => {
+export const CustomCheckbox: FC<CheckboxProps> = props => {
   const {
     children,
     isSelected,
@@ -59,7 +59,7 @@ export const CustomCheckbox: FC<CheckboxProps> = (props) => {
         variant="faded"
         {...getLabelProps()}
       >
-        {children ? children : isSelected ? "Enabled" : "Disabled"}
+        {children ? children : isSelected ? 'Enabled' : 'Disabled'}
       </Chip>
     </label>
   );

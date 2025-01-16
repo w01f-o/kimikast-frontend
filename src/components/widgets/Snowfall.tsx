@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { FC, useEffect, useRef } from "react";
-import { useSettings } from "@/hooks/useSettings";
-import { Particle } from "@/services/utils/Particle";
-import { AnimatePresence, motion } from "framer-motion";
+import { FC, useEffect, useRef } from 'react';
+import { useSettings } from '@/hooks/useSettings';
+import { Particle } from '@/services/utils/Particle';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Snowfall: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -22,7 +22,7 @@ const Snowfall: FC = () => {
       canvasEl.width = window.innerWidth;
       canvasEl.height = window.innerHeight;
 
-      const ctx = canvasEl.getContext("2d");
+      const ctx = canvasEl.getContext('2d');
 
       if (ctx) {
         for (let i = 0; i < count; i++) {
@@ -32,7 +32,7 @@ const Snowfall: FC = () => {
         const animate = () => {
           ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
 
-          particles.forEach((particle) => {
+          particles.forEach(particle => {
             particle.draw(ctx);
             particle.update();
           });
@@ -49,7 +49,7 @@ const Snowfall: FC = () => {
     <AnimatePresence>
       {isEnabled && (
         <motion.div
-          className="fixed inset-0 pointer-events-none z-20"
+          className="pointer-events-none fixed inset-0 z-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

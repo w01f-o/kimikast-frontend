@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import { ChangeEvent, FC } from "react";
-import Container from "@/components/shared/layout/Container";
-import Row from "@/components/shared/layout/Row";
-import Col from "@/components/shared/layout/Col";
-import { Input } from "@nextui-org/input";
-import { useDebounceCallback } from "usehooks-ts";
-import TitleList from "@/components/widgets/Title/TitleList";
-import { useQuery } from "@tanstack/react-query";
-import { AnilibriaQueryKeys } from "@/enums/AnilibriaQueryKeys.enum";
-import TitleListLoader from "@/components/shared/UI/Loaders/TitleListLoader";
-import SearchFilter from "@/components/widgets/SearchFilter";
-import { Pagination } from "@nextui-org/pagination";
-import { anilibriaApi } from "@/services/api/anilibria/Anilibria.api";
-import { useSearchFilters } from "@/hooks/useSearchFilters";
-import PageHeading from "@/components/shared/UI/Text/PageHeading";
+import { ChangeEvent, FC } from 'react';
+import Container from '@/components/shared/layout/Container';
+import Row from '@/components/shared/layout/Row';
+import Col from '@/components/shared/layout/Col';
+import { Input } from '@nextui-org/input';
+import { useDebounceCallback } from 'usehooks-ts';
+import TitleList from '@/components/widgets/Title/TitleList';
+import { useQuery } from '@tanstack/react-query';
+import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
+import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
+import SearchFilter from '@/components/widgets/SearchFilter';
+import { Pagination } from '@nextui-org/pagination';
+import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { useSearchFilters } from '@/hooks/useSearchFilters';
+import PageHeading from '@/components/shared/UI/Text/PageHeading';
 
 interface SearchTitleProps {
   query?: string;
@@ -32,7 +32,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
         genres: genres!,
         year: years!,
         items_per_page: 18,
-        filter: ["code"],
+        filter: ['code'],
       }),
     enabled: !!query || !!genres || !!years,
   });
@@ -64,7 +64,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
 
       setFilters({ query: value });
     },
-    300,
+    300
   );
 
   return (
@@ -77,7 +77,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
           <Input
             size="lg"
             placeholder="Название"
-            defaultValue={query ?? ""}
+            defaultValue={query ?? ''}
             onChange={changeQueryHandler}
           />
           <SearchFilter />
@@ -90,11 +90,11 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
                   <>
                     <TitleList list={data.list} />
                     {paginationData!.pagination.pages > 1 && (
-                      <Col xs={12} className="flex justify-center mb-6">
+                      <Col xs={12} className="mb-6 flex justify-center">
                         <Pagination
                           total={paginationData!.pagination.pages}
                           initialPage={1}
-                          size={"lg"}
+                          size={'lg'}
                           showControls
                           page={page ? Number(page) : 1}
                           onChange={changePageHandler}
@@ -109,12 +109,12 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
               </>
             ) : (
               <Col xs={12}>
-                <div className="text-xl pt-2">Введите запрос</div>
+                <div className="pt-2 text-xl">Введите запрос</div>
               </Col>
             )}
             {isSuccess && data?.list.length === 0 && (
               <Col xs={12}>
-                <div className="text-xl pt-2">Ничего не найдено</div>
+                <div className="pt-2 text-xl">Ничего не найдено</div>
               </Col>
             )}
           </Row>

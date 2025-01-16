@@ -1,8 +1,8 @@
-import { axiosMain, axiosMainWithAuth } from "@/services/api/interceptors";
-import { AuthForm, User } from "@/types/entities/Auth.type";
-import { PublicUser } from "@/types/entities/PublicUser.type";
+import { axiosMain, axiosMainWithAuth } from '@/services/api/interceptors';
+import { AuthForm, User } from '@/types/entities/Auth.type';
+import { PublicUser } from '@/types/entities/PublicUser.type';
 
-const ENDPOINT = "user";
+const ENDPOINT = 'user';
 
 const getUser = async (): Promise<User> => {
   const { data } = await axiosMainWithAuth.get<User>(`/${ENDPOINT}`);
@@ -12,7 +12,7 @@ const getUser = async (): Promise<User> => {
 
 const getPublicUser = async (name: string): Promise<PublicUser> => {
   const { data } = await axiosMain.get<PublicUser>(
-    `/${ENDPOINT}/public/${name}`,
+    `/${ENDPOINT}/public/${name}`
   );
 
   return data;

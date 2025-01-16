@@ -1,5 +1,5 @@
-import { Store } from "@tanstack/store";
-import { User } from "@/types/entities/Auth.type";
+import { Store } from '@tanstack/store';
+import { User } from '@/types/entities/Auth.type';
 
 export const userStore = new Store<User | null>(null);
 export const accessTokenStore = new Store<string | null>(null);

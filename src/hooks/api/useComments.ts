@@ -1,10 +1,10 @@
 import {
   useSuspenseQuery,
   UseSuspenseQueryOptions,
-} from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { commentsApi } from "@/services/api/main/Comments.api";
-import { Comment } from "@/types/entities/Comment.type";
+} from '@tanstack/react-query';
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { commentsApi } from '@/services/api/main/Comments.api';
+import { Comment } from '@/types/entities/Comment.type';
 
 interface UseCommentsReturn {
   comments: Comment[];

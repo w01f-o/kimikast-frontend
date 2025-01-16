@@ -1,6 +1,6 @@
-import Cookies from "js-cookie";
-import { JwtTokens } from "@/enums/JwtTokens.enum";
-import { accessTokenStore } from "@/store/user.store";
+import Cookies from 'js-cookie';
+import { JwtTokens } from '@/enums/JwtTokens.enum';
+import { accessTokenStore } from '@/store/user.store';
 
 export const getAccessToken = (): string | null => {
   const accessToken = Cookies.get(JwtTokens.ACCESS);
@@ -12,7 +12,7 @@ export const saveAccessToken = (accessToken: string): void => {
   accessTokenStore.setState(() => accessToken);
 
   Cookies.set(JwtTokens.ACCESS, accessToken, {
-    sameSite: "strict",
+    sameSite: 'strict',
     domain: process.env.NEXT_PUBLIC_BASE_CLIENT_DOMAIN,
     expires: 7,
   });

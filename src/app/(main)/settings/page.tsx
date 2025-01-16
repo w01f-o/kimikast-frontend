@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import Settings from "@/components/pages/Settings";
+import { NextPage } from 'next';
+import Settings from '@/components/pages/Settings';
 
 interface PageProps {
   searchParams: Promise<{
@@ -9,8 +9,8 @@ interface PageProps {
 
 export async function generateStaticParams() {
   return [
-    { searchParams: { tab: "apperance" } },
-    { searchParams: { tab: "account" } },
+    { searchParams: { tab: 'apperance' } },
+    { searchParams: { tab: 'account' } },
   ];
 }
 

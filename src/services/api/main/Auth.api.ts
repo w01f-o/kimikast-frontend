@@ -1,17 +1,17 @@
-import { AuthForm, AuthResponse } from "@/types/entities/Auth.type";
-import { axiosMain } from "@/services/api/interceptors";
+import { AuthForm, AuthResponse } from '@/types/entities/Auth.type';
+import { axiosMain } from '@/services/api/interceptors';
 import {
   removeAccessToken,
   saveAccessToken,
-} from "@/services/auth/token.service";
-import { removeUser, setUser } from "@/store/user.store";
+} from '@/services/auth/token.service';
+import { removeUser, setUser } from '@/store/user.store';
 
-const ENDPOINT = "auth";
+const ENDPOINT = 'auth';
 
-const authorize = async (type: "login" | "register", data: AuthForm) => {
+const authorize = async (type: 'login' | 'register', data: AuthForm) => {
   const response = await axiosMain.post<AuthResponse>(
     `/${ENDPOINT}/${type}`,
-    data,
+    data
   );
 
   if (response.data.accessToken) {

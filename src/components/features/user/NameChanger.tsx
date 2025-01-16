@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { FC } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { Input } from "@nextui-org/input";
-import { useForm, useWatch } from "react-hook-form";
-import { User } from "@/types/entities/Auth.type";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@nextui-org/button";
-import { PenLine } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Skeleton } from "@nextui-org/skeleton";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { userApi } from "@/services/api/main/User.api";
+import { FC } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { Input } from '@nextui-org/input';
+import { useForm, useWatch } from 'react-hook-form';
+import { User } from '@/types/entities/Auth.type';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@nextui-org/button';
+import { PenLine } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Skeleton } from '@nextui-org/skeleton';
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { userApi } from '@/services/api/main/User.api';
 
 const NameChanger: FC = () => {
   const { user } = useAuth();
 
-  const { register, handleSubmit, control } = useForm<Pick<User, "name">>();
-  const inputValue = useWatch({ control, name: "name" });
+  const { register, handleSubmit, control } = useForm<Pick<User, 'name'>>();
+  const inputValue = useWatch({ control, name: 'name' });
 
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
@@ -28,18 +28,18 @@ const NameChanger: FC = () => {
     },
   });
 
-  const submitHandler = (data: Pick<User, "name">) => {
+  const submitHandler = (data: Pick<User, 'name'>) => {
     mutate({ name: data.name });
   };
 
   return (
-    <div className="flex gap-6 items-center text-xl">
+    <div className="flex items-center gap-6 text-xl">
       <p className="w-80">Сменить имя пользователя: </p>
       <form className="flex gap-2" onSubmit={handleSubmit(submitHandler)}>
         {user?.name ? (
           <>
             <Input
-              {...register("name", {
+              {...register('name', {
                 required: true,
               })}
               defaultValue={user.name}
@@ -64,7 +64,7 @@ const NameChanger: FC = () => {
             </AnimatePresence>
           </>
         ) : (
-          <Skeleton className="w-48 rounded-xl h-10" />
+          <Skeleton className="h-10 w-48 rounded-xl" />
         )}
       </form>
     </div>

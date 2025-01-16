@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { KimikastQueryKeys } from "@/enums/KimikastQueryKeys.enum";
-import { commentsApi } from "@/services/api/main/Comments.api";
-import { CreateCommentDto } from "@/types/dto/createComment.dto";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { commentsApi } from '@/services/api/main/Comments.api';
+import { CreateCommentDto } from '@/types/dto/createComment.dto';
 
 interface UseMutateCommentsReturn {
   mutate: ({ dto }: { dto: CreateCommentDto }) => void;
@@ -16,10 +16,10 @@ interface UseMutateCommentsParams {
 }
 
 type UseMutateComments = (
-  params: UseMutateCommentsParams,
+  params: UseMutateCommentsParams
 ) => UseMutateCommentsReturn;
 
-export const useMutateComments: UseMutateComments = (params) => {
+export const useMutateComments: UseMutateComments = params => {
   const { slug } = params;
 
   const queryClient = useQueryClient();

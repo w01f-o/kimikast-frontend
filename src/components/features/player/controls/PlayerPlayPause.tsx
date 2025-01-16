@@ -1,26 +1,26 @@
-import { FC } from "react";
-import { Spinner } from "@nextui-org/spinner";
-import { Button } from "@nextui-org/button";
-import { Pause, Play, Rewind } from "lucide-react";
-import { useStore } from "@tanstack/react-store";
-import { playerStore } from "@/store/player.store";
+import { FC } from 'react';
+import { Spinner } from '@nextui-org/spinner';
+import { Button } from '@nextui-org/button';
+import { Pause, Play, Rewind } from 'lucide-react';
+import { useStore } from '@tanstack/react-store';
+import { playerStore } from '@/store/player.store';
 
 const PlayerPlayPause: FC = () => {
   const { isLoading, isPlaying } = useStore(playerStore);
 
   const playPause = () =>
-    playerStore.setState((prev) => ({ ...prev, isPlaying: !prev.isPlaying }));
+    playerStore.setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
 
-  const rewindVideo = (type: "minus" | "plus") => () => {
+  const rewindVideo = (type: 'minus' | 'plus') => () => {
     switch (type) {
-      case "minus":
-        playerStore.setState((prev) => ({
+      case 'minus':
+        playerStore.setState(prev => ({
           ...prev,
           seek: prev.currentTime - 10,
         }));
         break;
-      case "plus":
-        playerStore.setState((prev) => ({
+      case 'plus':
+        playerStore.setState(prev => ({
           ...prev,
           seek: prev.currentTime + 10,
         }));
@@ -29,32 +29,32 @@ const PlayerPlayPause: FC = () => {
   };
 
   return (
-    <div className="flex gap-4 justify-center self-center">
+    <div className="flex justify-center gap-4 self-center">
       {isLoading ? (
-        <Spinner color={"white"} size={"lg"} className="" />
+        <Spinner color={'white'} size={'lg'} className="" />
       ) : (
         <>
           <Button
             isIconOnly
             className="rounded-full"
-            size={"lg"}
-            onClick={rewindVideo("minus")}
+            size={'lg'}
+            onPress={rewindVideo('minus')}
           >
             <Rewind />
           </Button>
           <Button
             isIconOnly
             className="rounded-full"
-            size={"lg"}
-            onClick={playPause}
+            size={'lg'}
+            onPress={playPause}
           >
             {isPlaying ? <Pause /> : <Play />}
           </Button>
           <Button
             isIconOnly
-            className="rounded-full rotate-180"
-            size={"lg"}
-            onClick={rewindVideo("plus")}
+            className="rotate-180 rounded-full"
+            size={'lg'}
+            onPress={rewindVideo('plus')}
           >
             <Rewind />
           </Button>
