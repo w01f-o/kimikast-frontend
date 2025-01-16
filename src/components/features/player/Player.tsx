@@ -147,7 +147,7 @@ const Player: FC<PlayerProps> = ({
       if (isPlaying && !currentProgress.isCompleted && user) {
         update(currentProgress);
       }
-    }, 5000);
+    }, 1000);
 
     return () => {
       clearInterval(interval);

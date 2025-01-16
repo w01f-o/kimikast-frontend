@@ -49,7 +49,7 @@ const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
     <canvas
       ref={canvasRef}
       className={clsx(
-        'pointer-events-none absolute inset-0 z-10 size-full opacity-80 blur-[80px] saturate-200'
+        'pointer-events-none absolute inset-0 z-10 size-full opacity-60 blur-[80px] saturate-200'
       )}
     />
   );
