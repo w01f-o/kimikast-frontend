@@ -1,4 +1,4 @@
-import Search from '@/components/pages/Search';
+import SearchPage from '@/components/pages/SearchPage';
 import { Metadata, NextPage } from 'next';
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ const Page: NextPage<PageProps> = async ({ searchParams }) => {
   const genres = (await searchParams)?.genres;
   const page = (await searchParams)?.page;
 
-  return <Search page={page} query={query} years={years} genres={genres} />;
+  return <SearchPage page={page} query={query} years={years} genres={genres} />;
 };
 
 export default Page;

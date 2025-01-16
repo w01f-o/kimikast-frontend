@@ -1,5 +1,5 @@
 import { Metadata, NextPage } from 'next';
-import TitlePage from '@/components/pages/TitlePage';
+import AnimePage from '@/components/pages/AnimePage';
 import {
   dehydrate,
   HydrationBoundary,
@@ -28,7 +28,7 @@ export async function generateStaticParams() {
     await queryClient.fetchQuery({
       queryKey: [AnilibriaQueryKeys.STATIC_UPDATES],
       queryFn: () =>
-        AnilibriaApi.getTitleUpdates({
+        AnilibriaApi.getAnimeUpdates({
           since: 1,
           itemsPerPage: 5,
           filter: ['code'],
@@ -95,7 +95,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <TitlePage slug={slug} />
+      <AnimePage slug={slug} />
     </HydrationBoundary>
   );
 };

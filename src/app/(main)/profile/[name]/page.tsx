@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Profile from '@/components/pages/Profile';
+import ProfilePage from '@/components/pages/ProfilePage';
 import {
   dehydrate,
   HydrationBoundary,
@@ -27,7 +27,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Profile name={clearedUsername} />
+      <ProfilePage name={clearedUsername} />
     </HydrationBoundary>
   );
 };

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import Time from '@/components/shared/UI/Text/Time';
+import Time from '@/components/shared/ui/text/Time';
 import { Slider } from '@nextui-org/slider';
 import { useStore } from '@tanstack/react-store';
 import { playerStore } from '@/store/player.store';

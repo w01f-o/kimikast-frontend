@@ -15,7 +15,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { CheckboxGroup } from '@nextui-org/checkbox';
-import { CustomCheckbox } from '@/components/shared/UI/CustomCheckbox';
+import { CustomCheckbox } from '@/components/shared/ui/CustomCheckbox';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { Spinner } from '@nextui-org/spinner';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
@@ -27,7 +27,7 @@ const SearchFilter: FC = () => {
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.FILTERS],
-    queryFn: AnilibriaApi.getTitleFilters,
+    queryFn: AnilibriaApi.getAnimeFilters,
   });
 
   const [yearsSelected, setYearsSelected] = useState<string[]>(

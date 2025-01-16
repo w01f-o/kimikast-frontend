@@ -10,7 +10,7 @@ export enum StatusEnum {
   NONONGOING = 4,
 }
 
-export class TitleType {
+export class AnimeType {
   @Expose({ name: 'full_string' })
   fullString!: string;
 
@@ -27,7 +27,7 @@ export class TitleType {
   length!: number;
 }
 
-export class TitleNames {
+export class AnimeNames {
   @Expose()
   ru!: string;
 
@@ -45,9 +45,9 @@ export class TitleRelease {
   @Expose()
   code!: string;
 
-  @Type(() => TitleNames)
+  @Type(() => AnimeNames)
   @Expose()
-  names!: TitleNames;
+  names!: AnimeNames;
 
   @Expose()
   ordinal!: number;
@@ -99,7 +99,7 @@ export class Blocked {
   bakanim!: boolean;
 }
 
-export class Title {
+export class Anime {
   @Expose()
   id!: number;
 
@@ -107,8 +107,8 @@ export class Title {
   code!: string;
 
   @Expose()
-  @Type(() => TitleNames)
-  names!: TitleNames;
+  @Type(() => AnimeNames)
+  names!: AnimeNames;
 
   @Expose()
   @Type(() => Franchise)
@@ -132,8 +132,8 @@ export class Title {
   lastChange!: number;
 
   @Expose()
-  @Type(() => TitleType)
-  type!: TitleType;
+  @Type(() => AnimeType)
+  type!: AnimeType;
 
   @Expose()
   genres!: string[];

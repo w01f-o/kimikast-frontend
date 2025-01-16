@@ -4,7 +4,7 @@ import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
 import { DropdownTrigger } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
 import { FolderHeart } from 'lucide-react';
-import { defaultCollectionNames } from '@/components/entities/Collection';
+import { defaultCollectionNames } from '@/components/entities/UserList';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
@@ -12,12 +12,12 @@ import { useParams } from 'next/navigation';
 import { useMutateLists } from '@/hooks/api/useMutateLists';
 import { useLists } from '@/hooks/api/useLists';
 
-const TitleInCollections: FC = ({}) => {
+const AnimeInList: FC = ({}) => {
   const slug = useParams().slug as string;
 
   const { data: title } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
   });
 
   const {
@@ -75,4 +75,4 @@ const TitleInCollections: FC = ({}) => {
   );
 };
 
-export default TitleInCollections;
+export default AnimeInList;

@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Settings from '@/components/pages/Settings';
+import SettingsPage from '@/components/pages/SettingsPage';
 
 interface PageProps {
   searchParams: Promise<{
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 const Page: NextPage<PageProps> = async ({ searchParams }) => {
   const tab = (await searchParams)?.tab;
 
-  return <Settings tab={tab} />;
+  return <SettingsPage tab={tab} />;
 };
 
 export default Page;

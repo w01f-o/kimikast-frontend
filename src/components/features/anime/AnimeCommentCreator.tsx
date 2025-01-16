@@ -9,7 +9,7 @@ import { useParams } from 'next/navigation';
 import { useMutateComments } from '@/hooks/api/useMutateComments';
 import { useComments } from '@/hooks/api/useComments';
 
-const TitleCommentCreator: FC = () => {
+const AnimeCommentCreator: FC = () => {
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ const TitleCommentCreator: FC = () => {
     slug,
     onSuccess: () => {
       reset();
-      if (!comments.length) {
+      if (comments.length < 5) {
         requestAnimationFrame(() => {
           window.scrollTo({
             top: document.body.scrollHeight,
@@ -69,4 +69,4 @@ const TitleCommentCreator: FC = () => {
   );
 };
 
-export default TitleCommentCreator;
+export default AnimeCommentCreator;

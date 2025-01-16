@@ -1,13 +1,13 @@
 import axios, { AxiosInstance } from 'axios';
 import { plainToInstance } from 'class-transformer';
-import { Title } from '@/types/anilibria/entities/Title.type';
+import { Anime } from '@/types/anilibria/entities/Anime.type';
 import { serialize } from '@/services/utils/serialize';
 import { SearchResult } from '@/types/anilibria/SearchResult.type';
 import { Filters } from '@/types/anilibria/entities/Filters.type';
-import { GetTitleParams } from '@/types/anilibria/GetTitleParams.type';
-import { GetTitlesListParams } from '@/types/anilibria/GetTitleListParams.type';
+import { GetTitleParams } from '@/types/anilibria/GetAnimeParams.type';
+import { GetTitlesListParams } from '@/types/anilibria/GetAnimeListParams.type';
 import { GetTitleUpdatesParams } from '@/types/GetTitlesParams.type';
-import { SearchTitlesParams } from '@/types/anilibria/SearchTitles.Params';
+import { SearchAnimeParams } from '@/types/anilibria/SearchAnime.Params';
 
 export class AnilibriaApi {
   public static readonly IMAGE_URL: string = 'https://dl-20241107-5.anilib.moe';
@@ -46,25 +46,25 @@ export class AnilibriaApi {
     return transformedParams;
   }
 
-  public static async getTitle(
+  public static async getAnime(
     params: GetTitleParams,
     signal?: AbortSignal
-  ): Promise<Title> {
-    const { data } = await this.axios.get<Title>(`/${this.TITLE_ENDPOINT}`, {
+  ): Promise<Anime> {
+    const { data } = await this.axios.get<Anime>(`/${this.TITLE_ENDPOINT}`, {
       params: this.transformParams(params),
       signal,
     });
 
     return serialize(
-      plainToInstance(Title, data, { excludeExtraneousValues: true })
+      plainToInstance(Anime, data, { excludeExtraneousValues: true })
     );
   }
 
-  public static async getTitlesList(
+  public static async getAnimeList(
     params: GetTitlesListParams,
     signal?: AbortSignal
-  ): Promise<Title[]> {
-    const { data } = await this.axios.get<Title[]>(
+  ): Promise<Anime[]> {
+    const { data } = await this.axios.get<Anime[]>(
       `/${this.TITLE_ENDPOINT}/list`,
       {
         params: this.transformParams(params),
@@ -73,11 +73,11 @@ export class AnilibriaApi {
     );
 
     return serialize(
-      plainToInstance(Title, data, { excludeExtraneousValues: true })
+      plainToInstance(Anime, data, { excludeExtraneousValues: true })
     );
   }
 
-  public static async getTitleUpdates(
+  public static async getAnimeUpdates(
     params: GetTitleUpdatesParams,
     signal?: AbortSignal
   ) {
@@ -94,8 +94,8 @@ export class AnilibriaApi {
     );
   }
 
-  public static async searchTitles(
-    params: SearchTitlesParams,
+  public static async searchAnime(
+    params: SearchAnimeParams,
     signal?: AbortSignal
   ): Promise<SearchResult> {
     const { data } = await this.axios.get<SearchResult>(
@@ -111,7 +111,7 @@ export class AnilibriaApi {
     );
   }
 
-  public static async getTitleFilters(signal?: AbortSignal): Promise<Filters> {
+  public static async getAnimeFilters(signal?: AbortSignal): Promise<Filters> {
     const [{ data: years }, { data: genres }] = await Promise.all([
       this.axios.get('/years', { signal }),
       this.axios.get('/genres', { signal }),

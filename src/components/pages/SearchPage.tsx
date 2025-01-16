@@ -6,15 +6,15 @@ import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { Input } from '@nextui-org/input';
 import { useDebounceCallback } from 'usehooks-ts';
-import TitleList from '@/components/widgets/Title/TitleList';
+import AnimeList from '@/components/widgets/anime/AnimeList';
 import { useQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
+import AnimeListLoader from '@/components/shared/ui/loaders/AnimeListLoader';
 import SearchFilter from '@/components/widgets/SearchFilter';
 import { Pagination } from '@nextui-org/pagination';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
-import PageHeading from '@/components/shared/UI/Text/PageHeading';
+import PageHeading from '@/components/shared/ui/text/PageHeading';
 
 interface SearchTitleProps {
   query?: string;
@@ -23,11 +23,11 @@ interface SearchTitleProps {
   page?: string;
 }
 
-const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
+const SearchPage: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   const { data: paginationData, isLoading: paginationIsLoading } = useQuery({
     queryKey: [AnilibriaQueryKeys.PAGINATION, query, years, genres],
     queryFn: () =>
-      AnilibriaApi.searchTitles({
+      AnilibriaApi.searchAnime({
         search: query!,
         genres: genres!,
         year: years!,
@@ -40,7 +40,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, page],
     queryFn: () =>
-      AnilibriaApi.searchTitles({
+      AnilibriaApi.searchAnime({
         search: query!,
         genres: genres!,
         year: years!,
@@ -88,7 +88,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
               <>
                 {isSuccess && (
                   <>
-                    <TitleList list={data.list} />
+                    <AnimeList list={data.list} />
                     {paginationData!.pagination.pages > 1 && (
                       <Col xs={12} className="mb-6 flex justify-center">
                         <Pagination
@@ -104,7 +104,7 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
                   </>
                 )}
                 {(isLoading || paginationIsLoading) && (
-                  <TitleListLoader length={18} />
+                  <AnimeListLoader length={18} />
                 )}
               </>
             ) : (
@@ -124,4 +124,4 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   );
 };
 
-export default Search;
+export default SearchPage;

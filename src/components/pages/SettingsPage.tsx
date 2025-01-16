@@ -7,7 +7,7 @@ import Col from '@/components/shared/layout/Col';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import Link from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
-import PageHeading from '@/components/shared/UI/Text/PageHeading';
+import PageHeading from '@/components/shared/ui/text/PageHeading';
 import ToggleSnow from '@/components/features/apperance/ToggleSnow';
 import AccountDeleter from '@/components/features/user/AccountDeleter';
 import PasswordChanger from '@/components/features/user/PasswordChanger';
@@ -18,7 +18,7 @@ interface SettingsProps {
   tab?: string;
 }
 
-const Settings: FC<SettingsProps> = ({ tab }) => {
+const SettingsPage: FC<SettingsProps> = ({ tab }) => {
   return (
     <Container>
       <Row className="pt-8">
@@ -55,4 +55,4 @@ const Settings: FC<SettingsProps> = ({ tab }) => {
   );
 };
 
-export default Settings;
+export default SettingsPage;

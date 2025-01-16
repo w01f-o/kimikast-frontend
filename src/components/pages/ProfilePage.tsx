@@ -15,7 +15,7 @@ interface ProfileProps {
   name: string;
 }
 
-const Profile: FC<ProfileProps> = ({ name }) => {
+const ProfilePage: FC<ProfileProps> = ({ name }) => {
   const { data } = useSuspenseQuery({
     queryKey: [DefaultQueryKeys.PUBLIC_USER, name],
     queryFn: () => UserApi.findPublic(name),
@@ -52,4 +52,4 @@ const Profile: FC<ProfileProps> = ({ name }) => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

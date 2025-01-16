@@ -13,14 +13,14 @@ interface WatchProps {
   episode: string;
 }
 
-const Watch: FC<WatchProps> = ({ slug, episode }) => {
+const WatchPage: FC<WatchProps> = ({ slug, episode }) => {
   const {
     data: {
       player: { host, list },
     },
   } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
   });
 
   const { progress, fetch, isLoading } = useProgress();
@@ -68,4 +68,4 @@ const Watch: FC<WatchProps> = ({ slug, episode }) => {
   );
 };
 
-export default Watch;
+export default WatchPage;

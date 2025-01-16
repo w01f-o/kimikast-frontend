@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
@@ -12,18 +12,19 @@ import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { TvMinimalPlay } from 'lucide-react';
 import { Chip } from '@nextui-org/chip';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
-import TitleComments from '@/components/widgets/Title/Comments/TitleComments';
-import TitleFranchise from '@/components/widgets/Title/TitleFranchise';
-import TitleInCollections from '@/components/features/title/TitleInCollections';
+import TitleComments from '@/components/widgets/anime/comments/TitleComments';
+import AnimeFranchise from '@/components/widgets/anime/AnimeFranchise';
+import AnimeInList from '@/components/features/anime/AnimeInList';
 import { useAuth } from '@/hooks/useAuth';
-import { StatusEnum } from '@/types/anilibria/entities/Title.type';
+import { StatusEnum } from '@/types/anilibria/entities/Anime.type';
 import { useAnime } from '@/hooks/api/anilibria/useAnime';
+import { useProgress } from '@/hooks/api/useProgress';
 
 interface TitleProps {
   slug: string;
 }
 
-const TitlePage: FC<TitleProps> = ({ slug }) => {
+const AnimePage: FC<TitleProps> = ({ slug }) => {
   const { anime } = useAnime({ code: slug });
 
   const { user } = useAuth();
@@ -38,6 +39,14 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
         return 'default';
     }
   }, [anime.status.code]);
+
+  const { progress, fetch } = useProgress();
+
+  useEffect(() => {
+    if (user) {
+      fetch();
+    }
+  }, [fetch, user]);
 
   return (
     <Container>
@@ -79,17 +88,19 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
                 color={'primary'}
                 size={'lg'}
               >
-                Смотреть
+                {progress
+                  ? `Продолжить смотреть (Эпизод ${progress.currentEpisode})`
+                  : 'Смотреть'}
               </Button>
-              {user && <TitleInCollections />}
+              {user && <AnimeInList />}
             </div>
           </div>
         </Col>
-        <TitleFranchise slug={slug} />
+        <AnimeFranchise slug={slug} />
         <TitleComments slug={slug} />
       </Row>
     </Container>
   );
 };
 
-export default TitlePage;
+export default AnimePage;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Col from '@/components/shared/layout/Col';
 import Row from '@/components/shared/layout/Row';
-import TitleCommentCreator from '@/components/features/title/TitleCommentCreator';
+import AnimeCommentCreator from '@/components/features/anime/AnimeCommentCreator';
 import Comment from '@/components/entities/Comment';
 import { useComments } from '@/hooks/api/useComments';
 
@@ -17,7 +17,7 @@ const TitleComments: FC<TitleCommentsProps> = ({ slug }) => {
       <Col xs={12}>
         <h3 className="mb-6 pt-8 text-center text-3xl">Комментарии</h3>
       </Col>
-      <TitleCommentCreator />
+      <AnimeCommentCreator />
       <Col xs={12}>
         <Row>
           {comments.map(item => (

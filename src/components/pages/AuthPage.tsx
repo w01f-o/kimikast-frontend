@@ -16,13 +16,13 @@ import { AuthApi } from '@/services/api/default/Auth.api';
 import { useRouter } from 'nextjs-toploader/app';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/hooks/useAuth';
-import PageHeading from '@/components/shared/UI/Text/PageHeading';
+import PageHeading from '@/components/shared/ui/text/PageHeading';
 
 interface AuthProps {
   type: 'login' | 'register';
 }
 
-const Auth: FC<AuthProps> = ({ type }) => {
+const AuthPage: FC<AuthProps> = ({ type }) => {
   const { handleSubmit, register, reset } = useForm<AuthForm>();
   const { user } = useAuth();
   const router = useRouter();
@@ -101,4 +101,4 @@ const Auth: FC<AuthProps> = ({ type }) => {
   );
 };
 
-export default Auth;
+export default AuthPage;

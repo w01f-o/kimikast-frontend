@@ -33,7 +33,7 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
     data: { names },
   } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
   });
 
   return (

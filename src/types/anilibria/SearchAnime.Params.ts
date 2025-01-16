@@ -1,4 +1,4 @@
-export interface SearchTitlesParams {
+export interface SearchAnimeParams {
   search: string;
   year?: string[] | string;
   type?: string[];

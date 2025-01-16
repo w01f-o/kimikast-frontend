@@ -1,6 +1,6 @@
 import { Metadata, NextPage } from 'next';
 import { Suspense } from 'react';
-import Library from '@/components/pages/library/Library';
+import LibraryPage from '@/components/pages/library/LibraryPage';
 
 export const metadata: Metadata = {
   title: 'Kimikast - Моя библиотека',
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Page: NextPage = () => {
   return (
     <Suspense>
-      <Library />
+      <LibraryPage />
     </Suspense>
   );
 };

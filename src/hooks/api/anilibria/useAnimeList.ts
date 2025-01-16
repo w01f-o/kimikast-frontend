@@ -5,11 +5,11 @@ import {
 } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
-import { Title } from '@/types/anilibria/entities/Title.type';
-import { GetTitlesListParams } from '@/types/anilibria/GetTitleListParams.type';
+import { Anime } from '@/types/anilibria/entities/Anime.type';
+import { GetTitlesListParams } from '@/types/anilibria/GetAnimeListParams.type';
 
 interface UseAnimeListReturn {
-  animes: Title[] | undefined;
+  animes: Anime[] | undefined;
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;
@@ -18,7 +18,7 @@ interface UseAnimeListReturn {
 interface UseAnimeListParams {
   apiParams: GetTitlesListParams;
   hookParams?: Omit<
-    UndefinedInitialDataOptions<Title[], Error, Title[], QueryKey>,
+    UndefinedInitialDataOptions<Anime[], Error, Anime[], QueryKey>,
     'queryFn' | 'queryKey'
   >;
 }
@@ -27,9 +27,9 @@ type UseAnimeList = (params: UseAnimeListParams) => UseAnimeListReturn;
 
 export const getAnimeListQueryHookParams = (
   params: GetTitlesListParams
-): UndefinedInitialDataOptions<Title[], Error, Title[], QueryKey> => ({
+): UndefinedInitialDataOptions<Anime[], Error, Anime[], QueryKey> => ({
   queryKey: [AnilibriaQueryKeys.TITLE, ...Object.values(params)],
-  queryFn: ({ signal }) => AnilibriaApi.getTitlesList(params, signal),
+  queryFn: ({ signal }) => AnilibriaApi.getAnimeList(params, signal),
 });
 
 export const useAnimeList: UseAnimeList = ({ apiParams, hookParams }) => {

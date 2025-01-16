@@ -1,11 +1,11 @@
 import { Expose, Type } from 'class-transformer';
-import { Title } from '@/types/anilibria/entities/Title.type';
+import { Anime } from '@/types/anilibria/entities/Anime.type';
 import { Pagination } from '@/types/anilibria/Pagination.type';
 
 export class SearchResult {
   @Expose()
-  @Type(() => Title)
-  list!: Title[];
+  @Type(() => Anime)
+  list!: Anime[];
 
   @Expose()
   @Type(() => Pagination)

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { List } from '@/types/entities/List.type';
-import Collection from '@/components/entities/Collection';
+import UserList from '@/components/entities/UserList';
 import Col from '@/components/shared/layout/Col';
 
 interface UserListCollectionProps {
@@ -10,7 +10,7 @@ interface UserListCollectionProps {
 const CollectionList: FC<UserListCollectionProps> = ({ lists }) => {
   return lists.map(list => (
     <Col xs={2} key={list.id}>
-      <Collection item={list} />
+      <UserList item={list} />
     </Col>
   ));
 };

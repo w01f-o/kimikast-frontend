@@ -17,7 +17,7 @@ export const defaultCollectionNames = {
   abandoned: 'Заброшено',
 };
 
-const Collection: FC<UserListProps> = ({ item }) => {
+const UserList: FC<UserListProps> = ({ item }) => {
   return (
     <Card
       as={Link}
@@ -43,4 +43,4 @@ const Collection: FC<UserListProps> = ({ item }) => {
   );
 };
 
-export default Collection;
+export default UserList;

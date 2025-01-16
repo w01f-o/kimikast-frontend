@@ -7,17 +7,17 @@ import Col from '@/components/shared/layout/Col';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { useIntersectionObserver } from 'usehooks-ts';
-import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
-import TitleList from '@/components/widgets/Title/TitleList';
+import AnimeListLoader from '@/components/shared/ui/loaders/AnimeListLoader';
+import AnimeList from '@/components/widgets/anime/AnimeList';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
-import PageHeading from '@/components/shared/UI/Text/PageHeading';
+import PageHeading from '@/components/shared/ui/text/PageHeading';
 
-const Home: FC = () => {
+const HomePage: FC = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: [AnilibriaQueryKeys.UPDATES],
       queryFn: ({ pageParam }) =>
-        AnilibriaApi.getTitleUpdates({ page: pageParam, itemsPerPage: 24 }),
+        AnilibriaApi.getAnimeUpdates({ page: pageParam, itemsPerPage: 24 }),
       initialPageParam: 1,
       getNextPageParam: lastPage =>
         lastPage?.pagination?.currentPage + 1 || undefined,
@@ -40,13 +40,13 @@ const Home: FC = () => {
           <PageHeading>Свежее</PageHeading>
         </Col>
         {data?.pages.map(page => (
-          <TitleList key={page.pagination.currentPage} list={page.list} />
+          <AnimeList key={page.pagination.currentPage} list={page.list} />
         ))}
-        {isFetchingNextPage && <TitleListLoader length={24} />}
+        {isFetchingNextPage && <AnimeListLoader length={24} />}
         <div ref={ref} className="h-10 w-full"></div>
       </Row>
     </Container>
   );
 };
 
-export default Home;
+export default HomePage;

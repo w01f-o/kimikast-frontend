@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import type { Title as TitleType } from '@/types/anilibria/entities/Title.type';
+import type { Anime as TitleType } from '@/types/anilibria/entities/Anime.type';
 import { Card } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
@@ -14,7 +14,7 @@ interface TitleProps {
   title: TitleType;
 }
 
-const Title: FC<TitleProps> = ({ title }) => {
+const Anime: FC<TitleProps> = ({ title }) => {
   const { isHovered, hoverProps } = useHover({});
   const [imageIsLoaded, setImageIsLoaded] = useState<boolean>(false);
 
@@ -71,4 +71,4 @@ const Title: FC<TitleProps> = ({ title }) => {
   );
 };
 
-export default Title;
+export default Anime;

@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import Auth from '@/components/pages/Auth';
+import AuthPage from '@/components/pages/AuthPage';
 
 const Page: NextPage = () => {
-  return <Auth type={'register'} />;
+  return <AuthPage type={'register'} />;
 };
 
 export default Page;

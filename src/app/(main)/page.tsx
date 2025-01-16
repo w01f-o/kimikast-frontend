@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Home from '@/components/pages/Home';
+import HomePage from '@/components/pages/HomePage';
 import {
   dehydrate,
   HydrationBoundary,
@@ -14,13 +14,13 @@ const Page: FC = async () => {
   await queryClient.prefetchInfiniteQuery({
     queryKey: [AnilibriaQueryKeys.UPDATES],
     queryFn: ({ pageParam }) =>
-      AnilibriaApi.getTitleUpdates({ page: pageParam, itemsPerPage: 24 }),
+      AnilibriaApi.getAnimeUpdates({ page: pageParam, itemsPerPage: 24 }),
     initialPageParam: 1,
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Home />
+      <HomePage />
     </HydrationBoundary>
   );
 };

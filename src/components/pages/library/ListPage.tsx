@@ -5,23 +5,23 @@ import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { Skeleton } from '@nextui-org/skeleton';
-import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
-import TitleList from '@/components/widgets/Title/TitleList';
-import { defaultCollectionNames } from '@/components/entities/Collection';
-import PageHeading from '@/components/shared/UI/Text/PageHeading';
+import AnimeListLoader from '@/components/shared/ui/loaders/AnimeListLoader';
+import AnimeList from '@/components/widgets/anime/AnimeList';
+import { defaultCollectionNames } from '@/components/entities/UserList';
+import PageHeading from '@/components/shared/ui/text/PageHeading';
 import { useList } from '@/hooks/api/anilibria/useList';
 import { useAnimeList } from '@/hooks/api/anilibria/useAnimeList';
 
 interface ListPageProps {
-  collectionId: string;
+  id: string;
 }
 
-const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
+const ListPage: FC<ListPageProps> = ({ id }) => {
   const {
     list,
     isLoading: listIsLoading,
     isSuccess: listIsSuccess,
-  } = useList({ id: collectionId });
+  } = useList({ id });
 
   const titleSlugs = list?.animes.map(({ anilibriaSlug }) => anilibriaSlug);
 
@@ -53,8 +53,8 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
         </Col>
       </Row>
       <Row>
-        {animesIsLoading && <TitleListLoader />}
-        {animesIsSuccess && <TitleList list={animes!} />}
+        {animesIsLoading && <AnimeListLoader />}
+        {animesIsSuccess && <AnimeList list={animes!} />}
         {listIsSuccess && !titleSlugs?.length && (
           <Col xs={12}>
             <div className="pt-6 text-center text-2xl">Список пуст</div>
@@ -65,4 +65,4 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
   );
 };
 
-export default CollectionPage;
+export default ListPage;
