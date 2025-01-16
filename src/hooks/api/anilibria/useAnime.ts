@@ -20,7 +20,7 @@ type UseAnime = (params: GetTitleParams) => UseAnimeReturn;
 export const getAnimeQueryHookParams = (
   params: GetTitleParams
 ): UseSuspenseQueryOptions<Anime, Error, Anime, QueryKey> => ({
-  queryKey: [AnilibriaQueryKeys.TITLE, ...Object.values(params)],
+  queryKey: [AnilibriaQueryKeys.ANIME, ...Object.values(params)],
   queryFn: ({ signal }) => AnilibriaApi.getAnime(params, signal),
 });
 

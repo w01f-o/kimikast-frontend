@@ -12,7 +12,7 @@ const WatchLayout: FC<WatchLayoutProps> = ({ children }) => {
       <main className="flex flex-grow flex-col justify-center overflow-hidden">
         {children}
         <NextTopLoader showSpinner={false} />
-        <Toaster />
+        <Toaster position={'bottom-right'} />
       </main>
     </>
   );

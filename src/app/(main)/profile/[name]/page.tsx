@@ -5,8 +5,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { UserApi } from '@/services/api/default/User.api';
-import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { getPublicUserQueryHookParams } from '@/hooks/api/usePublicUser';
 
 interface PageProps {
   params: Promise<{
@@ -21,8 +20,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [DefaultQueryKeys.PUBLIC_USER, clearedUsername],
-    queryFn: () => UserApi.findPublic(clearedUsername),
+    ...getPublicUserQueryHookParams(clearedUsername),
   });
 
   return (

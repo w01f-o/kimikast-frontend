@@ -16,7 +16,7 @@ const AnimeInList: FC = ({}) => {
   const slug = useParams().slug as string;
 
   const { data: title } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
+    queryKey: [AnilibriaQueryKeys.ANIME, slug],
     queryFn: () => AnilibriaApi.getAnime({ code: slug }),
   });
 

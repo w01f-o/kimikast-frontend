@@ -40,7 +40,7 @@ export class AnilibriaApi {
     }
 
     if (!('playlist_type' in transformedParams)) {
-      transformedParams.playlist_type = 'array';
+      transformedParams.playlist_type = 'object';
     }
 
     return transformedParams;

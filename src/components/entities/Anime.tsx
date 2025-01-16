@@ -26,7 +26,7 @@ const Anime: FC<TitleProps> = ({ title }) => {
     <Card
       {...hoverProps}
       as={Link}
-      href={`${RoutePaths.TITLE}/${title.code}`}
+      href={`${RoutePaths.ANIME}/${title.code}`}
       disableAnimation
       isPressable={true}
       aria-label={`Посмотреть информацию об "${title.names.ru}"`}

@@ -4,7 +4,7 @@ export enum RoutePaths {
   REGISTER = '/auth/register',
   LIBRARY = '/library',
   PROFILE = '/profile',
-  TITLE = '/title',
+  ANIME = '/anime',
   SEARCH = '/search',
   WATCH = '/watch',
   SETTINGS = '/settings',

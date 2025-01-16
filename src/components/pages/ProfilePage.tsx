@@ -6,20 +6,15 @@ import { Image } from '@nextui-org/image';
 import NextImage from 'next/image';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
-import { UserApi } from '@/services/api/default/User.api';
 import { Avatar } from '@nextui-org/avatar';
+import { usePublicUser } from '@/hooks/api/usePublicUser';
 
 interface ProfileProps {
   name: string;
 }
 
 const ProfilePage: FC<ProfileProps> = ({ name }) => {
-  const { data } = useSuspenseQuery({
-    queryKey: [DefaultQueryKeys.PUBLIC_USER, name],
-    queryFn: () => UserApi.findPublic(name),
-  });
+  const { user } = usePublicUser({ name });
 
   return (
     <div className="relative pt-4">
@@ -38,12 +33,12 @@ const ProfilePage: FC<ProfileProps> = ({ name }) => {
           <Col xs={3}>
             <div className="flex items-center gap-4 pb-8 pl-20">
               <Avatar
-                src={`${process.env.NEXT_PUBLIC_KIMIKAST_STATIC_URL}/avatar/${data.avatar}`}
+                src={`${process.env.NEXT_PUBLIC_KIMIKAST_STATIC_URL}/avatar/${user.avatar}`}
                 size="lg"
                 isBordered
                 color={'primary'}
               />
-              <div className="text-2xl font-bold">{data.name}</div>
+              <div className="text-2xl font-bold">{user.name}</div>
             </div>
           </Col>
         </Row>

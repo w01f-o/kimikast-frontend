@@ -28,7 +28,7 @@ type UseAnimeList = (params: UseAnimeListParams) => UseAnimeListReturn;
 export const getAnimeListQueryHookParams = (
   params: GetTitlesListParams
 ): UndefinedInitialDataOptions<Anime[], Error, Anime[], QueryKey> => ({
-  queryKey: [AnilibriaQueryKeys.TITLE, ...Object.values(params)],
+  queryKey: [AnilibriaQueryKeys.ANIME_LIST, ...Object.values(params)],
   queryFn: ({ signal }) => AnilibriaApi.getAnimeList(params, signal),
 });
 

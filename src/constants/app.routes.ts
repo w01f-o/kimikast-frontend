@@ -8,5 +8,5 @@ export const appRoutes: Readonly<AppRoute[]> = [
   { name: 'Регистрация', path: RoutePaths.REGISTER },
   { name: 'Профиль', path: RoutePaths.PROFILE },
   { name: 'Поиск', path: RoutePaths.SEARCH },
-  { name: 'Аниме', path: RoutePaths.TITLE },
+  { name: 'Аниме', path: RoutePaths.ANIME },
 ];

@@ -29,7 +29,7 @@ export const useProgress: UseProgress = () => {
     refetch: fetch,
     isLoading,
   } = useQuery({
-    queryKey: [DefaultQueryKeys.PROGRESS],
+    queryKey: [DefaultQueryKeys.PROGRESS, anilibriaSlug?.toString()],
     queryFn: () => ProgressApi.getBySlug(anilibriaSlug?.toString()),
     enabled: false,
   });

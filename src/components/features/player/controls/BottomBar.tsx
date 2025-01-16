@@ -20,7 +20,7 @@ const BottomBar: FC = () => {
       player: { list },
     },
   } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
+    queryKey: [AnilibriaQueryKeys.ANIME, slug],
     queryFn: () => AnilibriaApi.getAnime({ code: slug }),
   });
 

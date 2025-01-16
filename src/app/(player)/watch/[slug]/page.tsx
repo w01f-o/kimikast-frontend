@@ -1,8 +1,7 @@
 import { Metadata, NextPage } from 'next';
 import { QueryClient } from '@tanstack/react-query';
 import WatchPage from '@/components/pages/WatchPage';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { getAnimeQueryHookParams } from '@/hooks/api/anilibria/useAnime';
 
 interface PageProps {
   params: Promise<{
@@ -21,8 +20,7 @@ export async function generateMetadata({
   const queryClient = new QueryClient();
 
   const data = await queryClient.fetchQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
+    ...getAnimeQueryHookParams({ code: slug }),
   });
 
   return {

@@ -2,11 +2,9 @@
 
 import { FC, useEffect } from 'react';
 import Player from '@/components/features/player/Player';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { useProgress } from '@/hooks/api/useProgress';
 import { Spinner } from '@nextui-org/spinner';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { useAnime } from '@/hooks/api/anilibria/useAnime';
 
 interface WatchProps {
   slug: string;
@@ -15,15 +13,16 @@ interface WatchProps {
 
 const WatchPage: FC<WatchProps> = ({ slug, episode }) => {
   const {
-    data: {
+    anime: {
       player: { host, list },
     },
-  } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
-  });
+  } = useAnime({ code: slug });
 
   const { progress, fetch, isLoading } = useProgress();
+
+  console.log(progress);
+
+  console.log(list);
 
   useEffect(() => {
     fetch();

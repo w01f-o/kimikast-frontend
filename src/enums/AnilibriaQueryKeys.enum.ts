@@ -1,8 +1,8 @@
 export enum AnilibriaQueryKeys {
-  TITLE = 'title',
+  ANIME = 'title',
   SEARCH = 'search',
   UPDATES = 'updates',
-  TITLE_LIST = 'title_list',
+  ANIME_LIST = 'title_list',
   STATIC_UPDATES = 'static_updates',
   FILTERS = 'filters',
   PAGINATION = 'pagination',
