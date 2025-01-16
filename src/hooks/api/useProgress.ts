@@ -4,7 +4,7 @@ import {
   useMutation,
   useQuery,
 } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { Progress } from '@/types/entities/Progress';
 import { useParams } from 'next/navigation';
 import { UpdateProgressDto } from '@/types/dto/UpdateProgress.dto';
@@ -29,7 +29,7 @@ export const useProgress: UseProgress = () => {
     refetch: fetch,
     isLoading,
   } = useQuery({
-    queryKey: [KimikastQueryKeys.PROGRESS],
+    queryKey: [DefaultQueryKeys.PROGRESS],
     queryFn: () => ProgressApi.getBySlug(anilibriaSlug?.toString()),
     enabled: false,
   });

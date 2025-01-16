@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { ListsApi } from '@/services/api/default/Lists.api';
 
 interface UseMutateListsReturn {
@@ -29,7 +29,7 @@ export const useMutateLists: UseMutateLists = ({
   const queryClient = useQueryClient();
 
   const { mutate, isError, isPending, isSuccess } = useMutation({
-    mutationKey: [KimikastQueryKeys.LISTS],
+    mutationKey: [DefaultQueryKeys.LISTS],
     mutationFn: ({
       listId,
       type,
@@ -50,7 +50,7 @@ export const useMutateLists: UseMutateLists = ({
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [KimikastQueryKeys.LISTS],
+        queryKey: [DefaultQueryKeys.LISTS],
       });
 
       params.onSuccess?.();

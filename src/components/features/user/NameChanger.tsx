@@ -5,13 +5,11 @@ import { useAuth } from '@/hooks/useAuth';
 import { Input } from '@nextui-org/input';
 import { useForm, useWatch } from 'react-hook-form';
 import { User } from '@/types/entities/Auth.type';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@nextui-org/button';
 import { PenLine } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Skeleton } from '@nextui-org/skeleton';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
-import { UserApi } from '@/services/api/default/User.api';
+import { useMutateUser } from '@/hooks/api/useMutateUser';
 
 const NameChanger: FC = () => {
   const { user } = useAuth();
@@ -19,13 +17,7 @@ const NameChanger: FC = () => {
   const { register, handleSubmit, control } = useForm<Pick<User, 'name'>>();
   const inputValue = useWatch({ control, name: 'name' });
 
-  const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: ({ name }: { name: string }) => UserApi.update({ name }),
-    onSuccess: async () => {
-      await queryClient.refetchQueries({ queryKey: [KimikastQueryKeys.USER] });
-    },
-  });
+  const { mutate } = useMutateUser();
 
   const submitHandler = (data: Pick<User, 'name'>) => {
     mutate({ name: data.name });
@@ -55,7 +47,7 @@ const NameChanger: FC = () => {
                     ease: [0.16, 1, 0.2, 1],
                   }}
                 >
-                  <Button isIconOnly type="submit" isDisabled={isPending}>
+                  <Button isIconOnly type="submit">
                     <PenLine />
                   </Button>
                 </motion.div>

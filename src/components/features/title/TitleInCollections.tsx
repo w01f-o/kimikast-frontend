@@ -43,7 +43,7 @@ const TitleInCollections: FC = ({}) => {
     <>
       {listsIsLoading && <Spinner />}
       {listsIsSuccess && (
-        <Dropdown>
+        <Dropdown shouldBlockScroll={false}>
           <DropdownTrigger>
             <Button isIconOnly endContent={<FolderHeart />} />
           </DropdownTrigger>

@@ -9,6 +9,8 @@ import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { notFound } from 'next/navigation';
 import { getCommentsQueryHookParams } from '@/hooks/api/useComments';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { getAnimeQueryHookParams } from '@/hooks/api/anilibria/useAnime';
+import { getAnimeListQueryHookParams } from '@/hooks/api/anilibria/useAnimeList';
 
 interface PageProps {
   params: Promise<{
@@ -38,13 +40,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const queryClient = new QueryClient();
-
   const { slug } = await params;
 
+  const queryClient = new QueryClient();
   const data = await queryClient.fetchQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
+    ...getAnimeQueryHookParams({ code: slug }),
   });
 
   if (data) {
@@ -69,10 +69,8 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   const { slug } = await params;
 
   const queryClient = new QueryClient();
-
   const data = await queryClient.fetchQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
+    ...getAnimeQueryHookParams({ code: slug }),
   });
 
   if (!data) {
@@ -87,9 +85,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   if (franchiseSlugList.length > 0) {
     await queryClient.prefetchQuery({
-      queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
-      queryFn: () =>
-        AnilibriaApi.getTitlesList({ codeList: franchiseSlugList }),
+      ...getAnimeListQueryHookParams({ codeList: franchiseSlugList }),
     });
   }
 

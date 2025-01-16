@@ -1,5 +1,5 @@
-import { useQuery, UseSuspenseQueryOptions } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { List } from '@/types/entities/List.type';
 import { ListsApi } from '@/services/api/default/Lists.api';
 
@@ -11,13 +11,13 @@ interface UseListsReturn {
 
 type UseLists = () => UseListsReturn;
 
-export const getListsQueryHookParams = (): UseSuspenseQueryOptions<
+export const getListsQueryHookParams = (): UndefinedInitialDataOptions<
   List[],
   Error,
   List[],
-  KimikastQueryKeys[]
+  DefaultQueryKeys[]
 > => ({
-  queryKey: [KimikastQueryKeys.LISTS],
+  queryKey: [DefaultQueryKeys.LISTS],
   queryFn: () => ListsApi.findAll(),
 });
 

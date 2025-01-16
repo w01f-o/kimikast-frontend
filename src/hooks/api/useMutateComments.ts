@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { CreateCommentDto } from '@/types/dto/CreateComment.dto';
 import { CommentsApi } from '@/services/api/default/Comments.api';
 
@@ -28,7 +28,7 @@ export const useMutateComments: UseMutateComments = params => {
     mutationFn: ({ dto }: { dto: CreateCommentDto }) => CommentsApi.create(dto),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: [KimikastQueryKeys.COMMENTS, slug],
+        queryKey: [DefaultQueryKeys.COMMENTS, slug],
       });
 
       params.onSuccess?.();

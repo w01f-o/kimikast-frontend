@@ -74,7 +74,7 @@ const SearchFilter: FC = () => {
             ? 'primary'
             : 'default'
         }
-        onClick={onOpen}
+        onPress={onOpen}
       />
       <Modal backdrop={'blur'} isOpen={isOpen} onClose={onClose} size={'5xl'}>
         <ModalContent>
@@ -128,12 +128,12 @@ const SearchFilter: FC = () => {
               </ModalBody>
               <ModalFooter>
                 {!!filterIsSelected && (
-                  <Button endContent={<FilterX />} onClick={resetClickHandler}>
+                  <Button endContent={<FilterX />} onPress={resetClickHandler}>
                     Сбросить
                   </Button>
                 )}
 
-                <Button color="primary" onClick={applyClickHandler}>
+                <Button color="primary" onPress={applyClickHandler}>
                   Применить
                 </Button>
               </ModalFooter>

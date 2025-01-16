@@ -7,7 +7,7 @@ import NextImage from 'next/image';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { UserApi } from '@/services/api/default/User.api';
 import { Avatar } from '@nextui-org/avatar';
 
@@ -17,7 +17,7 @@ interface ProfileProps {
 
 const Profile: FC<ProfileProps> = ({ name }) => {
   const { data } = useSuspenseQuery({
-    queryKey: [KimikastQueryKeys.PUBLIC_USER, name],
+    queryKey: [DefaultQueryKeys.PUBLIC_USER, name],
     queryFn: () => UserApi.findPublic(name),
   });
 

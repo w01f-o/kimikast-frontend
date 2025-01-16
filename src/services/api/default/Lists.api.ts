@@ -7,28 +7,45 @@ import { axiosWithAuth } from '@/services/api/default/AxiosInstances';
 export class ListsApi {
   private static readonly ENDPOINT: string = 'list';
 
-  public static async findAll(): Promise<List[]> {
-    const { data } = await axiosWithAuth.get<List[]>(`/${this.ENDPOINT}`);
+  public static async findAll(signal?: AbortSignal): Promise<List[]> {
+    const { data } = await axiosWithAuth.get<List[]>(`/${this.ENDPOINT}`, {
+      signal,
+    });
 
     return data;
   }
 
-  public static async findById(id: string): Promise<List> {
-    const { data } = await axiosWithAuth.get<List>(`/${this.ENDPOINT}/${id}`);
+  public static async findById(
+    id: string,
+    signal?: AbortSignal
+  ): Promise<List> {
+    const { data } = await axiosWithAuth.get<List>(`/${this.ENDPOINT}/${id}`, {
+      signal,
+    });
 
     return data;
   }
 
-  public static async create(dto: CreateListDto): Promise<List> {
-    const { data } = await axiosWithAuth.post<List>(`/${this.ENDPOINT}`, dto);
+  public static async create(
+    dto: CreateListDto,
+    signal?: AbortSignal
+  ): Promise<List> {
+    const { data } = await axiosWithAuth.post<List>(`/${this.ENDPOINT}`, dto, {
+      signal,
+    });
 
     return data;
   }
 
-  public static async update(id: string, dto: UpdateListDto): Promise<List> {
+  public static async update(
+    id: string,
+    dto: UpdateListDto,
+    signal?: AbortSignal
+  ): Promise<List> {
     const { data } = await axiosWithAuth.patch<List>(
       `/${this.ENDPOINT}/${id}`,
-      dto
+      dto,
+      { signal }
     );
 
     return data;
@@ -36,11 +53,13 @@ export class ListsApi {
 
   public static async addAnime(
     listId: string,
-    dto: UpdateAnimeDto
+    dto: UpdateAnimeDto,
+    signal?: AbortSignal
   ): Promise<List> {
     const { data } = await axiosWithAuth.post<List>(
       `/${this.ENDPOINT}/${listId}/add_anime`,
-      dto
+      dto,
+      { signal }
     );
 
     return data;
@@ -48,11 +67,13 @@ export class ListsApi {
 
   public static async removeAnime(
     listId: string,
-    dto: UpdateAnimeDto
+    dto: UpdateAnimeDto,
+    signal?: AbortSignal
   ): Promise<List> {
     const { data } = await axiosWithAuth.post<List>(
       `/${this.ENDPOINT}/${listId}/remove_anime`,
-      dto
+      dto,
+      { signal }
     );
 
     return data;

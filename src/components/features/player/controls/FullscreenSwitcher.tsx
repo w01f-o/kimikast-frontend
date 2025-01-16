@@ -17,7 +17,7 @@ const FullscreenSwitcher: FC = () => {
       size={'md'}
       variant={'light'}
       title={'Полноэкранный режим'}
-      onClick={fullscreenClickHandler}
+      onPress={fullscreenClickHandler}
     >
       <Fullscreen className="size-2/3" />
     </Button>

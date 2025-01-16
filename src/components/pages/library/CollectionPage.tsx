@@ -1,19 +1,16 @@
 'use client';
 
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
-import { useQuery } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { Skeleton } from '@nextui-org/skeleton';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
 import TitleList from '@/components/widgets/Title/TitleList';
 import { defaultCollectionNames } from '@/components/entities/Collection';
 import PageHeading from '@/components/shared/UI/Text/PageHeading';
-import { ListsApi } from '@/services/api/default/Lists.api';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { useList } from '@/hooks/api/anilibria/useList';
+import { useAnimeList } from '@/hooks/api/anilibria/useAnimeList';
 
 interface ListPageProps {
   collectionId: string;
@@ -21,27 +18,22 @@ interface ListPageProps {
 
 const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
   const {
-    data: list,
+    list,
     isLoading: listIsLoading,
     isSuccess: listIsSuccess,
-  } = useQuery({
-    queryKey: [KimikastQueryKeys.LIST, collectionId],
-    queryFn: () => ListsApi.findById(collectionId),
-  });
+  } = useList({ id: collectionId });
 
-  const titleSlugs = useMemo(
-    () => list?.animes.map(({ anilibriaSlug }) => anilibriaSlug),
-    [list]
-  );
+  const titleSlugs = list?.animes.map(({ anilibriaSlug }) => anilibriaSlug);
 
   const {
-    data: titles,
-    isLoading: titlesIsLoading,
-    isSuccess: titlesIsSuccess,
-  } = useQuery({
-    queryKey: [AnilibriaQueryKeys.TITLE_LIST, titleSlugs],
-    queryFn: () => AnilibriaApi.getTitlesList({ codeList: titleSlugs }),
-    enabled: !!titleSlugs?.length,
+    animes,
+    isLoading: animesIsLoading,
+    isSuccess: animesIsSuccess,
+  } = useAnimeList({
+    apiParams: { codeList: titleSlugs },
+    hookParams: {
+      enabled: !!titleSlugs?.length,
+    },
   });
 
   return (
@@ -53,7 +45,7 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
             <PageHeading>
               {
                 defaultCollectionNames[
-                  list.name as keyof typeof defaultCollectionNames
+                  list!.name as keyof typeof defaultCollectionNames
                 ]
               }
             </PageHeading>
@@ -61,8 +53,8 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
         </Col>
       </Row>
       <Row>
-        {titlesIsLoading && <TitleListLoader />}
-        {titlesIsSuccess && <TitleList list={titles} />}
+        {animesIsLoading && <TitleListLoader />}
+        {animesIsSuccess && <TitleList list={animes!} />}
         {listIsSuccess && !titleSlugs?.length && (
           <Col xs={12}>
             <div className="pt-6 text-center text-2xl">Список пуст</div>

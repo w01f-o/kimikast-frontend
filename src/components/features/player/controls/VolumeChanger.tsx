@@ -38,7 +38,7 @@ const VolumeChanger: FC = () => {
             isIconOnly
             variant={'light'}
             title={'Громкость'}
-            onClick={muteClickHandler}
+            onPress={muteClickHandler}
             {...hoverProps}
           >
             <VolumeIcon />

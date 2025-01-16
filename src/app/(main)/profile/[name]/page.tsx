@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { UserApi } from '@/services/api/default/User.api';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 
 interface PageProps {
   params: Promise<{
@@ -21,7 +21,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [KimikastQueryKeys.PUBLIC_USER, clearedUsername],
+    queryKey: [DefaultQueryKeys.PUBLIC_USER, clearedUsername],
     queryFn: () => UserApi.findPublic(clearedUsername),
   });
 

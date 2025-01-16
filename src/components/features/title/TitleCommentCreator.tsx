@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, KeyboardEvent } from 'react';
 import Col from '@/components/shared/layout/Col';
 import { Textarea } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Comment } from '@/types/entities/Comment.type';
 import { useParams } from 'next/navigation';
 import { useMutateComments } from '@/hooks/api/useMutateComments';
+import { useComments } from '@/hooks/api/useComments';
 
 const TitleCommentCreator: FC = () => {
   const {
@@ -18,13 +19,32 @@ const TitleCommentCreator: FC = () => {
 
   const slug = useParams().slug as string;
 
+  const { comments } = useComments({ slug });
+
   const { mutate, isPending } = useMutateComments({
     slug,
-    onSuccess: reset,
+    onSuccess: () => {
+      reset();
+      if (!comments.length) {
+        requestAnimationFrame(() => {
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth',
+          });
+        });
+      }
+    },
   });
 
   const commentSubmitHandler = (data: Pick<Comment, 'content'>) => {
     mutate({ dto: { content: data.content, anilibriaSlug: slug } });
+  };
+
+  const keyDownHandler = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(commentSubmitHandler)();
+    }
   };
 
   return (
@@ -32,6 +52,7 @@ const TitleCommentCreator: FC = () => {
       <form
         onSubmit={handleSubmit(commentSubmitHandler)}
         className="mb-8 flex items-center gap-12"
+        onKeyDown={keyDownHandler}
       >
         <Textarea
           label="Новый комментарий"

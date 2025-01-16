@@ -46,9 +46,13 @@ export class AnilibriaApi {
     return transformedParams;
   }
 
-  public static async getTitle(params: GetTitleParams): Promise<Title> {
+  public static async getTitle(
+    params: GetTitleParams,
+    signal?: AbortSignal
+  ): Promise<Title> {
     const { data } = await this.axios.get<Title>(`/${this.TITLE_ENDPOINT}`, {
       params: this.transformParams(params),
+      signal,
     });
 
     return serialize(
@@ -57,12 +61,14 @@ export class AnilibriaApi {
   }
 
   public static async getTitlesList(
-    params: GetTitlesListParams
+    params: GetTitlesListParams,
+    signal?: AbortSignal
   ): Promise<Title[]> {
     const { data } = await this.axios.get<Title[]>(
       `/${this.TITLE_ENDPOINT}/list`,
       {
         params: this.transformParams(params),
+        signal,
       }
     );
 
@@ -71,11 +77,15 @@ export class AnilibriaApi {
     );
   }
 
-  public static async getTitleUpdates(params: GetTitleUpdatesParams) {
+  public static async getTitleUpdates(
+    params: GetTitleUpdatesParams,
+    signal?: AbortSignal
+  ) {
     const { data } = await this.axios.get<SearchResult>(
       `/${this.TITLE_ENDPOINT}/updates`,
       {
         params: this.transformParams(params),
+        signal,
       }
     );
 
@@ -85,12 +95,14 @@ export class AnilibriaApi {
   }
 
   public static async searchTitles(
-    params: SearchTitlesParams
+    params: SearchTitlesParams,
+    signal?: AbortSignal
   ): Promise<SearchResult> {
     const { data } = await this.axios.get<SearchResult>(
       `/${this.TITLE_ENDPOINT}/search`,
       {
         params: this.transformParams(params),
+        signal,
       }
     );
 
@@ -99,10 +111,10 @@ export class AnilibriaApi {
     );
   }
 
-  public static async getTitleFilters(): Promise<Filters> {
+  public static async getTitleFilters(signal?: AbortSignal): Promise<Filters> {
     const [{ data: years }, { data: genres }] = await Promise.all([
-      this.axios.get('/years'),
-      this.axios.get('/genres'),
+      this.axios.get('/years', { signal }),
+      this.axios.get('/genres', { signal }),
     ]);
 
     return serialize(

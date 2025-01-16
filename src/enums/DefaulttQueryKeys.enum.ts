@@ -1,4 +1,4 @@
-export enum KimikastQueryKeys {
+export enum DefaultQueryKeys {
   USER = 'user',
   LISTS = 'lists',
   LIST = 'list',

@@ -74,7 +74,7 @@ const EpisodeChanger: FC<EpisodeChangerProps> = ({ episodes }) => {
 
   return (
     <div className="pt-1">
-      <Button onClick={onOpen}>
+      <Button onPress={onOpen}>
         Эпизод{' '}
         {findEpisodeByUuid(Array.from(selectedEpisode).join(''))?.episode}
       </Button>

@@ -1,6 +1,6 @@
 export interface GetTitleParams {
   id?: string;
-  code?: string;
+  code: string;
   filter?: string[];
   remove?: string[];
   include?: ['raw_poster'?, 'raw_torrent'?, 'torrent_meta'?];

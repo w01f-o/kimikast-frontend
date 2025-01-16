@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
+import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { useAuth } from '@/hooks/useAuth';
 import { getAccessToken } from '@/services/auth/token.service';
 import { UserApi } from '@/services/api/default/User.api';
@@ -15,7 +15,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const { accessToken, setAccessToken, login } = useAuth();
 
   const { data, isSuccess } = useQuery({
-    queryKey: [KimikastQueryKeys.USER],
+    queryKey: [DefaultQueryKeys.USER],
     queryFn: () => UserApi.find(),
     retry: false,
     enabled: !!accessToken,

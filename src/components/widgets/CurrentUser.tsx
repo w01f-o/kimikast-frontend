@@ -34,7 +34,7 @@ const CurrentUser: FC = () => {
 
   if (user === null) {
     return (
-      <Dropdown>
+      <Dropdown shouldBlockScroll={false}>
         <DropdownTrigger>
           <Avatar
             src={'/kimikast/no-avatar.svg'}
@@ -63,7 +63,7 @@ const CurrentUser: FC = () => {
   }
 
   return (
-    <Dropdown>
+    <Dropdown shouldBlockScroll={false}>
       <DropdownTrigger>
         <Avatar
           src={`${process.env.NEXT_PUBLIC_KIMIKAST_STATIC_URL}/avatar/${user.avatar}`}
