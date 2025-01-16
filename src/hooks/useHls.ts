@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useRef } from 'react';
 import Hls from 'hls.js';
-import { PlayerHls } from '@/types/entities/Title.type';
 import { playerStore } from '@/store/player.store';
+import { PlayerHls } from '@/types/anilibria/entities/Player.type';
 
 interface UseHlsParams {
   sources: PlayerHls;

@@ -1,5 +1,5 @@
 import { Store } from '@tanstack/store';
-import { PlayerHls } from '@/types/entities/Title.type';
+import { PlayerHls } from '@/types/anilibria/entities/Player.type';
 
 interface PlayerState {
   duration: number;

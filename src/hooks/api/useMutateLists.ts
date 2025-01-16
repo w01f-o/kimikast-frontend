@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { ListsApi } from '@/services/api/default/Lists.api';
 
 interface UseMutateListsReturn {

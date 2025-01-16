@@ -24,7 +24,7 @@ const TitleFranchise: FC<TitleFranchiseProps> = ({ slug }) => {
 
   const { data: franchise, isSuccess: franchiseIsSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
-    queryFn: () => AnilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
+    queryFn: () => AnilibriaApi.getTitlesList({ codeList: franchiseSlugList }),
     enabled: franchiseSlugList.length > 0,
   });
 

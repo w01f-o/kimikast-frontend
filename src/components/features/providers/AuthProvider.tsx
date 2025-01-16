@@ -2,7 +2,7 @@
 
 import { FC, ReactNode, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { useAuth } from '@/hooks/useAuth';
 import { getAccessToken } from '@/services/auth/token.service';
 import { UserApi } from '@/services/api/default/User.api';

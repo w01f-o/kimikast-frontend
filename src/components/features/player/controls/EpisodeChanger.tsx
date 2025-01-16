@@ -1,5 +1,4 @@
 import { FC, memo, useEffect, useState } from 'react';
-import { PlayerItem } from '@/types/entities/Title.type';
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
@@ -10,6 +9,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'nextjs-toploader/app';
 import { playerStore } from '@/store/player.store';
 import { useProgress } from '@/hooks/api/useProgress';
+import { PlayerItem } from '@/types/anilibria/entities/Player.type';
 
 interface EpisodeChangerProps {
   episodes: Record<string, PlayerItem>;

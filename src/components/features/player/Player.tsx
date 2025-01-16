@@ -5,13 +5,13 @@ import { throttle } from 'lodash';
 import { playerStore } from '@/store/player.store';
 import { useStore } from '@tanstack/react-store';
 import { useHls } from '@/hooks/useHls';
-import { PlayerHls } from '@/types/entities/Title.type';
 import { useOverlay } from '@/hooks/useOverlay';
 import Overlay from '@/components/features/player/Overlay';
 import Ambilight from '@/components/features/player/Ambilight';
 import { useProgress } from '@/hooks/api/useProgress';
 import { UpdateProgressDto } from '@/types/dto/UpdateProgress.dto';
 import { useAuth } from '@/hooks/useAuth';
+import { PlayerHls } from '@/types/anilibria/entities/Player.type';
 
 interface PlayerProps {
   sources: PlayerHls;

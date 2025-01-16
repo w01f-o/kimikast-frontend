@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { CreateCommentDto } from '@/types/dto/CreateComment.dto';
 import { CommentsApi } from '@/services/api/default/Comments.api';
 

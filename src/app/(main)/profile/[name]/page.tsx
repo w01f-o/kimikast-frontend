@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { UserApi } from '@/services/api/default/User.api';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 
 interface PageProps {
   params: Promise<{

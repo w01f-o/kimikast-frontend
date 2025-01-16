@@ -2,7 +2,7 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryOptions,
 } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { CommentsApi } from '@/services/api/default/Comments.api';
 import { Comment } from '@/types/entities/Comment.type';
 

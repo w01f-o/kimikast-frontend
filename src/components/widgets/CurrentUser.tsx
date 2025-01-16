@@ -1,6 +1,5 @@
 'use client';
 
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useAuth } from '@/hooks/useAuth';
 import { Avatar } from '@nextui-org/avatar';
@@ -21,7 +20,6 @@ const CurrentUser: FC = () => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationKey: [KimikastQueryKeys.LOGOUT],
     mutationFn: AuthApi.logout,
     onSuccess() {
       toast.success('Вы успешно вышли из системы');

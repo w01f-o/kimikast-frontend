@@ -10,7 +10,7 @@ import { Button } from '@nextui-org/button';
 import { PenLine } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Skeleton } from '@nextui-org/skeleton';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { UserApi } from '@/services/api/default/User.api';
 
 const NameChanger: FC = () => {
@@ -21,7 +21,6 @@ const NameChanger: FC = () => {
 
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
-    mutationKey: [KimikastQueryKeys.CHANGE_USERNAME],
     mutationFn: ({ name }: { name: string }) => UserApi.update({ name }),
     onSuccess: async () => {
       await queryClient.refetchQueries({ queryKey: [KimikastQueryKeys.USER] });

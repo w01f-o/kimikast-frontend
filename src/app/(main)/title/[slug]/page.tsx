@@ -28,7 +28,7 @@ export async function generateStaticParams() {
       queryFn: () =>
         AnilibriaApi.getTitleUpdates({
           since: 1,
-          items_per_page: 5,
+          itemsPerPage: 5,
           filter: ['code'],
         }),
     })
@@ -89,7 +89,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
     await queryClient.prefetchQuery({
       queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
       queryFn: () =>
-        AnilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
+        AnilibriaApi.getTitlesList({ codeList: franchiseSlugList }),
     });
   }
 

@@ -5,7 +5,7 @@ import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { useQuery } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { Skeleton } from '@nextui-org/skeleton';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
@@ -40,7 +40,7 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
     isSuccess: titlesIsSuccess,
   } = useQuery({
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, titleSlugs],
-    queryFn: () => AnilibriaApi.getTitlesList({ code_list: titleSlugs }),
+    queryFn: () => AnilibriaApi.getTitlesList({ codeList: titleSlugs }),
     enabled: !!titleSlugs?.length,
   });
 

@@ -12,7 +12,6 @@ import { Link } from '@nextui-org/link';
 import NextLink from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useMutation } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
 import { AuthApi } from '@/services/api/default/Auth.api';
 import { useRouter } from 'nextjs-toploader/app';
 import toast from 'react-hot-toast';
@@ -29,7 +28,6 @@ const Auth: FC<AuthProps> = ({ type }) => {
   const router = useRouter();
 
   const { mutate, isPending } = useMutation({
-    mutationKey: [KimikastQueryKeys.AUTH],
     mutationFn: (data: AuthForm) => AuthApi.authorize(type, data),
     onSuccess() {
       toast.success('Авторизация прошла успешно');

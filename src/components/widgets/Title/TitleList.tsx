@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Col from '@/components/shared/layout/Col';
-import type { Title as TitleType } from '@/types/entities/Title.type';
+import type { Title as TitleType } from '@/types/anilibria/entities/Title.type';
 import Title from '@/components/entities/Title';
 
 interface TitleListProps {

@@ -17,7 +17,7 @@ const Home: FC = () => {
     useInfiniteQuery({
       queryKey: [AnilibriaQueryKeys.UPDATES],
       queryFn: ({ pageParam }) =>
-        AnilibriaApi.getTitleUpdates({ page: pageParam, items_per_page: 24 }),
+        AnilibriaApi.getTitleUpdates({ page: pageParam, itemsPerPage: 24 }),
       initialPageParam: 1,
       getNextPageParam: lastPage =>
         lastPage?.pagination?.currentPage + 1 || undefined,

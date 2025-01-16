@@ -14,7 +14,7 @@ const Page: FC = async () => {
   await queryClient.prefetchInfiniteQuery({
     queryKey: [AnilibriaQueryKeys.UPDATES],
     queryFn: ({ pageParam }) =>
-      AnilibriaApi.getTitleUpdates({ page: pageParam, items_per_page: 24 }),
+      AnilibriaApi.getTitleUpdates({ page: pageParam, itemsPerPage: 24 }),
     initialPageParam: 1,
   });
 

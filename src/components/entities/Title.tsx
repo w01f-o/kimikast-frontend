@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import type { Title as TitleType } from '@/types/entities/Title.type';
+import type { Title as TitleType } from '@/types/anilibria/entities/Title.type';
 import { Card } from '@nextui-org/card';
 import { Link } from '@nextui-org/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
@@ -47,7 +47,7 @@ const Title: FC<TitleProps> = ({ title }) => {
               <div className="mb-1 line-clamp-4 text-xl font-bold">
                 {title.names.ru}
               </div>
-              <div className="mb-2">{title.type.full_string}</div>
+              <div className="mb-2">{title.type.fullString}</div>
               <div className="flex flex-grow flex-col justify-end gap-2">
                 {title.genres.slice(0, 3).map(genre => (
                   <Chip key={genre}>{genre}</Chip>

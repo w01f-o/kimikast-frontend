@@ -7,7 +7,7 @@ import NextImage from 'next/image';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { UserApi } from '@/services/api/default/User.api';
 import { Avatar } from '@nextui-org/avatar';
 

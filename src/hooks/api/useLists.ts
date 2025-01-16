@@ -1,5 +1,5 @@
 import { useQuery, UseSuspenseQueryOptions } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { List } from '@/types/entities/List.type';
 import { ListsApi } from '@/services/api/default/Lists.api';
 

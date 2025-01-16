@@ -4,7 +4,7 @@ import {
   useMutation,
   useQuery,
 } from '@tanstack/react-query';
-import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
+import { KimikastQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { Progress } from '@/types/entities/Progress';
 import { useParams } from 'next/navigation';
 import { UpdateProgressDto } from '@/types/dto/UpdateProgress.dto';

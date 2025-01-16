@@ -3,9 +3,9 @@ import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
 import { DropdownTrigger, SharedSelection } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
 import { SettingsIcon } from 'lucide-react';
-import { PlayerHls } from '@/types/entities/Title.type';
 import { playerStore } from '@/store/player.store';
 import { useStore } from '@tanstack/react-store';
+import { PlayerHls } from '@/types/anilibria/entities/Player.type';
 
 const QualityChanger: FC = () => {
   const { quality } = useStore(playerStore);
