@@ -13,15 +13,12 @@ import NextLink from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { TvMinimalPlay } from 'lucide-react';
 import { Chip } from '@nextui-org/chip';
-import { StatusEnum } from '@/types/entities/Title.type';
-import {
-  ANILIBRIA_IMAGE_URL,
-  anilibriaApi,
-} from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import TitleComments from '@/components/widgets/Title/Comments/TitleComments';
 import TitleFranchise from '@/components/widgets/Title/TitleFranchise';
 import TitleInCollections from '@/components/features/title/TitleInCollections';
 import { useAuth } from '@/hooks/useAuth';
+import { StatusEnum } from '@/types/anilibria/entities/Title.type';
 
 interface TitleProps {
   slug: string;
@@ -30,7 +27,7 @@ interface TitleProps {
 const TitlePage: FC<TitleProps> = ({ slug }) => {
   const { data: title } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   const { user } = useAuth();
@@ -52,7 +49,7 @@ const TitlePage: FC<TitleProps> = ({ slug }) => {
         <Col xs={5} className="flex items-center justify-center">
           <Image
             as={NextImage}
-            src={`${ANILIBRIA_IMAGE_URL}${title.posters.original.url}`}
+            src={`${AnilibriaApi.IMAGE_URL}${title.posters.original.url}`}
             width={455}
             height={650}
             alt={title.code}

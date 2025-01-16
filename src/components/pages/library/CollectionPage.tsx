@@ -6,14 +6,14 @@ import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { useQuery } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { listsApi } from '@/services/api/main/Lists.api';
 import { Skeleton } from '@nextui-org/skeleton';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
 import TitleList from '@/components/widgets/Title/TitleList';
 import { defaultCollectionNames } from '@/components/entities/Collection';
 import PageHeading from '@/components/shared/UI/Text/PageHeading';
+import { ListsApi } from '@/services/api/default/Lists.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface ListPageProps {
   collectionId: string;
@@ -26,7 +26,7 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
     isSuccess: listIsSuccess,
   } = useQuery({
     queryKey: [KimikastQueryKeys.LIST, collectionId],
-    queryFn: () => listsApi.findById(collectionId),
+    queryFn: () => ListsApi.findById(collectionId),
   });
 
   const titleSlugs = useMemo(
@@ -40,7 +40,7 @@ const CollectionPage: FC<ListPageProps> = ({ collectionId }) => {
     isSuccess: titlesIsSuccess,
   } = useQuery({
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, titleSlugs],
-    queryFn: () => anilibriaApi.getTitlesList({ code_list: titleSlugs }),
+    queryFn: () => AnilibriaApi.getTitlesList({ code_list: titleSlugs }),
     enabled: !!titleSlugs?.length,
   });
 

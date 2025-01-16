@@ -1,8 +1,6 @@
 'use client';
 
 import { RoutePaths } from '@/enums/RoutePaths.enum';
-import { authApi } from '@/services/api/main/Auth.api';
-import { userApi } from '@/services/api/main/User.api';
 import { Button } from '@nextui-org/button';
 import {
   Modal,
@@ -17,6 +15,8 @@ import { UserRoundX } from 'lucide-react';
 import { useRouter } from 'nextjs-toploader/app';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
+import { UserApi } from '@/services/api/default/User.api';
+import { AuthApi } from '@/services/api/default/Auth.api';
 
 const AccountDeleter: FC = () => {
   const { onClose, onOpenChange, isOpen } = useDisclosure();
@@ -26,11 +26,11 @@ const AccountDeleter: FC = () => {
   const router = useRouter();
 
   const { mutate: deleteMutation, isPending: deleteIsPending } = useMutation({
-    mutationFn: userApi.deleteUser,
+    mutationFn: () => UserApi.delete(),
   });
 
   const { mutate: logoutMutation, isPending: logoutIsPending } = useMutation({
-    mutationFn: authApi.logout,
+    mutationFn: () => AuthApi.logout(),
     onSuccess() {
       toast.success('Вы успешно удалили аккаунт');
       router.replace(RoutePaths.HOME);

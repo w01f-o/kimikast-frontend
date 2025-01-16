@@ -7,7 +7,7 @@ import { FolderHeart } from 'lucide-react';
 import { defaultCollectionNames } from '@/components/entities/Collection';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import { useParams } from 'next/navigation';
 import { useMutateLists } from '@/hooks/api/useMutateLists';
 import { useLists } from '@/hooks/api/useLists';
@@ -17,7 +17,7 @@ const TitleInCollections: FC = ({}) => {
 
   const { data: title } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   const {

@@ -5,10 +5,10 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { progressApi } from '@/services/api/main/Progress.api';
 import { Progress } from '@/types/entities/Progress';
 import { useParams } from 'next/navigation';
 import { UpdateProgressDto } from '@/types/dto/UpdateProgress.dto';
+import { ProgressApi } from '@/services/api/default/Progress.api';
 
 interface UseProgressReturn {
   isLoading: boolean;
@@ -30,13 +30,13 @@ export const useProgress: UseProgress = () => {
     isLoading,
   } = useQuery({
     queryKey: [KimikastQueryKeys.PROGRESS],
-    queryFn: () => progressApi.getProgress(anilibriaSlug?.toString()),
+    queryFn: () => ProgressApi.getBySlug(anilibriaSlug?.toString()),
     enabled: false,
   });
 
   const { mutate: update } = useMutation({
     mutationFn: (dto: UpdateProgressDto) =>
-      progressApi.updateProgress(anilibriaSlug?.toString(), dto),
+      ProgressApi.update(anilibriaSlug?.toString(), dto),
   });
 
   return {

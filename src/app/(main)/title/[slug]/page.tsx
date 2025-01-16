@@ -7,8 +7,8 @@ import {
 } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { notFound } from 'next/navigation';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import { getCommentsQueryHookParams } from '@/hooks/api/useComments';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface PageProps {
   params: Promise<{
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
     await queryClient.fetchQuery({
       queryKey: [AnilibriaQueryKeys.STATIC_UPDATES],
       queryFn: () =>
-        anilibriaApi.getTitleUpdates({
+        AnilibriaApi.getTitleUpdates({
           since: 1,
           items_per_page: 5,
           filter: ['code'],
@@ -44,7 +44,7 @@ export async function generateMetadata({
 
   const data = await queryClient.fetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   if (data) {
@@ -72,7 +72,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   const data = await queryClient.fetchQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   if (!data) {
@@ -89,7 +89,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
     await queryClient.prefetchQuery({
       queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
       queryFn: () =>
-        anilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
+        AnilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
     });
   }
 

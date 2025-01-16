@@ -12,7 +12,7 @@ import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
 import SearchFilter from '@/components/widgets/SearchFilter';
 import { Pagination } from '@nextui-org/pagination';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
 import PageHeading from '@/components/shared/UI/Text/PageHeading';
 
@@ -27,11 +27,11 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   const { data: paginationData, isLoading: paginationIsLoading } = useQuery({
     queryKey: [AnilibriaQueryKeys.PAGINATION, query, years, genres],
     queryFn: () =>
-      anilibriaApi.searchTitles({
+      AnilibriaApi.searchTitles({
         search: query!,
         genres: genres!,
         year: years!,
-        items_per_page: 18,
+        itemsPerPage: 18,
         filter: ['code'],
       }),
     enabled: !!query || !!genres || !!years,
@@ -40,11 +40,11 @@ const Search: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, page],
     queryFn: () =>
-      anilibriaApi.searchTitles({
+      AnilibriaApi.searchTitles({
         search: query!,
         genres: genres!,
         year: years!,
-        items_per_page: 18,
+        itemsPerPage: 18,
         ...(page && { page: Number(page) }),
       }),
     enabled: (!!query || !!genres || !!years) && !!paginationData,

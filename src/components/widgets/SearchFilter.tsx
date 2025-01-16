@@ -18,7 +18,7 @@ import { CheckboxGroup } from '@nextui-org/checkbox';
 import { CustomCheckbox } from '@/components/shared/UI/CustomCheckbox';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { Spinner } from '@nextui-org/spinner';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 const SearchFilter: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,7 +27,7 @@ const SearchFilter: FC = () => {
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.FILTERS],
-    queryFn: anilibriaApi.getTitleFilters,
+    queryFn: AnilibriaApi.getTitleFilters,
   });
 
   const [yearsSelected, setYearsSelected] = useState<string[]>(

@@ -9,7 +9,7 @@ import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { useIntersectionObserver } from 'usehooks-ts';
 import TitleListLoader from '@/components/shared/UI/Loaders/TitleListLoader';
 import TitleList from '@/components/widgets/Title/TitleList';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import PageHeading from '@/components/shared/UI/Text/PageHeading';
 
 const Home: FC = () => {
@@ -17,12 +17,12 @@ const Home: FC = () => {
     useInfiniteQuery({
       queryKey: [AnilibriaQueryKeys.UPDATES],
       queryFn: ({ pageParam }) =>
-        anilibriaApi.getTitleUpdates({ page: pageParam, items_per_page: 24 }),
+        AnilibriaApi.getTitleUpdates({ page: pageParam, items_per_page: 24 }),
       initialPageParam: 1,
       getNextPageParam: lastPage =>
-        lastPage?.pagination?.current_page + 1 || undefined,
+        lastPage?.pagination?.currentPage + 1 || undefined,
       getPreviousPageParam: firstPage =>
-        firstPage?.pagination?.current_page - 1 || undefined,
+        firstPage?.pagination?.currentPage - 1 || undefined,
     });
 
   const { isIntersecting, ref } = useIntersectionObserver({ threshold: 0.5 });
@@ -40,7 +40,7 @@ const Home: FC = () => {
           <PageHeading>Свежее</PageHeading>
         </Col>
         {data?.pages.map(page => (
-          <TitleList key={page.pagination.current_page} list={page.list} />
+          <TitleList key={page.pagination.currentPage} list={page.list} />
         ))}
         {isFetchingNextPage && <TitleListLoader length={24} />}
         <div ref={ref} className="h-10 w-full"></div>

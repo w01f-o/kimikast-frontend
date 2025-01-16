@@ -3,7 +3,6 @@
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useAuth } from '@/hooks/useAuth';
-import { authApi } from '@/services/api/main/Auth.api';
 import { Avatar } from '@nextui-org/avatar';
 import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
 import { DropdownTrigger } from '@nextui-org/react';
@@ -12,6 +11,7 @@ import Link from 'next/link';
 import { useRouter } from 'nextjs-toploader/app';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
+import { AuthApi } from '@/services/api/default/Auth.api';
 
 const CurrentUser: FC = () => {
   const { user } = useAuth();
@@ -22,7 +22,7 @@ const CurrentUser: FC = () => {
 
   const { mutate } = useMutation({
     mutationKey: [KimikastQueryKeys.LOGOUT],
-    mutationFn: authApi.logout,
+    mutationFn: AuthApi.logout,
     onSuccess() {
       toast.success('Вы успешно вышли из системы');
       router.replace(RoutePaths.HOME);

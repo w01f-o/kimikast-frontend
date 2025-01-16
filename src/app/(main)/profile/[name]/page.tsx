@@ -5,7 +5,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { userApi } from '@/services/api/main/User.api';
+import { UserApi } from '@/services/api/default/User.api';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
 
 interface PageProps {
@@ -22,7 +22,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   await queryClient.prefetchQuery({
     queryKey: [KimikastQueryKeys.PUBLIC_USER, clearedUsername],
-    queryFn: () => userApi.getPublicUser(clearedUsername),
+    queryFn: () => UserApi.findPublic(clearedUsername),
   });
 
   return (

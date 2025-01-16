@@ -1,7 +1,7 @@
 import { useQuery, UseSuspenseQueryOptions } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { listsApi } from '@/services/api/main/Lists.api';
 import { List } from '@/types/entities/List.type';
+import { ListsApi } from '@/services/api/default/Lists.api';
 
 interface UseListsReturn {
   lists: List[] | undefined;
@@ -16,7 +16,10 @@ export const getListsQueryHookParams = (): UseSuspenseQueryOptions<
   Error,
   List[],
   KimikastQueryKeys[]
-> => ({ queryKey: [KimikastQueryKeys.LISTS], queryFn: listsApi.findAll });
+> => ({
+  queryKey: [KimikastQueryKeys.LISTS],
+  queryFn: () => ListsApi.findAll(),
+});
 
 export const useLists: UseLists = () => {
   const {

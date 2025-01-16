@@ -3,7 +3,7 @@ import {
   UseSuspenseQueryOptions,
 } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { commentsApi } from '@/services/api/main/Comments.api';
+import { CommentsApi } from '@/services/api/default/Comments.api';
 import { Comment } from '@/types/entities/Comment.type';
 
 interface UseCommentsReturn {
@@ -26,7 +26,7 @@ export const getCommentsQueryHookParams = ({
   slug: string;
 }): UseSuspenseQueryOptions<Comment[], Error, Comment[], string[]> => ({
   queryKey: [KimikastQueryKeys.COMMENTS, slug],
-  queryFn: () => commentsApi.getComments(slug),
+  queryFn: () => CommentsApi.findAll(slug),
 });
 
 export const useComments: UseComments = ({ slug }) => {

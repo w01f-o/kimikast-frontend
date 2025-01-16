@@ -4,9 +4,9 @@ import { FC, useEffect } from 'react';
 import Player from '@/components/features/player/Player';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import { useProgress } from '@/hooks/api/useProgress';
 import { Spinner } from '@nextui-org/spinner';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface WatchProps {
   slug: string;
@@ -20,7 +20,7 @@ const Watch: FC<WatchProps> = ({ slug, episode }) => {
     },
   } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   const { progress, fetch, isLoading } = useProgress();

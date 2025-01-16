@@ -7,12 +7,12 @@ import PlayerPlayPause from '@/components/features/player/controls/PlayerPlayPau
 import { useParams } from 'next/navigation';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import Link from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import Image from 'next/image';
 import CurrentUser from '@/components/widgets/CurrentUser';
 import clsx from 'clsx';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface PlayerOverlayProps {
   isVisible: boolean;
@@ -33,7 +33,7 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
     data: { names },
   } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   return (

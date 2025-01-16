@@ -4,8 +4,7 @@ import Row from '@/components/shared/layout/Row';
 import TitleList from '@/components/widgets/Title/TitleList';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { getTitlesList } from '@/services/api/anilibria/getTitlesList';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface TitleFranchiseProps {
   slug: string;
@@ -14,7 +13,7 @@ interface TitleFranchiseProps {
 const TitleFranchise: FC<TitleFranchiseProps> = ({ slug }) => {
   const { data: title } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   const franchiseSlugList = title.franchises
@@ -25,7 +24,7 @@ const TitleFranchise: FC<TitleFranchiseProps> = ({ slug }) => {
 
   const { data: franchise, isSuccess: franchiseIsSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.TITLE_LIST, franchiseSlugList],
-    queryFn: () => getTitlesList({ code_list: franchiseSlugList }),
+    queryFn: () => AnilibriaApi.getTitlesList({ code_list: franchiseSlugList }),
     enabled: franchiseSlugList.length > 0,
   });
 

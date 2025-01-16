@@ -6,8 +6,8 @@ import ProgressBar from '@/components/features/player/controls/ProgressBar';
 import { useParams } from 'next/navigation';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { anilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import dynamic from 'next/dynamic';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 const DynamicEpisodeChanger = dynamic(
   () => import('@/components/features/player/controls/EpisodeChanger')
@@ -21,7 +21,7 @@ const BottomBar: FC = () => {
     },
   } = useSuspenseQuery({
     queryKey: [AnilibriaQueryKeys.TITLE, slug],
-    queryFn: () => anilibriaApi.getTitle({ code: slug }),
+    queryFn: () => AnilibriaApi.getTitle({ code: slug }),
   });
 
   return (

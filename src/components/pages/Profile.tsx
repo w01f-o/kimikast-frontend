@@ -8,7 +8,7 @@ import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { userApi } from '@/services/api/main/User.api';
+import { UserApi } from '@/services/api/default/User.api';
 import { Avatar } from '@nextui-org/avatar';
 
 interface ProfileProps {
@@ -18,7 +18,7 @@ interface ProfileProps {
 const Profile: FC<ProfileProps> = ({ name }) => {
   const { data } = useSuspenseQuery({
     queryKey: [KimikastQueryKeys.PUBLIC_USER, name],
-    queryFn: () => userApi.getPublicUser(name),
+    queryFn: () => UserApi.findPublic(name),
   });
 
   return (

@@ -3,9 +3,9 @@
 import { FC, ReactNode, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { userApi } from '@/services/api/main/User.api';
 import { useAuth } from '@/hooks/useAuth';
 import { getAccessToken } from '@/services/auth/token.service';
+import { UserApi } from '@/services/api/default/User.api';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -16,7 +16,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const { data, isSuccess } = useQuery({
     queryKey: [KimikastQueryKeys.USER],
-    queryFn: userApi.getUser,
+    queryFn: () => UserApi.find(),
     retry: false,
     enabled: !!accessToken,
   });
@@ -26,8 +26,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     if (accessTokenFromCookie) {
       setAccessToken(accessTokenFromCookie);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setAccessToken]);
 
   useEffect(() => {
     if (data && isSuccess && accessToken) {

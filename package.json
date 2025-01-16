@@ -32,6 +32,7 @@
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.53.1",
     "react-hot-toast": "^2.4.1",
+    "reflect-metadata": "^0.2.2",
     "sass": "^1.80.6",
     "usehooks-ts": "^3.1.0"
   },

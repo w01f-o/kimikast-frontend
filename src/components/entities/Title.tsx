@@ -8,7 +8,7 @@ import { useHover } from '@react-aria/interactions';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Image } from '@nextui-org/image';
 import { Chip } from '@nextui-org/chip';
-import { ANILIBRIA_IMAGE_URL } from '@/services/api/anilibria/Anilibria.api';
+import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface TitleProps {
   title: TitleType;
@@ -59,7 +59,7 @@ const Title: FC<TitleProps> = ({ title }) => {
       </AnimatePresence>
       <Image
         as={NextImage}
-        src={`${ANILIBRIA_IMAGE_URL}${title.posters.medium.url}`}
+        src={`${AnilibriaApi.IMAGE_URL}${title.posters.medium.url}`}
         width={400}
         height={350}
         alt={`Постер ${title.names.ru}`}

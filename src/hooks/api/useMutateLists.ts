@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { KimikastQueryKeys } from '@/enums/KimikastQueryKeys.enum';
-import { listsApi } from '@/services/api/main/Lists.api';
+import { ListsApi } from '@/services/api/default/Lists.api';
 
 interface UseMutateListsReturn {
   mutate: ({
@@ -39,11 +39,11 @@ export const useMutateLists: UseMutateLists = ({
     }) => {
       switch (type) {
         case 'add':
-          return listsApi.addAnime(listId, {
+          return ListsApi.addAnime(listId, {
             anilibriaSlug,
           });
         case 'remove':
-          return listsApi.removeAnime(listId, {
+          return ListsApi.removeAnime(listId, {
             anilibriaSlug,
           });
       }
