@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { ListsApi } from '@/services/api/default/Lists.api';
+import toast from 'react-hot-toast';
 
 interface UseMutateListsReturn {
   mutate: ({
@@ -54,6 +55,9 @@ export const useMutateLists: UseMutateLists = ({
       });
 
       params.onSuccess?.();
+    },
+    onError() {
+      toast.error('Произошла ошибка при обновлении списка');
     },
   });
 

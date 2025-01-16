@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserApi } from '@/services/api/default/User.api';
 import { DefaultQueryKeys } from '@/enums/DefaulttQueryKeys.enum';
 import { User } from '@/types/entities/Auth.type';
+import toast from 'react-hot-toast';
 
 interface UseMutateUserReturn {
   mutate: (dto: { name: string }) => void;
@@ -33,6 +34,7 @@ export const useMutateUser: UseMutateUser = () => {
     },
     onError: (_, __, context) => {
       queryClient.setQueryData([DefaultQueryKeys.USER], context?.previousUser);
+      toast.error('Произошла ошибка при обновлении профиля');
     },
     onSettled: () => {
       queryClient.invalidateQueries({
