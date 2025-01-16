@@ -9,6 +9,8 @@ import { PlayerHls } from "@/types/entities/Title.type";
 import { useOverlay } from "@/hooks/useOverlay";
 import Overlay from "@/components/features/player/Overlay";
 import Ambilight from "@/components/features/player/Ambilight";
+import { useProgress } from "@/hooks/api/useProgress";
+import { usePathname, useRouter } from "next/navigation";
 
 interface PlayerProps {
   sources: PlayerHls;
@@ -27,6 +29,21 @@ const Player: FC<PlayerProps> = ({ sources, host }) => {
     useStore(playerStore);
 
   useHls({ ref: videoRef, sources, quality, host });
+
+  const { progress, fetch, update } = useProgress();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    console.log(pathname);
+    if (progress) {
+      // router.replace()
+      // playerStore.setState((prev) => ({
+      //   ...prev,
+      //   currentTime: progress.currentTime,
+      // }));
+    }
+  }, [progress]);
 
   useEffect(() => {
     const videoEl = videoRef.current;
@@ -140,7 +157,7 @@ const Player: FC<PlayerProps> = ({ sources, host }) => {
 
   return (
     <div className="relative">
-      <div className="aspect-video h-screen relative z-20">
+      <div className="aspect-video relative max-h-screen z-20 w-full">
         <video
           ref={videoRef}
           autoPlay
@@ -151,8 +168,7 @@ const Player: FC<PlayerProps> = ({ sources, host }) => {
           onCanPlay={canPlayHandler}
           onPlay={playHandler}
           {...overlayProps}
-        ></video>
-
+        />
         <Overlay overlayProps={overlayProps} isVisible={isVisible} />
       </div>
       <Ambilight videoRef={videoRef} />

@@ -1,6 +1,4 @@
-import { FC, RefObject, useEffect, useRef } from "react";
-import { playerStore } from "@/store/player.store";
-import { useStore } from "@tanstack/react-store";
+import { FC, RefObject, useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 
 interface AmbilightProps {
@@ -9,8 +7,23 @@ interface AmbilightProps {
 
 const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { isLoading } = useStore(playerStore);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [isCanPlay, setIsCanPlay] = useState<boolean>(false);
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+
+    if (!videoEl) return;
+
+    const canPlayHandler = () => {
+      setIsCanPlay(true);
+    };
+
+    videoEl.addEventListener("canplay", canPlayHandler);
+
+    return () => {
+      videoEl.removeEventListener("canplay", canPlayHandler);
+    };
+  }, [videoRef]);
 
   useEffect(() => {
     const canvasEl = canvasRef.current;
@@ -21,39 +34,22 @@ const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
     const ctx = canvasEl.getContext("2d");
     if (!ctx) return;
 
-    canvasEl.width = videoEl.offsetWidth;
-    canvasEl.height = videoEl.offsetHeight;
-
     const paintAmbilight = () => {
-      ctx.drawImage(videoEl, 0, 0, videoEl.offsetWidth, videoEl.offsetHeight);
-    };
-
-    const repaintAmbilight = () => {
-      intervalRef.current = setInterval(paintAmbilight, 1000 / 24);
-    };
-
-    const canPlayHandler = () => {
-      repaintAmbilight();
-    };
-
-    videoEl.addEventListener("canplay", canPlayHandler);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      if (isCanPlay && !document.fullscreenElement) {
+        ctx.drawImage(videoEl, 0, 0, videoEl.offsetWidth, videoEl.offsetHeight);
       }
+
+      requestAnimationFrame(paintAmbilight);
     };
-  }, [videoRef]);
+
+    requestAnimationFrame(paintAmbilight);
+  }, [isCanPlay, videoRef]);
 
   return (
     <canvas
       ref={canvasRef}
       className={clsx(
-        "absolute inset-0 z-10 blur-[80px] saturate-200 pointer-events-none",
-        {
-          "opacity-0": isLoading,
-          "opacity-50": !isLoading,
-        },
+        "size-full absolute inset-0 z-10 blur-[80px] saturate-200 pointer-events-none opacity-80",
       )}
     />
   );

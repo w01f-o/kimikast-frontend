@@ -36,6 +36,9 @@ const Auth: FC<AuthProps> = ({ type }) => {
       reset();
       router.replace(`${RoutePaths.PROFILE}/${user!.name}`);
     },
+    onError() {
+      toast.error("Произошла ошибка");
+    },
   });
 
   const submitHandler = async (data: AuthForm) => {

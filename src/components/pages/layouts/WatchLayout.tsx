@@ -9,7 +9,7 @@ interface WatchLayoutProps {
 const WatchLayout: FC<WatchLayoutProps> = ({ children }) => {
   return (
     <>
-      <main className="flex-grow flex flex-col justify-center">
+      <main className="flex flex-col flex-grow justify-center overflow-hidden">
         {children}
         <NextTopLoader showSpinner={false} />
         <Toaster />

@@ -65,7 +65,7 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
                 height={60}
               />
             </Link>
-            <h1 className="text-5xl text-center font-extrabold drop-shadow-2xl">
+            <h1 className="text-4xl lg:text-5xl text-center font-extrabold drop-shadow-2xl">
               {names.ru}
             </h1>
             <CurrentUser />

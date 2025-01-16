@@ -21,11 +21,7 @@ const Watch: FC<WatchProps> = ({ slug, episode }) => {
     queryFn: () => anilibriaApi.getTitle({ code: slug }),
   });
 
-  return (
-    <div className="flex justify-center">
-      <Player sources={list[episode].hls} host={host} />
-    </div>
-  );
+  return <Player sources={list[episode].hls} host={host} />;
 };
 
 export default Watch;
