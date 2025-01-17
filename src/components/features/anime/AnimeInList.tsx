@@ -5,33 +5,26 @@ import { DropdownTrigger } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
 import { FolderHeart } from 'lucide-react';
 import { defaultCollectionNames } from '@/components/entities/UserList';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 import { useParams } from 'next/navigation';
 import { useMutateLists } from '@/hooks/api/useMutateLists';
 import { useLists } from '@/hooks/api/useLists';
+import { useAnime } from '@/hooks/api/anilibria/useAnime';
 
 const AnimeInList: FC = ({}) => {
   const slug = useParams().slug as string;
-
-  const { data: title } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.ANIME, slug],
-    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
-  });
-
+  const { anime } = useAnime({ code: slug });
   const {
     lists,
     isLoading: listsIsLoading,
     isSuccess: listsIsSuccess,
   } = useLists();
 
-  const { mutate } = useMutateLists({ anilibriaSlug: title.code });
+  const { mutate } = useMutateLists({ anilibriaSlug: anime.code });
 
   const addAnimeClickHandler = (listId: string) => () => {
     const isAnimeInList = lists!
       .find(list => list.id === listId)
-      ?.animes.some(anime => anime.anilibriaSlug === title.code);
+      ?.animes.some(a => a.anilibriaSlug === anime.code);
 
     mutate({
       listId,
@@ -52,7 +45,7 @@ const AnimeInList: FC = ({}) => {
             selectionMode={'multiple'}
             selectedKeys={lists!
               .filter(list =>
-                list.animes.find(a => a.anilibriaSlug === title.code)
+                list.animes.find(a => a.anilibriaSlug === anime.code)
               )
               .map(list => list.id)}
           >

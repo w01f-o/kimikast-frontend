@@ -5,14 +5,12 @@ import { playerStore } from '@/store/player.store';
 import BottomBar from '@/components/features/player/controls/BottomBar';
 import PlayerPlayPause from '@/components/features/player/controls/PlayerPlayPause';
 import { useParams } from 'next/navigation';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import Link from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import Image from 'next/image';
 import CurrentUser from '@/components/widgets/CurrentUser';
 import clsx from 'clsx';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { useAnime } from '@/hooks/api/anilibria/useAnime';
 
 interface PlayerOverlayProps {
   isVisible: boolean;
@@ -30,11 +28,8 @@ const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
 
   const slug = useParams().slug as string;
   const {
-    data: { names },
-  } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.ANIME, slug],
-    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
-  });
+    anime: { names },
+  } = useAnime({ code: slug });
 
   return (
     <AnimatePresence>

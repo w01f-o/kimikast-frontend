@@ -4,10 +4,8 @@ import VolumeChanger from '@/components/features/player/controls/VolumeChanger';
 import FullscreenSwitcher from '@/components/features/player/controls/FullscreenSwitcher';
 import ProgressBar from '@/components/features/player/controls/ProgressBar';
 import { useParams } from 'next/navigation';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import dynamic from 'next/dynamic';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { useAnime } from '@/hooks/api/anilibria/useAnime';
 
 const DynamicEpisodeChanger = dynamic(
   () => import('@/components/features/player/controls/EpisodeChanger')
@@ -16,13 +14,10 @@ const DynamicEpisodeChanger = dynamic(
 const BottomBar: FC = () => {
   const slug = useParams().slug as string;
   const {
-    data: {
+    anime: {
       player: { list },
     },
-  } = useSuspenseQuery({
-    queryKey: [AnilibriaQueryKeys.ANIME, slug],
-    queryFn: () => AnilibriaApi.getAnime({ code: slug }),
-  });
+  } = useAnime({ code: slug });
 
   return (
     <div className="px-6">
