@@ -38,11 +38,12 @@ export class AxiosInstances {
       response => response,
       async error => {
         const originalRequest = error?.config;
+
         const isTokensError =
-          error?.response?.status === 401 &&
-          (catchAxiosError(error) === ApiErrors.ACCESS_TOKEN_EXPIRED ||
-            catchAxiosError(error) === ApiErrors.INVALID_ACCESS_TOKEN ||
-            catchAxiosError(error) === ApiErrors.UNAUTHORIZED);
+          error?.response?.status === 401 ||
+          catchAxiosError(error) === ApiErrors.ACCESS_TOKEN_EXPIRED ||
+          catchAxiosError(error) === ApiErrors.INVALID_ACCESS_TOKEN ||
+          catchAxiosError(error) === ApiErrors.UNAUTHORIZED;
 
         if (isTokensError && originalRequest && !originalRequest._isRetry) {
           originalRequest._isRetry = true;
@@ -51,14 +52,8 @@ export class AxiosInstances {
             await AuthApi.refresh();
 
             return this.axiosWithAuth.request(originalRequest);
-          } catch (refreshError) {
-            if (
-              catchAxiosError(refreshError) ===
-                ApiErrors.REFRESH_TOKEN_EXPIRED ||
-              catchAxiosError(refreshError) === ApiErrors.INVALID_REFRESH_TOKEN
-            ) {
-              await AuthApi.logout();
-            }
+          } catch {
+            await AuthApi.logout();
           }
         }
 
