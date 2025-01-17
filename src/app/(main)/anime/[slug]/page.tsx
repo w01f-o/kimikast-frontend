@@ -24,17 +24,21 @@ export const dynamicParams = true;
 export async function generateStaticParams() {
   const queryClient = new QueryClient();
 
-  return (
-    await queryClient.fetchQuery({
-      queryKey: [AnilibriaQueryKeys.STATIC_UPDATES],
-      queryFn: () =>
-        AnilibriaApi.getAnimeUpdates({
-          since: 1,
-          itemsPerPage: 5,
-          filter: ['code'],
-        }),
-    })
-  ).list.map(title => ({ slug: title.code }));
+  const data = await queryClient.fetchQuery({
+    queryKey: [AnilibriaQueryKeys.STATIC_UPDATES],
+    queryFn: () =>
+      AnilibriaApi.getAnimeUpdates({
+        since: 1,
+        itemsPerPage: 2,
+        filter: ['code'],
+      }),
+  });
+
+  if (!data) {
+    notFound();
+  }
+
+  return data.list.map(title => ({ slug: title.code }));
 }
 
 export async function generateMetadata({
@@ -43,11 +47,16 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const queryClient = new QueryClient();
-  const data = await queryClient.fetchQuery({
-    ...getAnimeQueryHookParams({ code: slug }),
-  });
 
-  if (data) {
+  try {
+    const data = await queryClient.fetchQuery({
+      ...getAnimeQueryHookParams({ code: slug }),
+    });
+
+    if (!data) {
+      notFound();
+    }
+
     return {
       title: `Kimikast - ${data.names.ru}`,
       description: data.description,
@@ -58,11 +67,9 @@ export async function generateMetadata({
         data.names.alternative ? data.names.alternative : '',
       ],
     };
+  } catch {
+    notFound();
   }
-
-  return {
-    title: 'Kimikast',
-  };
 }
 
 const Page: NextPage<PageProps> = async ({ params }) => {

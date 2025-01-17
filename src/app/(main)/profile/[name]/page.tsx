@@ -6,6 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { getPublicUserQueryHookParams } from '@/hooks/api/usePublicUser';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{
@@ -19,9 +20,17 @@ const Page: NextPage<PageProps> = async ({ params }) => {
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    ...getPublicUserQueryHookParams(clearedUsername),
-  });
+  try {
+    const data = await queryClient.fetchQuery({
+      ...getPublicUserQueryHookParams(clearedUsername),
+    });
+
+    if (!data) {
+      notFound();
+    }
+  } catch {
+    notFound();
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
