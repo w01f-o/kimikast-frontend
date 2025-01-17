@@ -6,7 +6,7 @@ import { Particle } from '@/services/utils/Particle';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Snowfall: FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const {
     snow: { isEnabled },
   } = useSettings();

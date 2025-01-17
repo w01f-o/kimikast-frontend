@@ -6,7 +6,7 @@ interface AmbilightProps {
 }
 
 const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isCanPlay, setIsCanPlay] = useState<boolean>(false);
 
   useEffect(() => {

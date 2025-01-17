@@ -1,11 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   sassOptions: {
-    silenceDeprecations: ["legacy-js-api"],
+    silenceDeprecations: ['legacy-js-api'],
   },
   images: {
-    remotePatterns: [{ hostname: "dl-20241107-5.anilib.moe" }],
+    remotePatterns: [{ hostname: 'dl-20241107-5.anilib.moe' }],
   },
 };
 

@@ -18,7 +18,7 @@ interface PlayerOverlayProps {
 }
 
 const Overlay: FC<PlayerOverlayProps> = ({ overlayProps, isVisible }) => {
-  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const overlayClickHandler = (e: MouseEvent<HTMLDivElement>) => {
     if (overlayRef.current === e.target) {

@@ -25,7 +25,7 @@ interface UsePlayerParams {
 type UsePlayer = (params: UsePlayerParams) => UsePlayerReturn;
 
 export const usePlayer: UsePlayer = ({ currentProgressTime, episode }) => {
-  const ref = useRef<HTMLVideoElement | null>(null);
+  const ref = useRef<HTMLVideoElement>(null);
 
   const { isPlaying, seek, volume, isMuted, isFullscreen, currentTime } =
     useStore(playerStore);
