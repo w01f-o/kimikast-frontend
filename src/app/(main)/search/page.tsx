@@ -1,5 +1,11 @@
 import SearchPage from '@/components/pages/SearchPage';
 import { Metadata, NextPage } from 'next';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+import { getAnimeFiltersHooksParams } from '@/hooks/api/anilibria/useAnimeFilters';
 
 export const metadata: Metadata = {
   title: 'Kimikast - Поиск',
@@ -20,7 +26,17 @@ const Page: NextPage<PageProps> = async ({ searchParams }) => {
   const genres = (await searchParams)?.genres;
   const page = (await searchParams)?.page;
 
-  return <SearchPage page={page} query={query} years={years} genres={genres} />;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    ...getAnimeFiltersHooksParams(),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <SearchPage page={page} query={query} years={years} genres={genres} />
+    </HydrationBoundary>
+  );
 };
 
 export default Page;

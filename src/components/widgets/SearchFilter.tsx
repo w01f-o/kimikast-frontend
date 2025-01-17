@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import { Button } from '@nextui-org/button';
 import { Filter, FilterX } from 'lucide-react';
 import { useDisclosure } from '@nextui-org/use-disclosure';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import {
   Modal,
   ModalBody,
@@ -12,23 +12,19 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@nextui-org/modal';
-import { useQuery } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import { CheckboxGroup } from '@nextui-org/checkbox';
 import { CustomCheckbox } from '@/components/shared/ui/CustomCheckbox';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
-import { Spinner } from '@nextui-org/spinner';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
+import { useAnimeFilters } from '@/hooks/api/anilibria/useAnimeFilters';
+import { useRouter } from 'nextjs-toploader/app';
 
 const SearchFilter: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [AnilibriaQueryKeys.FILTERS],
-    queryFn: () => AnilibriaApi.getAnimeFilters(),
-  });
+  const { availableFilters } = useAnimeFilters();
 
   const [yearsSelected, setYearsSelected] = useState<string[]>(
     searchParams.get('years')?.split(',') || []
@@ -78,67 +74,58 @@ const SearchFilter: FC = () => {
       />
       <Modal backdrop={'blur'} isOpen={isOpen} onClose={onClose} size={'5xl'}>
         <ModalContent>
-          {() => (
-            <>
-              <ModalHeader className="mt-4 text-4xl">Фильтры</ModalHeader>
-              <ModalBody>
-                {isLoading && <Spinner />}
-                {isSuccess && (
-                  <>
-                    <div>
-                      <h4 className="mb-3 text-xl font-bold">Жанры</h4>
-                      <CheckboxGroup
-                        orientation="horizontal"
-                        onChange={setGenresSelected}
-                        value={genresSelected}
-                      >
-                        {data.genres.map(genre => (
-                          <CustomCheckbox value={genre} key={genre}>
-                            {genre}
-                          </CustomCheckbox>
-                        ))}
-                      </CheckboxGroup>
-                      {genresSelected.length > 0 && (
-                        <div className="py-2">
-                          Выбраны: <strong>{genresSelected.join(', ')}</strong>
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <h4 className="mb-3 text-xl font-bold">Год выпуска</h4>
-                      <CheckboxGroup
-                        orientation="horizontal"
-                        onChange={setYearsSelected}
-                        value={yearsSelected}
-                      >
-                        {data.years.map(year => (
-                          <CustomCheckbox value={String(year)} key={year}>
-                            {year}
-                          </CustomCheckbox>
-                        ))}
-                      </CheckboxGroup>
-                      {yearsSelected.length > 0 && (
-                        <div className="py-2">
-                          Выбраны: <strong>{yearsSelected.join(', ')}</strong>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
-              </ModalBody>
-              <ModalFooter>
-                {!!filterIsSelected && (
-                  <Button endContent={<FilterX />} onPress={resetClickHandler}>
-                    Сбросить
-                  </Button>
-                )}
+          <ModalHeader className="mt-4 text-4xl">Фильтры</ModalHeader>
+          <ModalBody>
+            <div>
+              <h4 className="mb-3 text-xl font-bold">Жанры</h4>
+              <CheckboxGroup
+                orientation="horizontal"
+                onChange={setGenresSelected}
+                value={genresSelected}
+              >
+                {availableFilters.genres.map(genre => (
+                  <CustomCheckbox value={genre} key={genre}>
+                    {genre}
+                  </CustomCheckbox>
+                ))}
+              </CheckboxGroup>
+              {genresSelected.length > 0 && (
+                <div className="py-2">
+                  Выбраны: <strong>{genresSelected.join(', ')}</strong>
+                </div>
+              )}
+            </div>
+            <div>
+              <h4 className="mb-3 text-xl font-bold">Год выпуска</h4>
+              <CheckboxGroup
+                orientation="horizontal"
+                onChange={setYearsSelected}
+                value={yearsSelected}
+              >
+                {availableFilters.years.map(year => (
+                  <CustomCheckbox value={String(year)} key={year}>
+                    {year}
+                  </CustomCheckbox>
+                ))}
+              </CheckboxGroup>
+              {yearsSelected.length > 0 && (
+                <div className="py-2">
+                  Выбраны: <strong>{yearsSelected.join(', ')}</strong>
+                </div>
+              )}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            {!!filterIsSelected && (
+              <Button endContent={<FilterX />} onPress={resetClickHandler}>
+                Сбросить
+              </Button>
+            )}
 
-                <Button color="primary" onPress={applyClickHandler}>
-                  Применить
-                </Button>
-              </ModalFooter>
-            </>
-          )}
+            <Button color="primary" onPress={applyClickHandler}>
+              Применить
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

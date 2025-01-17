@@ -7,14 +7,14 @@ import Col from '@/components/shared/layout/Col';
 import { Input } from '@nextui-org/input';
 import { useDebounceCallback } from 'usehooks-ts';
 import AnimeList from '@/components/widgets/anime/AnimeList';
-import { useQuery } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
 import AnimeListLoader from '@/components/shared/ui/loaders/AnimeListLoader';
 import SearchFilter from '@/components/widgets/SearchFilter';
 import { Pagination } from '@nextui-org/pagination';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
-import { useSearchFilters } from '@/hooks/useSearchFilters';
 import PageHeading from '@/components/shared/ui/text/PageHeading';
+import { useSearchAnime } from '@/hooks/api/anilibria/useSearchAnime';
+import { useSearchParams } from 'next/navigation';
+import { RoutePaths } from '@/enums/RoutePaths.enum';
+import { useRouter } from 'nextjs-toploader/app';
 
 interface SearchTitleProps {
   query?: string;
@@ -24,37 +24,15 @@ interface SearchTitleProps {
 }
 
 const SearchPage: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
-  const { data: paginationData, isLoading: paginationIsLoading } = useQuery({
-    queryKey: [AnilibriaQueryKeys.PAGINATION, query, years, genres],
-    queryFn: () =>
-      AnilibriaApi.searchAnime({
-        search: query!,
-        genres: genres!,
-        year: years!,
-        itemsPerPage: 18,
-        filter: ['code'],
-      }),
-    enabled: !!query || !!genres || !!years,
-  });
-
-  const { data, isLoading, isSuccess } = useQuery({
-    queryKey: [AnilibriaQueryKeys.SEARCH, query, years, genres, page],
-    queryFn: () =>
-      AnilibriaApi.searchAnime({
-        search: query!,
-        genres: genres!,
-        year: years!,
-        itemsPerPage: 18,
-        ...(page && { page: Number(page) }),
-      }),
-    enabled: (!!query || !!genres || !!years) && !!paginationData,
-  });
-
-  const setFilters = useSearchFilters();
+  const { result, isLoading, isSuccess, pageCount, emptyResult } =
+    useSearchAnime({ genres, page, years, query });
 
   const changePageHandler = (page: number) => {
-    setFilters({ page: String(page) });
+    console.log(page);
   };
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const changeQueryHandler = useDebounceCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +40,15 @@ const SearchPage: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
         target: { value },
       } = e;
 
-      setFilters({ query: value });
+      const params = new URLSearchParams(searchParams);
+
+      if (searchParams.has('query') && !value.length) {
+        params.delete('query');
+      } else {
+        params.set('query', value.trim());
+      }
+
+      router.push(`${RoutePaths.SEARCH}?${params}`);
     },
     300
   );
@@ -88,11 +74,11 @@ const SearchPage: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
               <>
                 {isSuccess && (
                   <>
-                    <AnimeList list={data.list} />
-                    {paginationData!.pagination.pages > 1 && (
+                    <AnimeList list={result!.list} />
+                    {!!pageCount && pageCount > 1 && (
                       <Col xs={12} className="mb-6 flex justify-center">
                         <Pagination
-                          total={paginationData!.pagination.pages}
+                          total={pageCount}
                           initialPage={1}
                           size={'lg'}
                           showControls
@@ -103,16 +89,14 @@ const SearchPage: FC<SearchTitleProps> = ({ query, years, genres, page }) => {
                     )}
                   </>
                 )}
-                {(isLoading || paginationIsLoading) && (
-                  <AnimeListLoader length={18} />
-                )}
+                {isLoading && <AnimeListLoader length={18} />}
               </>
             ) : (
               <Col xs={12}>
                 <div className="pt-2 text-xl">Введите запрос</div>
               </Col>
             )}
-            {isSuccess && data?.list.length === 0 && (
+            {emptyResult && (
               <Col xs={12}>
                 <div className="pt-2 text-xl">Ничего не найдено</div>
               </Col>
