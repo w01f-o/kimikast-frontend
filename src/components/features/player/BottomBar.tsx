@@ -1,14 +1,14 @@
 import { FC, Suspense } from 'react';
-import QualityChanger from '@/components/features/player/controls/QualityChanger';
-import VolumeChanger from '@/components/features/player/controls/VolumeChanger';
-import FullscreenSwitcher from '@/components/features/player/controls/FullscreenSwitcher';
-import ProgressBar from '@/components/features/player/controls/ProgressBar';
+import QualityChanger from '@/components/features/player/QualityChanger';
+import VolumeChanger from '@/components/features/player/VolumeChanger';
+import FullscreenSwitcher from '@/components/features/player/FullscreenSwitcher';
+import ProgressBar from '@/components/features/player/ProgressBar';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useAnime } from '@/hooks/api/anilibria/useAnime';
 
 const DynamicEpisodeChanger = dynamic(
-  () => import('@/components/features/player/controls/EpisodeChanger')
+  () => import('@/components/features/player/EpisodeChanger')
 );
 
 const BottomBar: FC = () => {
