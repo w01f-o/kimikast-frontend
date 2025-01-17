@@ -41,7 +41,9 @@ export const useAuth = (): UseAuthReturn => {
     mutationFn: ({ type, data }: AuthorizeData) =>
       AuthApi.authorize(type, data),
     async onSuccess() {
-      await queryClient.refetchQueries({ queryKey: [DefaultQueryKeys.USER] });
+      await queryClient.refetchQueries({
+        queryKey: [DefaultQueryKeys.USER],
+      });
 
       toast.success('Вы успешно авторизировались');
       router.replace(`${RoutePaths.HOME}`);
@@ -56,7 +58,7 @@ export const useAuth = (): UseAuthReturn => {
   const { mutate: logout, isPending: logoutIsPending } = useMutation({
     mutationFn: () => AuthApi.logout(),
     onSuccess() {
-      queryClient.removeQueries({ queryKey: [DefaultQueryKeys.USER] });
+      queryClient.removeQueries();
 
       toast.success('Вы успешно вышли из системы');
       router.replace(RoutePaths.HOME);

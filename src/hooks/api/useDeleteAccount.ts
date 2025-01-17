@@ -24,11 +24,11 @@ export const useDeleteAccount: UseDeleteAccount = () => {
   const { mutateAsync: logoutMutation, isPending: logoutIsPending } =
     useMutation({
       mutationFn: () => AuthApi.logout(),
-      async onSuccess() {
+      onSuccess() {
+        queryClient.removeQueries();
+
         toast.success('Вы успешно удалили аккаунт');
         router.replace(RoutePaths.HOME);
-
-        await queryClient.resetQueries();
       },
       onError() {
         toast.error('Произошла ошибка при удалении аккаунта');

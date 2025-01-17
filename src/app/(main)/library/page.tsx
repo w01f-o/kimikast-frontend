@@ -1,5 +1,4 @@
 import { Metadata, NextPage } from 'next';
-import { Suspense } from 'react';
 import LibraryPage from '@/components/pages/library/LibraryPage';
 
 export const metadata: Metadata = {
@@ -7,11 +6,7 @@ export const metadata: Metadata = {
 };
 
 const Page: NextPage = () => {
-  return (
-    <Suspense>
-      <LibraryPage />
-    </Suspense>
-  );
+  return <LibraryPage />;
 };
 
 export default Page;
