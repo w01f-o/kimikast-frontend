@@ -29,11 +29,9 @@ const UserList: FC<UserListProps> = ({ item }) => {
         <div className="flex h-full items-end px-2 py-4">
           <div className="flex items-center gap-2">
             <div>
-              {
-                defaultCollectionNames[
-                  item.name as keyof typeof defaultCollectionNames
-                ]
-              }
+              {defaultCollectionNames[
+                item.name as keyof typeof defaultCollectionNames
+              ] ?? item.name}
             </div>
             <Chip>{item.animes.length}</Chip>
           </div>

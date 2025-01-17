@@ -83,7 +83,7 @@ const Page: NextPage<PageProps> = async ({ params }) => {
     )
     .flat();
 
-  if (franchiseSlugList.length > 0) {
+  if (franchiseSlugList.length) {
     await queryClient.prefetchQuery({
       ...getAnimeListQueryHookParams({ codeList: franchiseSlugList }),
     });

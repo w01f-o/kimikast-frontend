@@ -21,7 +21,7 @@ const AnimeFranchise: FC<TitleFranchiseProps> = ({ slug }) => {
   const { isSuccess, animes } = useAnimeList({
     apiParams: { codeList: franchiseSlugList },
     hookParams: {
-      enabled: franchiseSlugList.length > 0,
+      enabled: !!franchiseSlugList.length,
     },
   });
 
