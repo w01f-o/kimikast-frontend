@@ -27,7 +27,7 @@ const SearchFilter: FC = () => {
 
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: [AnilibriaQueryKeys.FILTERS],
-    queryFn: AnilibriaApi.getAnimeFilters,
+    queryFn: () => AnilibriaApi.getAnimeFilters(),
   });
 
   const [yearsSelected, setYearsSelected] = useState<string[]>(

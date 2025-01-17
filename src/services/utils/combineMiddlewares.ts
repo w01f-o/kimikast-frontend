@@ -1,5 +1,5 @@
 import { NextMiddleware, NextResponse } from 'next/server';
-import { MiddlewareFactory } from '@/middlewares/MiddlewareFactory.type';
+import { MiddlewareFactory } from '@/types/MiddlewareFactory.type';
 
 export const combineMiddlewares = (
   callbacks: MiddlewareFactory[] = [],

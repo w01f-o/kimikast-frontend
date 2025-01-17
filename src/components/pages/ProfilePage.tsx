@@ -21,6 +21,7 @@ const ProfilePage: FC<ProfileProps> = ({ name }) => {
       <Image
         as={NextImage}
         src={'/kimikast/banner.gif'}
+        priority
         width={1920}
         height={500}
         alt={'banner'}

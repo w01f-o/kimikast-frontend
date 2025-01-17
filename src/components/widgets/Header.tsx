@@ -3,7 +3,6 @@ import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import Link from 'next/link';
-import { Link as NextUILink } from '@nextui-org/link';
 import NavBar from '@/components/widgets/NavBar';
 import Image from 'next/image';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
@@ -23,6 +22,7 @@ const Header: FC = () => {
                 alt={'Kimikast'}
                 width={60}
                 height={60}
+                priority
               />
             </Link>
             <NavBar />
@@ -32,7 +32,7 @@ const Header: FC = () => {
               <Col xs={9} className="flex justify-end">
                 <Button
                   endContent={<Search />}
-                  as={NextUILink}
+                  as={Link}
                   href={RoutePaths.SEARCH}
                   isIconOnly
                 />

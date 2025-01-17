@@ -1,4 +1,4 @@
-import { combineMiddlewares } from '@/middlewares/combineMiddlewares';
+import { combineMiddlewares } from '@/services/utils/combineMiddlewares';
 import { authMiddleware } from '@/middlewares/auth.middleware';
 import { profileMiddleware } from '@/middlewares/profile.middleware';
 

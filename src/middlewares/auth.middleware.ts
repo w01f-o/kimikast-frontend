@@ -1,4 +1,4 @@
-import { MiddlewareFactory } from '@/middlewares/MiddlewareFactory.type';
+import { MiddlewareFactory } from '@/types/MiddlewareFactory.type';
 import { JwtTokens } from '@/enums/JwtTokens.enum';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { NextResponse } from 'next/server';

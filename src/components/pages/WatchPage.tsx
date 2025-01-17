@@ -20,10 +20,6 @@ const WatchPage: FC<WatchProps> = ({ slug, episode }) => {
 
   const { progress, fetch, isLoading } = useProgress();
 
-  console.log(progress);
-
-  console.log(list);
-
   useEffect(() => {
     fetch();
   }, [fetch]);
