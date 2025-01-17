@@ -18,7 +18,7 @@ const MainLayout: FC<LayoutProps> = ({ children }) => {
         {children}
 
         <NextTopLoader showSpinner={false} />
-        <Toaster position={'bottom-right'} />
+        <Toaster />
         <DynamicSnowfall />
       </main>
     </>

@@ -17,10 +17,17 @@ import { useRouter } from 'nextjs-toploader/app';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/hooks/useAuth';
 import PageHeading from '@/components/shared/ui/text/PageHeading';
+import { catchAxiosError } from '@/services/utils/catchAxiosError';
+import { ApiErrors } from '@/enums/ApiErrors.enum';
 
 interface AuthProps {
   type: 'login' | 'register';
 }
+
+const errors: Partial<Record<ApiErrors, string>> = {
+  [ApiErrors.USER_NOT_FOUND]: 'Неверный email или пароль',
+  [ApiErrors.USER_ALREADY_EXISTS]: 'Такой пользователь уже существует',
+};
 
 const AuthPage: FC<AuthProps> = ({ type }) => {
   const { handleSubmit, register, reset } = useForm<AuthForm>();
@@ -30,12 +37,14 @@ const AuthPage: FC<AuthProps> = ({ type }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: (data: AuthForm) => AuthApi.authorize(type, data),
     onSuccess() {
-      toast.success('Авторизация прошла успешно');
+      toast.success('Вы успешно авторизировались');
       reset();
       router.replace(`${RoutePaths.PROFILE}/${user!.name}`);
     },
-    onError() {
-      toast.error('Произошла ошибка');
+    onError(error) {
+      const errorMessage: ApiErrors = catchAxiosError(error);
+
+      toast.error(errors[errorMessage] || 'Произошла ошибка');
     },
   });
 

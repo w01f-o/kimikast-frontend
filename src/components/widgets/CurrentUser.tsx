@@ -20,7 +20,7 @@ const CurrentUser: FC = () => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: AuthApi.logout,
+    mutationFn: () => AuthApi.logout(),
     onSuccess() {
       toast.success('Вы успешно вышли из системы');
       router.replace(RoutePaths.HOME);
