@@ -2,8 +2,8 @@ import { MiddlewareFactory } from '@/types/MiddlewareFactory.type';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { NextResponse } from 'next/server';
 
-export const profileMiddleware: MiddlewareFactory = next => {
-  return async (req, res) => {
+export const profileMiddleware: MiddlewareFactory =
+  next => async (req, res) => {
     const { nextUrl } = req;
 
     if (
@@ -19,4 +19,3 @@ export const profileMiddleware: MiddlewareFactory = next => {
 
     return next(req, res);
   };
-};
