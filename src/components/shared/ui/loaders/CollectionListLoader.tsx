@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Skeleton } from '@nextui-org/skeleton';
+import { Skeleton } from '@heroui/skeleton';
 import Col from '@/components/shared/layout/Col';
 
 const CollectionListLoader: FC = () => {

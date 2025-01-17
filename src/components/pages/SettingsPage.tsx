@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
-import { Tab, Tabs } from '@nextui-org/tabs';
+import { Tab, Tabs } from '@heroui/tabs';
 import Link from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import PageHeading from '@/components/shared/ui/text/PageHeading';

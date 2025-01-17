@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { Fullscreen } from 'lucide-react';
 import { playerStore } from '@/store/player.store';
 

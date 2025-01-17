@@ -2,11 +2,11 @@
 
 import { FC } from 'react';
 import Container from '@/components/shared/layout/Container';
-import { Image } from '@nextui-org/image';
+import { Image } from '@heroui/image';
 import NextImage from 'next/image';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
-import { Avatar } from '@nextui-org/avatar';
+import { Avatar } from '@heroui/avatar';
 import { usePublicUser } from '@/hooks/api/usePublicUser';
 
 interface ProfileProps {

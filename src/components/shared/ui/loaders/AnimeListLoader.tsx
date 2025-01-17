@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Col from '@/components/shared/layout/Col';
-import { Skeleton } from '@nextui-org/skeleton';
+import { Skeleton } from '@heroui/skeleton';
 
 interface TitleListLoaderProps {
   length?: number;

@@ -1,10 +1,10 @@
 import { FC, memo, useEffect, useState } from 'react';
-import { useDisclosure } from '@nextui-org/use-disclosure';
-import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
-import { Listbox, ListboxItem } from '@nextui-org/listbox';
+import { useDisclosure } from '@heroui/use-disclosure';
+import { Modal, ModalBody, ModalContent, ModalHeader } from '@heroui/modal';
+import { Button } from '@heroui/button';
+import { Listbox, ListboxItem } from '@heroui/listbox';
 import { useIntersectionObserver } from 'usehooks-ts';
-import { SharedSelection } from '@nextui-org/react';
+import { SharedSelection } from '@heroui/react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'nextjs-toploader/app';
 import { playerStore } from '@/store/player.store';

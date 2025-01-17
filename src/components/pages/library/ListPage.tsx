@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
-import { Skeleton } from '@nextui-org/skeleton';
+import { Skeleton } from '@heroui/skeleton';
 import AnimeListLoader from '@/components/shared/ui/loaders/AnimeListLoader';
 import AnimeList from '@/components/widgets/anime/AnimeList';
 import { defaultCollectionNames } from '@/components/entities/UserList';

@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 import type { Anime as TitleType } from '@/types/anilibria/entities/Anime.type';
-import { Card } from '@nextui-org/card';
-import { Link } from '@nextui-org/link';
+import { Card } from '@heroui/card';
+import { Link } from '@heroui/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import NextImage from 'next/image';
 import { useHover } from '@react-aria/interactions';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Image } from '@nextui-org/image';
-import { Chip } from '@nextui-org/chip';
+import { Image } from '@heroui/image';
+import { Chip } from '@heroui/chip';
 import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
 
 interface TitleProps {

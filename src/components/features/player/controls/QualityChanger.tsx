@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
-import { DropdownTrigger, SharedSelection } from '@nextui-org/react';
-import { Button } from '@nextui-org/button';
+import { Dropdown, DropdownItem, DropdownMenu } from '@heroui/dropdown';
+import { DropdownTrigger, SharedSelection } from '@heroui/react';
+import { Button } from '@heroui/button';
 import { SettingsIcon } from 'lucide-react';
 import { playerStore } from '@/store/player.store';
 import { useStore } from '@tanstack/react-store';

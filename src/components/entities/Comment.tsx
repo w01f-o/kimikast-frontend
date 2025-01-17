@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
 import { Comment as CommentType } from '@/types/entities/Comment.type';
-import { Card, CardBody } from '@nextui-org/card';
-import { Avatar } from '@nextui-org/avatar';
+import { Card, CardBody } from '@heroui/card';
+import { Avatar } from '@heroui/avatar';
 import NextLink from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useAuth } from '@/hooks/useAuth';

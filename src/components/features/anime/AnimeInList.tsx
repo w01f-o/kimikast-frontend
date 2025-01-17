@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Spinner } from '@nextui-org/spinner';
-import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
-import { DropdownTrigger } from '@nextui-org/react';
-import { Button } from '@nextui-org/button';
+import { Spinner } from '@heroui/spinner';
+import { Dropdown, DropdownItem, DropdownMenu } from '@heroui/dropdown';
+import { DropdownTrigger } from '@heroui/react';
+import { Button } from '@heroui/button';
 import { FolderHeart } from 'lucide-react';
 import { defaultCollectionNames } from '@/components/entities/UserList';
 import { useParams } from 'next/navigation';

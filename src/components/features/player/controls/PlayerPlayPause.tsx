@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Spinner } from '@nextui-org/spinner';
-import { Button } from '@nextui-org/button';
+import { Spinner } from '@heroui/spinner';
+import { Button } from '@heroui/button';
 import { Pause, Play, Rewind } from 'lucide-react';
 import { useStore } from '@tanstack/react-store';
 import { playerStore } from '@/store/player.store';

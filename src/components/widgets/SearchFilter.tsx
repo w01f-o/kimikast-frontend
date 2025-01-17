@@ -1,9 +1,9 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { Filter, FilterX } from 'lucide-react';
-import { useDisclosure } from '@nextui-org/use-disclosure';
+import { useDisclosure } from '@heroui/use-disclosure';
 import { useSearchParams } from 'next/navigation';
 import {
   Modal,
@@ -11,8 +11,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from '@nextui-org/modal';
-import { CheckboxGroup } from '@nextui-org/checkbox';
+} from '@heroui/modal';
+import { CheckboxGroup } from '@heroui/checkbox';
 import { CustomCheckbox } from '@/components/shared/ui/CustomCheckbox';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useAnimeFilters } from '@/hooks/api/anilibria/useAnimeFilters';

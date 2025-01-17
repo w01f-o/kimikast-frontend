@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { useSettings } from '@/hooks/useSettings';
-import { Switch } from '@nextui-org/switch';
+import { Switch } from '@heroui/switch';
 
 const ToggleSnow: FC = () => {
   const {

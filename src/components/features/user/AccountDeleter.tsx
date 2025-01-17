@@ -1,14 +1,14 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from '@nextui-org/modal';
-import { useDisclosure } from '@nextui-org/use-disclosure';
+} from '@heroui/modal';
+import { useDisclosure } from '@heroui/use-disclosure';
 import { UserRoundX } from 'lucide-react';
 import { FC } from 'react';
 import { useDeleteAccount } from '@/hooks/api/useDeleteAccount';

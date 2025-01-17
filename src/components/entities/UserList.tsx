@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { List } from '@/types/entities/List.type';
-import { Card, CardBody } from '@nextui-org/card';
+import { Card, CardBody } from '@heroui/card';
 import Link from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
-import { Chip } from '@nextui-org/chip';
+import { Chip } from '@heroui/chip';
 
 interface UserListProps {
   item: List;

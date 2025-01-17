@@ -2,9 +2,9 @@
 
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useAuth } from '@/hooks/useAuth';
-import { Avatar } from '@nextui-org/avatar';
-import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
-import { DropdownTrigger } from '@nextui-org/react';
+import { Avatar } from '@heroui/avatar';
+import { Dropdown, DropdownItem, DropdownMenu } from '@heroui/dropdown';
+import { DropdownTrigger } from '@heroui/react';
 import Link from 'next/link';
 import { FC } from 'react';
 

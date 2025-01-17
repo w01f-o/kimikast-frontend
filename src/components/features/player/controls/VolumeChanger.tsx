@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@heroui/popover';
+import { Button } from '@heroui/button';
 import VolumeIcon from '@/components/shared/icons/VolumeIcon';
-import { Slider } from '@nextui-org/slider';
+import { Slider } from '@heroui/slider';
 import { playerStore } from '@/store/player.store';
 import { useStore } from '@tanstack/react-store';
 import { useHover } from '@react-aria/interactions';

@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { appRoutes } from '@/constants/app.routes';
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 

@@ -4,7 +4,7 @@ import {
   VisuallyHidden,
   tv,
   CheckboxProps,
-} from '@nextui-org/react';
+} from '@heroui/react';
 import { FC } from 'react';
 import { CheckIcon } from '@/components/shared/icons/CheckIcon';
 

@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { Avatar } from '@nextui-org/avatar';
+import { Avatar } from '@heroui/avatar';
 import { useDropzone } from 'react-dropzone';
 
 const AvatarChanger: FC = () => {

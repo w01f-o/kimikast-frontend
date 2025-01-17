@@ -1,14 +1,14 @@
 'use client';
 
 import { FC } from 'react';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import Container from '@/components/shared/layout/Container';
 import Row from '@/components/shared/layout/Row';
 import Col from '@/components/shared/layout/Col';
 import { useForm } from 'react-hook-form';
 import { AuthForm } from '@/types/entities/Auth.type';
-import { Input } from '@nextui-org/input';
-import { Link } from '@nextui-org/link';
+import { Input } from '@heroui/input';
+import { Link } from '@heroui/link';
 import NextLink from 'next/link';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { useAuth } from '@/hooks/useAuth';

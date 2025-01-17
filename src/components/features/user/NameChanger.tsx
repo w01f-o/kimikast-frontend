@@ -2,13 +2,13 @@
 
 import { FC } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useForm, useWatch } from 'react-hook-form';
 import { User } from '@/types/entities/Auth.type';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { PenLine } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Skeleton } from '@nextui-org/skeleton';
+import { Skeleton } from '@heroui/skeleton';
 import { useMutateUser } from '@/hooks/api/useMutateUser';
 
 const NameChanger: FC = () => {

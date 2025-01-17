@@ -1,7 +1,7 @@
 import { FC, KeyboardEvent } from 'react';
 import Col from '@/components/shared/layout/Col';
-import { Textarea } from '@nextui-org/react';
-import { Button } from '@nextui-org/button';
+import { Textarea } from '@heroui/react';
+import { Button } from '@heroui/button';
 import { MessageSquarePlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Comment } from '@/types/entities/Comment.type';

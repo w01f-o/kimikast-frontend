@@ -3,7 +3,7 @@
 import { FC, useEffect } from 'react';
 import Player from '@/components/features/player/Player';
 import { useProgress } from '@/hooks/api/useProgress';
-import { Spinner } from '@nextui-org/spinner';
+import { Spinner } from '@heroui/spinner';
 import { useAnime } from '@/hooks/api/anilibria/useAnime';
 
 interface WatchProps {

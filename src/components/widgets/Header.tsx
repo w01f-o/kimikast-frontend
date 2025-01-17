@@ -6,7 +6,7 @@ import Link from 'next/link';
 import NavBar from '@/components/widgets/NavBar';
 import Image from 'next/image';
 import { RoutePaths } from '@/enums/RoutePaths.enum';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { Search } from 'lucide-react';
 import CurrentUser from '@/components/widgets/CurrentUser';
 
