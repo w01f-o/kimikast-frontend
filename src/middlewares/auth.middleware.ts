@@ -4,7 +4,11 @@ import { RoutePaths } from '@/enums/RoutePaths.enum';
 import { NextResponse } from 'next/server';
 
 const loginRoutes = [RoutePaths.LOGIN, RoutePaths.REGISTER] as string[];
-const protectedRoutes = [RoutePaths.PROFILE, RoutePaths.LIBRARY] as string[];
+const protectedRoutes = [
+  RoutePaths.PROFILE,
+  RoutePaths.LIBRARY,
+  RoutePaths.SETTINGS,
+] as string[];
 
 export const authMiddleware: MiddlewareFactory = next => async (req, res) => {
   const { nextUrl, cookies } = req;

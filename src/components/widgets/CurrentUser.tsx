@@ -5,34 +5,13 @@ import { useAuth } from '@/hooks/useAuth';
 import { Avatar } from '@nextui-org/avatar';
 import { Dropdown, DropdownItem, DropdownMenu } from '@nextui-org/dropdown';
 import { DropdownTrigger } from '@nextui-org/react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useRouter } from 'nextjs-toploader/app';
 import { FC } from 'react';
-import toast from 'react-hot-toast';
-import { AuthApi } from '@/services/api/default/Auth.api';
 
 const CurrentUser: FC = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
-  const router = useRouter();
-
-  const queryClient = useQueryClient();
-
-  const { mutate } = useMutation({
-    mutationFn: () => AuthApi.logout(),
-    onSuccess() {
-      toast.success('Вы успешно вышли из системы');
-      router.replace(RoutePaths.HOME);
-      queryClient.resetQueries();
-    },
-  });
-
-  const logoutClickHandler = async () => {
-    mutate();
-  };
-
-  if (user === null) {
+  if (!user) {
     return (
       <Dropdown shouldBlockScroll={false}>
         <DropdownTrigger>
@@ -88,7 +67,7 @@ const CurrentUser: FC = () => {
           Настройки
         </DropdownItem>
         <DropdownItem
-          onPress={logoutClickHandler}
+          onPress={logout}
           color="danger"
           className="text-danger"
           key={'logout'}

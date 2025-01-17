@@ -3,7 +3,6 @@ import {
   removeAccessToken,
   saveAccessToken,
 } from '@/services/auth/token.service';
-import { removeUser, setUser } from '@/store/user.store';
 import { axiosDefault } from '@/services/api/default/AxiosInstances';
 
 export class AuthApi {
@@ -15,11 +14,7 @@ export class AuthApi {
       data
     );
 
-    if (response.accessToken) {
-      saveAccessToken(response.accessToken);
-    }
-
-    setUser(response.user);
+    saveAccessToken(response.accessToken);
 
     return response;
   }
@@ -29,9 +24,7 @@ export class AuthApi {
       `/${this.ENDPOINT}/refresh`
     );
 
-    if (response.accessToken) {
-      saveAccessToken(response.accessToken);
-    }
+    saveAccessToken(response.accessToken);
 
     return response;
   }
@@ -39,11 +32,7 @@ export class AuthApi {
   public static async logout() {
     const { data } = await axiosDefault.post(`/${this.ENDPOINT}/logout`);
 
-    if (data) {
-      removeAccessToken();
-    }
-
-    removeUser();
+    removeAccessToken();
 
     return data;
   }
