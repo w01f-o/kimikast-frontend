@@ -23,10 +23,9 @@ export class AnilibriaApi {
   private static transformParams<T>(params: T) {
     const transformedParams: Record<string, unknown> = {};
 
-    for (const paramsKey in params) {
-      if (Object.prototype.hasOwnProperty.call(params, paramsKey)) {
-        const key = paramsKey as keyof T;
-        const transformedKey = String(key).replace(
+    for (const key in params) {
+      if (Object.prototype.hasOwnProperty.call(params, key)) {
+        const transformedKey = key.replace(
           /[A-Z]/g,
           letter => `_${letter.toLowerCase()}`
         );

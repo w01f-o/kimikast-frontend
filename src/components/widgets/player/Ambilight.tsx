@@ -32,6 +32,7 @@ const Ambilight: FC<AmbilightProps> = ({ videoRef }) => {
     if (!canvasEl || !videoEl) return;
 
     const ctx = canvasEl.getContext('2d');
+
     if (!ctx) return;
 
     const paintAmbilight = () => {
