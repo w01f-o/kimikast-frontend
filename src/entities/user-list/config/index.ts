@@ -1,0 +1,1 @@
+export { defaultCollectionNames } from './defaultCollectionNames';

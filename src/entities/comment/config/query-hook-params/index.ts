@@ -1,0 +1,1 @@
+export { getCommentsQueryHookParams } from './getCommentsQueryHookParams';

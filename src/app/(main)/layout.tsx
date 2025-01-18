@@ -1,18 +1,14 @@
-import '../styles/globals.css';
-import { FC, ReactNode } from 'react';
+import '@/app/styles/globals.css';
+
+import { RootProvider } from '@/app/providers';
+import { MainLayout } from '@/shared/ui';
 import clsx from 'clsx';
-import RootProvider from '@/components/features/providers/RootProvider';
-import MainLayout from '@/components/pages/layouts/MainLayout';
-import { Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
+import { FC, ReactNode } from 'react';
 
 interface RootLayoutProps {
   children: ReactNode;
 }
-
-export const metadata: Metadata = {
-  title: 'Kimikast - Главная',
-};
 
 const notoSansFont = Noto_Sans({
   subsets: ['latin', 'cyrillic'],

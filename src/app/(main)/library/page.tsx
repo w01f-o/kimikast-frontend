@@ -1,5 +1,5 @@
+import { LibraryPage } from '@/_pages/library';
 import { Metadata, NextPage } from 'next';
-import LibraryPage from '@/components/pages/library/LibraryPage';
 
 export const metadata: Metadata = {
   title: 'Kimikast - Моя библиотека',

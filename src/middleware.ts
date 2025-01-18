@@ -1,6 +1,6 @@
-import { combineMiddlewares } from '@/services/utils/combineMiddlewares';
-import { authMiddleware } from '@/middlewares/auth.middleware';
-import { profileMiddleware } from '@/middlewares/profile.middleware';
+import { combineMiddlewares } from '@/shared/lib/utils/combineMiddlewares';
+import { authMiddleware } from '@/app/middlewares/auth.middleware';
+import { profileMiddleware } from '@/app/middlewares/profile.middleware';
 
 export default combineMiddlewares([profileMiddleware, authMiddleware]);
 

@@ -1,5 +1,5 @@
+import { ListPage } from '@/_pages/library';
 import { NextPage } from 'next';
-import ListPage from '@/components/pages/library/ListPage';
 
 interface PageProps {
   params: Promise<{

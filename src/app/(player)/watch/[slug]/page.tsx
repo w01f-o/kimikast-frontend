@@ -1,7 +1,7 @@
-import { Metadata, NextPage } from 'next';
+import { WatchPage } from '@/_pages/watch';
+import { getAnimeQueryHookParams } from '@/entities/anime';
 import { QueryClient } from '@tanstack/react-query';
-import WatchPage from '@/components/pages/WatchPage';
-import { getAnimeQueryHookParams } from '@/hooks/api/anilibria/useAnime';
+import { Metadata, NextPage } from 'next';
 
 interface PageProps {
   params: Promise<{

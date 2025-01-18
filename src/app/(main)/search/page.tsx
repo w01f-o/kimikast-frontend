@@ -1,11 +1,11 @@
-import SearchPage from '@/components/pages/SearchPage';
-import { Metadata, NextPage } from 'next';
+import { SearchPage } from '@/_pages/search';
+import { getAnimeFiltersHooksParams } from '@/entities/anime';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { getAnimeFiltersHooksParams } from '@/hooks/api/anilibria/useAnimeFilters';
+import { Metadata, NextPage } from 'next';
 
 export const metadata: Metadata = {
   title: 'Kimikast - Поиск',

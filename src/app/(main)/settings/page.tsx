@@ -1,5 +1,5 @@
+import { SettingsPage } from '@/_pages/settings';
 import { NextPage } from 'next';
-import SettingsPage from '@/components/pages/SettingsPage';
 
 interface PageProps {
   searchParams: Promise<{

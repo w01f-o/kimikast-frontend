@@ -1,11 +1,11 @@
-import { NextPage } from 'next';
-import ProfilePage from '@/components/pages/ProfilePage';
+import { ProfilePage } from '@/_pages/profile';
+import { getPublicUserQueryHookParams } from '@/entities/user';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { getPublicUserQueryHookParams } from '@/hooks/api/usePublicUser';
+import { NextPage } from 'next';
 import { notFound } from 'next/navigation';
 
 interface PageProps {

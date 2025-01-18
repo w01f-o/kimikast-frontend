@@ -1,16 +1,18 @@
-import { Metadata, NextPage } from 'next';
-import AnimePage from '@/components/pages/AnimePage';
+import { AnimePage } from '@/_pages/anime';
+import {
+  AnilibriaApi,
+  AnilibriaQueryKeys,
+  getAnimeListQueryHookParams,
+  getAnimeQueryHookParams,
+} from '@/entities/anime';
+import { getCommentsQueryHookParams } from '@/entities/comment';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import { AnilibriaQueryKeys } from '@/enums/AnilibriaQueryKeys.enum';
+import { Metadata, NextPage } from 'next';
 import { notFound } from 'next/navigation';
-import { getCommentsQueryHookParams } from '@/hooks/api/useComments';
-import { AnilibriaApi } from '@/services/api/anilibria/Anilibria.api';
-import { getAnimeQueryHookParams } from '@/hooks/api/anilibria/useAnime';
-import { getAnimeListQueryHookParams } from '@/hooks/api/anilibria/useAnimeList';
 
 interface PageProps {
   params: Promise<{

@@ -1,5 +1,5 @@
+import { AuthPage } from '@/_pages/auth';
 import { NextPage } from 'next';
-import AuthPage from '@/components/pages/AuthPage';
 
 const Page: NextPage = () => {
   return <AuthPage type={'login'} />;
