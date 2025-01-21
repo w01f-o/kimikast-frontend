@@ -14,8 +14,7 @@ import {
 } from '@heroui/modal';
 import { useDisclosure } from '@heroui/use-disclosure';
 import { Filter, FilterX } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'nextjs-toploader/app';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
 export const SearchFilter: FC = () => {
@@ -40,7 +39,7 @@ export const SearchFilter: FC = () => {
 
   const filterIsSelected = yearsSelected.length || genresSelected.length;
 
-  const applyClickHandler = () => {
+  const applyFiltersClickHandler = () => {
     const newSearchParams = new URLSearchParams(searchParams);
 
     if (yearsSelected.length) {
@@ -122,7 +121,7 @@ export const SearchFilter: FC = () => {
               </Button>
             )}
 
-            <Button color="primary" onPress={applyClickHandler}>
+            <Button color="primary" onPress={applyFiltersClickHandler}>
               Применить
             </Button>
           </ModalFooter>

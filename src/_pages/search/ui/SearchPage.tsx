@@ -7,8 +7,7 @@ import { AnimeList } from '@/widgets/anime';
 import { SearchFilter } from '@/widgets/search';
 import { Input } from '@heroui/input';
 import { Pagination } from '@heroui/pagination';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'nextjs-toploader/app';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, FC } from 'react';
 import { useDebounceCallback } from 'usehooks-ts';
 
@@ -27,13 +26,16 @@ export const SearchPage: FC<SearchTitleProps> = ({
 }) => {
   const { result, isLoading, isSuccess, pageCount, emptyResult } =
     useSearchAnime({ genres, page, years, query });
-
-  const changePageHandler = (page: number) => {
-    console.log(page);
-  };
-
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const changePageHandler = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+
+    params.set('page', String(page));
+
+    router.push(`${RoutePaths.SEARCH}?${params}`);
+  };
 
   const changeQueryHandler = useDebounceCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +44,10 @@ export const SearchPage: FC<SearchTitleProps> = ({
       } = e;
 
       const params = new URLSearchParams(searchParams);
+
+      if (searchParams.has('page')) {
+        params.delete('page');
+      }
 
       if (searchParams.has('query') && !value.length) {
         params.delete('query');
@@ -73,24 +79,19 @@ export const SearchPage: FC<SearchTitleProps> = ({
           <Row className="pt-6">
             {query || genres || years ? (
               <>
-                {isSuccess && (
-                  <>
-                    <AnimeList list={result!.list} />
-                    {!!pageCount && pageCount > 1 && (
-                      <Col xs={12} className="mb-6 flex justify-center">
-                        <Pagination
-                          total={pageCount}
-                          initialPage={1}
-                          size={'lg'}
-                          showControls
-                          page={page ? Number(page) : 1}
-                          onChange={changePageHandler}
-                        />
-                      </Col>
-                    )}
-                  </>
-                )}
+                {isSuccess && <AnimeList list={result!.list} />}
                 {isLoading && <AnimeListLoader length={18} />}
+                <Col xs={12} className="mb-6 flex justify-center">
+                  <Pagination
+                    total={pageCount ?? 1}
+                    initialPage={1}
+                    size={'lg'}
+                    showControls
+                    page={page ? Number(page) : 1}
+                    onChange={changePageHandler}
+                    isDisabled={!pageCount}
+                  />
+                </Col>
               </>
             ) : (
               <Col xs={12}>

@@ -71,12 +71,17 @@ export const useSearchAnime: UseSearchAnime = ({
     enabled: () => (!!query || !!genres || !!years) && !!paginationData,
   });
 
+  const searchIsLoading = isLoading || paginationIsLoading;
+
   return {
     isError: isError || paginationIsError,
-    isLoading: isLoading || paginationIsLoading,
+    isLoading: searchIsLoading,
     isSuccess: isSuccess && paginationIsSuccess,
     result,
     pageCount: paginationData?.pagination.pages,
-    emptyResult: !result?.list.length && (!!query || !!genres || !!years),
+    emptyResult:
+      !result?.list.length &&
+      (!!query || !!genres || !!years) &&
+      !searchIsLoading,
   };
 };
