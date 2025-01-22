@@ -81,17 +81,19 @@ export const SearchPage: FC<SearchTitleProps> = ({
               <>
                 {isSuccess && <AnimeList list={result!.list} />}
                 {isLoading && <AnimeListLoader length={18} />}
-                <Col xs={12} className="mb-6 flex justify-center">
-                  <Pagination
-                    total={pageCount ?? 1}
-                    initialPage={1}
-                    size={'lg'}
-                    showControls
-                    page={page ? Number(page) : 1}
-                    onChange={changePageHandler}
-                    isDisabled={!pageCount}
-                  />
-                </Col>
+                {!emptyResult && (
+                  <Col xs={12} className="mb-6 flex justify-center">
+                    <Pagination
+                      total={pageCount ?? 1}
+                      initialPage={1}
+                      size={'lg'}
+                      showControls
+                      page={page ? Number(page) : 1}
+                      onChange={changePageHandler}
+                      isDisabled={!pageCount}
+                    />
+                  </Col>
+                )}
               </>
             ) : (
               <Col xs={12}>
